@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="hololith"
+version="${mod_version}"
+displayName="Create: Hololith"
+description='''A mechanical terrain surveying table with a real three-dimensional hologram, physical survey cards and ship-aware sensors.'''
+[[dependencies.hololith]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.259,21.2)"
+side="BOTH"
+[[dependencies.hololith]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+side="BOTH"
+[[dependencies.hololith]]
+modId="create"
+type="required"
+versionRange="[6.0.10,6.1)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.hololith]]
+modId="sable"
+type="optional"
+versionRange="[2.0.6,2.1)"
+ordering="AFTER"
+side="BOTH"

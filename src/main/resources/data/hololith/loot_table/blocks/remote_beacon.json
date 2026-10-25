@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "hololith:remote_beacon"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "hololith:blocks/remote_beacon"
+}

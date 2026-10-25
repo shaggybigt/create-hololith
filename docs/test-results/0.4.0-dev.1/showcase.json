@@ -1,0 +1,91 @@
+{
+  "capture": {
+    "capture": "Actual Minecraft framebuffer, 30 fps. Scripted camera and normal interaction packets in an original creative demonstration world; no generated gameplay.",
+    "frames": 2400,
+    "repeatedFrames": 6,
+    "durationSeconds": 80,
+    "checks": [
+      {
+        "check": "real 32x32 survey acquired before recording",
+        "passed": true
+      },
+      {
+        "check": "actual brightness slider operated",
+        "passed": true
+      },
+      {
+        "check": "real Create cart assembled",
+        "passed": true
+      }
+    ],
+    "timestamp": "2026-10-25T03:03:30.512630800Z"
+  },
+  "edit": {
+    "source": "gameplay-raw.mp4",
+    "output": "create-hololith-development-showcase.mp4",
+    "sourceSha256": "47cff6eeeefb1ecb4e050e02f919aa21b0f9dda725c4b26761800f3873bd6358",
+    "outputSha256": "aeb20b65ebf95d2c4bdf2e5b7df499de3a868ca9e032e5d333c849e759f67f14",
+    "sourceSeconds": 80,
+    "trimmedStartSeconds": 6,
+    "durationSeconds": 74,
+    "width": 1600,
+    "height": 900,
+    "fps": 30,
+    "decodedFrames": 2220,
+    "audio": "Silent; no recorded or synthetic audio track",
+    "editing": "Opening trim, descriptive top captions, gentle opening/closing fades",
+    "gameplay": "Actual Minecraft framebuffer capture with only the documented edits; no generated gameplay",
+    "captions": [
+      {
+        "start": 0,
+        "end": 9,
+        "title": "Create: Hololith",
+        "subtitle": "A real three-dimensional survey, projected above your workbench"
+      },
+      {
+        "start": 11,
+        "end": 17,
+        "title": "Survey controls",
+        "subtitle": "Change survey area and map rotation from the instrument panel"
+      },
+      {
+        "start": 19,
+        "end": 23,
+        "title": "A larger view",
+        "subtitle": "32 / 64 / 128-block survey areas - terrain refreshes gradually"
+      },
+      {
+        "start": 23,
+        "end": 31,
+        "title": "Link a survey sensor",
+        "subtitle": "Record it on a Survey Card, then apply the card to a table"
+      },
+      {
+        "start": 35,
+        "end": 42,
+        "title": "Colored reference points",
+        "subtitle": "Link each marker, then choose from Minecraft's sixteen dye colors"
+      },
+      {
+        "start": 46,
+        "end": 51,
+        "title": "Brightness, in game",
+        "subtitle": "Adjust projection intensity instantly - each client keeps its own setting"
+      },
+      {
+        "start": 54,
+        "end": 70,
+        "title": "Surveying on the move",
+        "subtitle": "A real assembled Create cart carries the table, sensor and reference markers"
+      },
+      {
+        "start": 70,
+        "end": 74,
+        "title": "Create: Hololith - development preview",
+        "subtitle": "Minecraft Java 1.21.1 / NeoForge / Create 6.0.10 - work in progress"
+      }
+    ],
+    "font": "segoeui.ttf",
+    "validation": "Full output decoded successfully with exactly 2220 frames"
+  }
+}

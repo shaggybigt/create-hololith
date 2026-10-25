@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.4.0-dev.1 — development preview
+
+- Added three original Create Ponder tutorials covering tables, survey cards,
+  sensors, remote beacons and colored reference markers.
+- Added immediate, localized link/unlink feedback with a quiet chime and a small
+  visual cue, plus contextual item and recorded-card tooltips.
+- Added an in-game hologram brightness slider (40–180%) with immediate preview
+  and a saved per-client setting. Changing brightness reuses the terrain mesh.
+- Clarified live, cached, incomplete and unavailable survey feedback; restored
+  terrain is only described as live after a fresh scan has been checked.
+- Moved complete buildable source into the repository, pinned automatic Create
+  dependency retrieval, organized documentation and screenshots, and added a
+  Java 21 compile/test workflow. The MIT license and old releases are preserved.
+- Added a reproducible creative showcase world and actual gameplay capture/edit
+  tools. The local development showcase is 74 seconds long; no release or
+  community upload is part of this preview.
+- Kept existing dependency versions, terrain formats and scanning budgets.
+
 ## 0.3.0
 
 - Added live surveying, transformed sensors and colored reference points on
@@ -23,7 +41,7 @@
   profile to verify that the rest of the development modpack is optional.
 - Added an external-baseline framebuffer comparison and GPU timing probe.
 - Prepared standalone installation instructions, source, screenshots and
-  validation reports for sharing. See [validation](validation.md).
+  validation reports for sharing. See [validation](docs/validation.md).
 
 ## 0.2.0 — earlier local build
 

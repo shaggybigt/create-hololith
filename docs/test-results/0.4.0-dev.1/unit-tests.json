@@ -1,0 +1,51 @@
+[
+  {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suite": "dev.hololith.ContraptionPacketTest"
+  },
+  {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suite": "dev.hololith.MarkerPacketTest"
+  },
+  {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suite": "dev.hololith.ReferenceGeometryTest"
+  },
+  {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suite": "dev.hololith.SnapshotValidationTest"
+  },
+  {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suite": "dev.hololith.survey.SurveyFreshnessTest"
+  },
+  {
+    "tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suite": "dev.hololith.SurveyContractTest"
+  },
+  {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suite": "dev.hololith.SurveyStatusTest"
+  }
+]

@@ -1,0 +1,218 @@
+{
+  "timestamp": "2026-10-24T21:34:05.147281400Z",
+  "mode": "fresh",
+  "version": "0.2.1",
+  "profile": "minimal",
+  "loadedMods": [
+    "create",
+    "flywheel",
+    "hololith",
+    "hololith_probe",
+    "minecraft",
+    "neoforge",
+    "ponder"
+  ],
+  "scope": "Graphical NeoForge development client and integrated server with only Create, Hololith and bundled dependencies, offline dev identity and a fresh vanilla flat disposable world. Normal controls, terrain surveys, markers and rendering are exercised; optional Sable ship phases are skipped. No authenticated multiplayer acceptance.",
+  "skippedChecks": [
+    "Sable assembly, translation, yaw and disassembly: optional mod absent"
+  ],
+  "phase": 55,
+  "worldTicks": 2855,
+  "fpsAtFinish": 119,
+  "checks": [
+    {
+      "test": "minimal Create client and integrated server loaded",
+      "passed": true
+    },
+    {
+      "test": "minimal run contains only Create, Hololith and their bundled dependencies",
+      "passed": true
+    },
+    {
+      "test": "optional Sable integration is absent",
+      "passed": true
+    },
+    {
+      "test": "ordinary coordinate fallback works without optional ship API",
+      "passed": true
+    },
+    {
+      "test": "client item placement creates nine table tiles",
+      "passed": true
+    },
+    {
+      "test": "exactly one table block entity",
+      "passed": true
+    },
+    {
+      "test": "card records sensor through client item use",
+      "passed": true
+    },
+    {
+      "test": "card links table by sensor UUID",
+      "passed": true
+    },
+    {
+      "test": "terrain snapshot synchronized to client",
+      "passed": true
+    },
+    {
+      "test": "32 area contains 1024 known columns",
+      "passed": true
+    },
+    {
+      "test": "real height relief",
+      "passed": true
+    },
+    {
+      "test": "water distinguished",
+      "passed": true
+    },
+    {
+      "test": "raised canopies distinguished",
+      "passed": true
+    },
+    {
+      "test": "state palette and snapshot round trip",
+      "passed": true
+    },
+    {
+      "test": "table NBT retains link and survey",
+      "passed": true
+    },
+    {
+      "test": "four reference markers reach actual client",
+      "passed": true
+    },
+    {
+      "test": "four buried references visible through solid terrain",
+      "passed": true
+    },
+    {
+      "test": "each reference keeps its own dye color",
+      "passed": true
+    },
+    {
+      "test": "marker registration does not change terrain revision",
+      "passed": true
+    },
+    {
+      "test": "initial chunk tag includes live reference frame",
+      "passed": true
+    },
+    {
+      "test": "actual instrument panel opens over server packet",
+      "passed": true
+    },
+    {
+      "test": "panel changes authoritative area and rotation",
+      "passed": true
+    },
+    {
+      "test": "64 area full-resolution survey",
+      "passed": true
+    },
+    {
+      "test": "terrain edit refreshes height material and revision",
+      "passed": true
+    },
+    {
+      "test": "remote region starts unloaded",
+      "passed": true
+    },
+    {
+      "test": "128 area caps grid to 64 squared",
+      "passed": true
+    },
+    {
+      "test": "survey does not force-load remote chunks",
+      "passed": true
+    },
+    {
+      "test": "unloaded target has no invented cache",
+      "passed": true
+    },
+    {
+      "test": "moving target adopts completed surveys",
+      "passed": true
+    },
+    {
+      "test": "moving updates retain last projection",
+      "passed": true
+    },
+    {
+      "test": "card records remote beacon",
+      "passed": true
+    },
+    {
+      "test": "remote beacon link acquires its terrain",
+      "passed": true
+    },
+    {
+      "test": "coordinate mode acquires selected region",
+      "passed": true
+    },
+    {
+      "test": "sensor-card reference appears on client",
+      "passed": true
+    },
+    {
+      "test": "actual card item links reference to sensor",
+      "passed": true
+    },
+    {
+      "test": "dye color reaches client block state",
+      "passed": true
+    },
+    {
+      "test": "actual dye item changes reference color",
+      "passed": true
+    },
+    {
+      "test": "sneak-card records table identity without stale sensor link",
+      "passed": true
+    },
+    {
+      "test": "actual card relinks reference directly to table",
+      "passed": true
+    },
+    {
+      "test": "high reference block does not lift sampled ground",
+      "passed": true
+    },
+    {
+      "test": "unlink sends empty removal to actual client",
+      "passed": true
+    },
+    {
+      "test": "sneak-wrench clears reference target",
+      "passed": true
+    },
+    {
+      "test": "destroyed reference disappears from projection",
+      "passed": true
+    },
+    {
+      "test": "reference NBT restores its link and color",
+      "passed": true
+    },
+    {
+      "test": "unavailable reference has no ghost marker",
+      "passed": true
+    },
+    {
+      "test": "reference returns after block entity reload",
+      "passed": true
+    },
+    {
+      "test": "intensity changes reuse the existing GPU terrain mesh",
+      "passed": true
+    },
+    {
+      "test": "client intensity setting applies at runtime",
+      "passed": true
+    }
+  ],
+  "total": 48,
+  "failures": 0
+}

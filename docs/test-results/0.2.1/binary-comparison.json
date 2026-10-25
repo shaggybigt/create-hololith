@@ -1,0 +1,31 @@
+{
+  "changedEntries": [
+    {
+      "entry": "dev/hololith/client/HololithGpuMesh.class",
+      "change": "removed"
+    },
+    {
+      "entry": "dev/hololith/client/ProjectionBuffer.class",
+      "change": "added"
+    },
+    {
+      "entry": "dev/hololith/client/SurveyMesh.class",
+      "change": "changed"
+    },
+    {
+      "entry": "META-INF/licenses/frames-map-3d-MIT.txt",
+      "change": "removed"
+    },
+    {
+      "entry": "META-INF/licenses/frames-map-3d-NOTICE.txt",
+      "change": "removed"
+    },
+    {
+      "entry": "META-INF/neoforge.mods.toml",
+      "change": "changed"
+    }
+  ],
+  "baselineSha256": "6f080d8baa708fe4329e057a537c032bbaec854a498217d489645bda1c41d857",
+  "otherEntries": "Byte-for-byte identical",
+  "releaseSha256": "32b404f26cfd0d55652777c8912b0c91b603b9dd9ccbdce680704ac1b953f155"
+}

@@ -1,0 +1,28 @@
+{
+  "jarSha256": "A79145EFB7D0D0DA33666EBD1B8B4E05A7E6A53879B8F71E026B27617249BF19",
+  "minimal": true,
+  "mods": [
+    "create-1.21.1-6.0.10.jar",
+    "create-hololith-0.4.0-dev.1.jar"
+  ],
+  "scope": "Dedicated startup, stationary surveys, and deserialized minecart actor ticking/save/reload; no physical assembly or rendering assertions",
+  "timestamp": "2026-10-25T02:58:14.3939459Z",
+  "checks": {
+    "allDimensionsSaved": true,
+    "capturedActorReloadPreservedState": true,
+    "fullSurveyCompleted": true,
+    "capturedActorCacheCleared": true,
+    "fixtureBlocksNotInWorld": true,
+    "fixtureEntitiesCleaned": true,
+    "sensorTicked": true,
+    "referenceConfigured": true,
+    "allActorContextsTicked": true,
+    "capturedActorSurveyAndIdentities": true,
+    "tableIdentityPresent": true,
+    "processExitedCleanly": true,
+    "sharedSurveyPersisted": true,
+    "releaseJarLoaded": true,
+    "capturedActorRetickedAfterReload": true
+  },
+  "failures": 0
+}

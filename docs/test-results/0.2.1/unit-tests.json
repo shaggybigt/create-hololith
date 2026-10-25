@@ -1,0 +1,30 @@
+[
+  {
+    "suite": "dev.hololith.MarkerPacketTest",
+    "errors": 0,
+    "skipped": 0,
+    "tests": 5,
+    "failures": 0
+  },
+  {
+    "suite": "dev.hololith.ReferenceGeometryTest",
+    "errors": 0,
+    "skipped": 0,
+    "tests": 5,
+    "failures": 0
+  },
+  {
+    "suite": "dev.hololith.SnapshotValidationTest",
+    "errors": 0,
+    "skipped": 0,
+    "tests": 1,
+    "failures": 0
+  },
+  {
+    "suite": "dev.hololith.SurveyContractTest",
+    "errors": 0,
+    "skipped": 0,
+    "tests": 3,
+    "failures": 0
+  }
+]

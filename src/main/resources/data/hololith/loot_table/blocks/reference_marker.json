@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "hololith:reference_marker",
+          "functions": [
+            {
+              "function": "minecraft:copy_state",
+              "block": "hololith:reference_marker",
+              "properties": [
+                "color"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "hololith:blocks/reference_marker"
+}

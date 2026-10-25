@@ -1,0 +1,352 @@
+{
+  "checks": [
+    {
+      "test": "baseline mesh is loaded in an isolated class loader",
+      "passed": true
+    },
+    {
+      "test": "GPU buffer counts and storage layouts match",
+      "passed": true
+    },
+    {
+      "test": "all 12 rotation/intensity frames match byte-for-byte",
+      "passed": true
+    },
+    {
+      "test": "both implementations draw visible nonempty terrain",
+      "passed": true
+    },
+    {
+      "test": "baseline GPU handles, sizes and contents stay unchanged across draws",
+      "passed": true
+    },
+    {
+      "test": "current GPU handles, sizes and contents stay unchanged across draws",
+      "passed": true
+    }
+  ],
+  "span": 32,
+  "size": 32,
+  "revision": 1,
+  "framebuffer": {
+    "format": "RGBA8 + depth",
+    "width": 512,
+    "height": 512
+  },
+  "allocationEvidence": "Buffer IDs, storage sizes, index counts and content hashes are measured before/after draws. Absence of redundant upload calls requires separate source review; this probe does not trace GL calls.",
+  "baseline": "create-hololith-0.2.0.jar",
+  "baselineSha256": "6f080d8baa708fe4329e057a537c032bbaec854a498217d489645bda1c41d857",
+  "baselineBuffersBefore": [
+    {
+      "role": "detail",
+      "vertexId": 97156,
+      "ownIndexId": 97157,
+      "activeIndexId": 5,
+      "vao": 48575,
+      "vertexBytes": 128880,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 5370,
+      "format": "Vertex format (36 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV0: 2,UV,Float (2) @ 16\n3. UV1: 2,UV,Short (3) @ 24\n4. UV2: 2,UV,Short (4) @ 28\n5. Normal: 3,Normal,Byte (5) @ 32\n",
+      "mode": "QUADS",
+      "vertexSha256": "e6166dd2df407e3a183cb8eb6bcab2f2cf47bc2e157bce801e04686d77295852",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    },
+    {
+      "role": "edges",
+      "vertexId": 97158,
+      "ownIndexId": 97159,
+      "activeIndexId": 5,
+      "vao": 48576,
+      "vertexBytes": 53840,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 4038,
+      "format": "Vertex format (20 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV2: 2,UV,Short (4) @ 16\n",
+      "mode": "QUADS",
+      "vertexSha256": "1b22cd328292d8a0f3a50663d98183bd85ba7efd02a57b24729a8381aaabb9e0",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    },
+    {
+      "role": "ground",
+      "vertexId": 97154,
+      "ownIndexId": 97155,
+      "activeIndexId": 5,
+      "vao": 48574,
+      "vertexBytes": 233136,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 9714,
+      "format": "Vertex format (36 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV0: 2,UV,Float (2) @ 16\n3. UV1: 2,UV,Short (3) @ 24\n4. UV2: 2,UV,Short (4) @ 28\n5. Normal: 3,Normal,Byte (5) @ 32\n",
+      "mode": "QUADS",
+      "vertexSha256": "5a0174f07b2bdaf3abc69f5fbb0b8404cc81fdbd8d1ce811238ba213f75c6ef1",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    }
+  ],
+  "currentBuffersBefore": [
+    {
+      "role": "detail",
+      "vertexId": 97162,
+      "ownIndexId": 97163,
+      "activeIndexId": 5,
+      "vao": 48578,
+      "vertexBytes": 128880,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 5370,
+      "format": "Vertex format (36 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV0: 2,UV,Float (2) @ 16\n3. UV1: 2,UV,Short (3) @ 24\n4. UV2: 2,UV,Short (4) @ 28\n5. Normal: 3,Normal,Byte (5) @ 32\n",
+      "mode": "QUADS",
+      "vertexSha256": "fa65a66b2b67f6faaff11b48541a1c455af591c74bc041b7790166b21fe7fcf1",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    },
+    {
+      "role": "edges",
+      "vertexId": 97164,
+      "ownIndexId": 97165,
+      "activeIndexId": 5,
+      "vao": 48579,
+      "vertexBytes": 53840,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 4038,
+      "format": "Vertex format (20 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV2: 2,UV,Short (4) @ 16\n",
+      "mode": "QUADS",
+      "vertexSha256": "1b22cd328292d8a0f3a50663d98183bd85ba7efd02a57b24729a8381aaabb9e0",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    },
+    {
+      "role": "ground",
+      "vertexId": 97160,
+      "ownIndexId": 97161,
+      "activeIndexId": 5,
+      "vao": 48577,
+      "vertexBytes": 233136,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 9714,
+      "format": "Vertex format (36 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV0: 2,UV,Float (2) @ 16\n3. UV1: 2,UV,Short (3) @ 24\n4. UV2: 2,UV,Short (4) @ 28\n5. Normal: 3,Normal,Byte (5) @ 32\n",
+      "mode": "QUADS",
+      "vertexSha256": "d1d3611e9e613dd86b0b509ddc6fb6a738c7737eb577edb1b170126fea88d152",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    }
+  ],
+  "pixelCases": [
+    {
+      "baselineSha256": "5350d42bf787247750c4706af203e6c1555e4eb0178ed698c27fd63c40d4870f",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 48201,
+      "currentVisiblePixels": 48201,
+      "intensity": 0.4,
+      "yaw": 0,
+      "currentSha256": "5350d42bf787247750c4706af203e6c1555e4eb0178ed698c27fd63c40d4870f"
+    },
+    {
+      "baselineSha256": "7337a000a1c713a3ca18b3c2a0b072fde4cb9533b52ed89115f87b84c7a7352d",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 48201,
+      "currentVisiblePixels": 48201,
+      "intensity": 1.0,
+      "yaw": 0,
+      "currentSha256": "7337a000a1c713a3ca18b3c2a0b072fde4cb9533b52ed89115f87b84c7a7352d"
+    },
+    {
+      "baselineSha256": "18fa370888b9df537c2ecf3174e56b1df737bd5cbf62ddc022aac195f70fcccc",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 48201,
+      "currentVisiblePixels": 48201,
+      "intensity": 1.8,
+      "yaw": 0,
+      "currentSha256": "18fa370888b9df537c2ecf3174e56b1df737bd5cbf62ddc022aac195f70fcccc"
+    },
+    {
+      "baselineSha256": "ebb140bfae60f97cb1cb065c76fea60be8ba4422413b9e16dbbd6ee843c7dd15",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 47286,
+      "currentVisiblePixels": 47286,
+      "intensity": 0.4,
+      "yaw": 90,
+      "currentSha256": "ebb140bfae60f97cb1cb065c76fea60be8ba4422413b9e16dbbd6ee843c7dd15"
+    },
+    {
+      "baselineSha256": "e4db9ba54ed6efcf04bb06b9d8ba454b74d88ab73a11b1eedaccdbda20b953fe",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 47286,
+      "currentVisiblePixels": 47286,
+      "intensity": 1.0,
+      "yaw": 90,
+      "currentSha256": "e4db9ba54ed6efcf04bb06b9d8ba454b74d88ab73a11b1eedaccdbda20b953fe"
+    },
+    {
+      "baselineSha256": "bb249c8119fc871bb003e58a2785f89e72ae70cd9df63280eb23c37bf0ef2f2c",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 47286,
+      "currentVisiblePixels": 47286,
+      "intensity": 1.8,
+      "yaw": 90,
+      "currentSha256": "bb249c8119fc871bb003e58a2785f89e72ae70cd9df63280eb23c37bf0ef2f2c"
+    },
+    {
+      "baselineSha256": "974f7083030c5424ef4f3b084baa62d21afd1bb4f96dbd8b703bb2f58c9fc15d",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 47367,
+      "currentVisiblePixels": 47367,
+      "intensity": 0.4,
+      "yaw": 180,
+      "currentSha256": "974f7083030c5424ef4f3b084baa62d21afd1bb4f96dbd8b703bb2f58c9fc15d"
+    },
+    {
+      "baselineSha256": "690e22941c1efb3a8b3cf92f80aeea933b8fa8a86ecab5514c002e033f233a1f",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 47367,
+      "currentVisiblePixels": 47367,
+      "intensity": 1.0,
+      "yaw": 180,
+      "currentSha256": "690e22941c1efb3a8b3cf92f80aeea933b8fa8a86ecab5514c002e033f233a1f"
+    },
+    {
+      "baselineSha256": "2c819824a2e9502cfcefb554ac22f4b9ff6e8617a294a3d8a9fcf009a16fb0f7",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 47367,
+      "currentVisiblePixels": 47367,
+      "intensity": 1.8,
+      "yaw": 180,
+      "currentSha256": "2c819824a2e9502cfcefb554ac22f4b9ff6e8617a294a3d8a9fcf009a16fb0f7"
+    },
+    {
+      "baselineSha256": "3f7ec8ed2d117a11b50ac0b7defb4219cd76a5850880a3c80b91466b061bcd1b",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 48322,
+      "currentVisiblePixels": 48322,
+      "intensity": 0.4,
+      "yaw": 270,
+      "currentSha256": "3f7ec8ed2d117a11b50ac0b7defb4219cd76a5850880a3c80b91466b061bcd1b"
+    },
+    {
+      "baselineSha256": "2a2dfe1fad2fd6f5aa53a7551c1c5103b454ea5f9bde2829fc4cdbaa3656a775",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 48322,
+      "currentVisiblePixels": 48322,
+      "intensity": 1.0,
+      "yaw": 270,
+      "currentSha256": "2a2dfe1fad2fd6f5aa53a7551c1c5103b454ea5f9bde2829fc4cdbaa3656a775"
+    },
+    {
+      "baselineSha256": "9bf14ce1fe6d4a1fab4469ed76bd5f65e58dd3da0ee2487762fe2128e8bba563",
+      "differentPixels": 0,
+      "baselineVisiblePixels": 48322,
+      "currentVisiblePixels": 48322,
+      "intensity": 1.8,
+      "yaw": 270,
+      "currentSha256": "9bf14ce1fe6d4a1fab4469ed76bd5f65e58dd3da0ee2487762fe2128e8bba563"
+    }
+  ],
+  "timing": {
+    "pairedSamples": 21,
+    "drawsPerSample": 8,
+    "warmupDrawsPerImplementation": 16,
+    "cpuIncludesReflection": true,
+    "gpuTimerAvailable": true,
+    "baselineCpuMedianNsPerDraw": 37575.0,
+    "currentCpuMedianNsPerDraw": 35987.5,
+    "cpuMedianRatioCurrentToBaseline": 0.9577511643379907,
+    "baselineGpuMedianNsPerDraw": 25600.0,
+    "currentGpuMedianNsPerDraw": 25472.0,
+    "gpuMedianRatioCurrentToBaseline": 0.995,
+    "interpretation": "Alternating warmed batches on one context and target. Observational medians, not a hard performance gate; includes full mesh draw and render-state setup/teardown."
+  },
+  "baselineBuffersAfter": [
+    {
+      "role": "detail",
+      "vertexId": 97156,
+      "ownIndexId": 97157,
+      "activeIndexId": 5,
+      "vao": 48575,
+      "vertexBytes": 128880,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 5370,
+      "format": "Vertex format (36 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV0: 2,UV,Float (2) @ 16\n3. UV1: 2,UV,Short (3) @ 24\n4. UV2: 2,UV,Short (4) @ 28\n5. Normal: 3,Normal,Byte (5) @ 32\n",
+      "mode": "QUADS",
+      "vertexSha256": "e6166dd2df407e3a183cb8eb6bcab2f2cf47bc2e157bce801e04686d77295852",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    },
+    {
+      "role": "edges",
+      "vertexId": 97158,
+      "ownIndexId": 97159,
+      "activeIndexId": 5,
+      "vao": 48576,
+      "vertexBytes": 53840,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 4038,
+      "format": "Vertex format (20 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV2: 2,UV,Short (4) @ 16\n",
+      "mode": "QUADS",
+      "vertexSha256": "1b22cd328292d8a0f3a50663d98183bd85ba7efd02a57b24729a8381aaabb9e0",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    },
+    {
+      "role": "ground",
+      "vertexId": 97154,
+      "ownIndexId": 97155,
+      "activeIndexId": 5,
+      "vao": 48574,
+      "vertexBytes": 233136,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 9714,
+      "format": "Vertex format (36 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV0: 2,UV,Float (2) @ 16\n3. UV1: 2,UV,Short (3) @ 24\n4. UV2: 2,UV,Short (4) @ 28\n5. Normal: 3,Normal,Byte (5) @ 32\n",
+      "mode": "QUADS",
+      "vertexSha256": "5a0174f07b2bdaf3abc69f5fbb0b8404cc81fdbd8d1ce811238ba213f75c6ef1",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    }
+  ],
+  "currentBuffersAfter": [
+    {
+      "role": "detail",
+      "vertexId": 97162,
+      "ownIndexId": 97163,
+      "activeIndexId": 5,
+      "vao": 48578,
+      "vertexBytes": 128880,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 5370,
+      "format": "Vertex format (36 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV0: 2,UV,Float (2) @ 16\n3. UV1: 2,UV,Short (3) @ 24\n4. UV2: 2,UV,Short (4) @ 28\n5. Normal: 3,Normal,Byte (5) @ 32\n",
+      "mode": "QUADS",
+      "vertexSha256": "fa65a66b2b67f6faaff11b48541a1c455af591c74bc041b7790166b21fe7fcf1",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    },
+    {
+      "role": "edges",
+      "vertexId": 97164,
+      "ownIndexId": 97165,
+      "activeIndexId": 5,
+      "vao": 48579,
+      "vertexBytes": 53840,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 4038,
+      "format": "Vertex format (20 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV2: 2,UV,Short (4) @ 16\n",
+      "mode": "QUADS",
+      "vertexSha256": "1b22cd328292d8a0f3a50663d98183bd85ba7efd02a57b24729a8381aaabb9e0",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    },
+    {
+      "role": "ground",
+      "vertexId": 97160,
+      "ownIndexId": 97161,
+      "activeIndexId": 5,
+      "vao": 48577,
+      "vertexBytes": 233136,
+      "ownIndexBytes": 0,
+      "activeIndexBytes": 93912,
+      "indexCount": 9714,
+      "format": "Vertex format (36 bytes):\n0. Position: 3,Position,Float (0) @ 0\n1. Color: 4,Vertex Color,Unsigned Byte (1) @ 12\n2. UV0: 2,UV,Float (2) @ 16\n3. UV1: 2,UV,Short (3) @ 24\n4. UV2: 2,UV,Short (4) @ 28\n5. Normal: 3,Normal,Byte (5) @ 32\n",
+      "mode": "QUADS",
+      "vertexSha256": "d1d3611e9e613dd86b0b509ddc6fb6a738c7737eb577edb1b170126fea88d152",
+      "indexSha256": "5369431f5b1b6ed2371230713f44f7873d46508101b482a5f8b533420a6cb232"
+    }
+  ],
+  "passed": true
+}

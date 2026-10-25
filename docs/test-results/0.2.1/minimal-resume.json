@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-10-24T21:35:02.462987700Z",
+  "mode": "resume",
+  "version": "0.2.1",
+  "profile": "minimal",
+  "loadedMods": [
+    "create",
+    "flywheel",
+    "hololith",
+    "hololith_probe",
+    "minecraft",
+    "neoforge",
+    "ponder"
+  ],
+  "scope": "Graphical NeoForge development client and integrated server with only Create, Hololith and bundled dependencies, offline dev identity and a fresh vanilla flat disposable world. Normal controls, terrain surveys, markers and rendering are exercised; optional Sable ship phases are skipped. No authenticated multiplayer acceptance.",
+  "skippedChecks": [
+    "Sable assembly, translation, yaw and disassembly: optional mod absent"
+  ],
+  "phase": 40,
+  "worldTicks": 180,
+  "fpsAtFinish": 119,
+  "checks": [
+    {
+      "passed": true,
+      "test": "minimal Create client and integrated server loaded"
+    },
+    {
+      "passed": true,
+      "test": "minimal run contains only Create, Hololith and their bundled dependencies"
+    },
+    {
+      "passed": true,
+      "test": "optional Sable integration is absent"
+    },
+    {
+      "passed": true,
+      "test": "table survives real process restart"
+    },
+    {
+      "passed": true,
+      "test": "table cached survey survives real process restart"
+    },
+    {
+      "passed": true,
+      "test": "sensor identity persisted"
+    },
+    {
+      "passed": true,
+      "test": "shared region cache persisted"
+    },
+    {
+      "passed": true,
+      "test": "reference UUID links survive actual restart"
+    },
+    {
+      "passed": true,
+      "test": "individual reference colors survive actual restart"
+    },
+    {
+      "passed": true,
+      "test": "ephemeral marker registry recovers from loaded blocks"
+    },
+    {
+      "passed": true,
+      "test": "persisted terrain synced after reconnect"
+    }
+  ],
+  "total": 11,
+  "failures": 0
+}
