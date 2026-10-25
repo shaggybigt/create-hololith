@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import net.createmod.ponder.foundation.PonderIndex;
 import net.createmod.ponder.foundation.PonderScene;
 import net.createmod.ponder.foundation.ui.PonderUI;
+import net.createmod.ponder.foundation.element.TextWindowElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
 import net.minecraft.client.gui.components.AbstractSliderButton;
@@ -22,7 +23,7 @@ import net.neoforged.neoforge.common.NeoForge;
 
 /** Bounded client-only checks. Call once per client tick after the normal survey probe. */
 final class QolChecks {
-    private static final BlockPos MODEL_TABLE=new BlockPos(3,1,7),MODEL_MARKER=new BlockPos(2,2,2);
+    private static final BlockPos MODEL_TABLE=new BlockPos(3,1,7),MODEL_MARKER=new BlockPos(1,2,4);
     private final BlockPos tablePos;
     private final BiConsumer<String,Boolean> check;
     private int stage,ticks,phaseTick,renderFrames,phaseFrames;
@@ -56,10 +57,24 @@ final class QolChecks {
         ponder=PonderUI.of(stack);if(ponder==null)throw new IllegalStateException("PonderUI.of returned null");
         Minecraft.getInstance().setScreen(ponder);ponder.setComfyReadingEnabled(false);
     }
+    private void displayedCaption(String fragment)throws ReflectiveOperationException{
+        var captions=new java.util.ArrayList<String>();
+        Field baked=TextWindowElement.class.getDeclaredField("bakedText");baked.setAccessible(true);
+        ponder.getActiveScene().forEachVisible(TextWindowElement.class,element->{
+            try{if(baked.get(element) instanceof String text)captions.add(text);}
+            catch(IllegalAccessException failure){throw new IllegalStateException(failure);}
+        });
+        record("Ponder renders the expected caption: "+fragment,captions.stream().anyMatch(text->text.contains(fragment))
+                &&captions.stream().noneMatch(text->text.contains("hololith.ponder.")));
+    }
     private void scene(String path,String title,String textFragment)throws ReflectiveOperationException{
         PonderScene scene=ponder.getActiveScene();
         record("Ponder "+path+" has expected localized title",scene.getId().equals(Hololith.id(path))&&title.equals(scene.getTitle()));
-        record("Ponder "+path+" has localized tutorial text",scene.getString("text_0").contains(textFragment));
+        record("Ponder "+path+" has localized first displayed caption",scene.getString("text_1").contains(textFragment));
+        int captions=path.equals("reference_markers")?5:6;
+        boolean localized=true;
+        for(int index=1;index<=captions;index++)localized&=!scene.getString("text_"+index).startsWith("hololith.ponder.");
+        record("Ponder "+path+" localizes every displayed caption through its last",localized);
         HololithTableEntity table=tutorialTable();
         record("Ponder "+path+" captures its real 121-column tutorial model",table!=null&&table.snapshot()!=null&&table.snapshot().knownColumns()==121);
         record("Ponder "+path+" actually builds a terrain GPU mesh",table!=null&&mesh(table)!=null);
@@ -118,6 +133,7 @@ final class QolChecks {
                 case 5->{
                     if(!waited(35))return false;
                     scene("surveying_table","A landscape on your workbench","clear 3 x 3");
+                    displayedCaption("tutorial model");
                     record("table Ponder seek advances the actual scene",ponder.getActiveScene().getCurrentTime()>=180);
                     screenshot("hololith-ponder-table.png");open(Hololith.SENSOR_ITEM.toStack());next();
                 }
@@ -125,16 +141,18 @@ final class QolChecks {
                 case 7->{
                     if(!waited(25))return false;
                     scene("survey_sources","Surveying somewhere else","A new table");
-                    record("source Ponder explains offline cache without forced chunks",ponder.getActiveScene().getString("text_5").contains("offline")&&ponder.getActiveScene().getString("text_5").contains("never force-loaded"));
+                    displayedCaption("never force-loaded");
+                    record("source Ponder explains offline cache without forced chunks",ponder.getActiveScene().getString("text_6").contains("offline")&&ponder.getActiveScene().getString("text_6").contains("never force-loaded"));
                     screenshot("hololith-ponder-sources.png");open(Hololith.MARKER_ITEM.toStack());next();
                 }
                 case 8->{if(!waited(10))return false;ponder.seekToTime(340);next();}
                 case 9->{
                     if(!waited(25))return false;
                     scene("reference_markers","Marking places in the landscape","Sneak-use a Survey Card");
+                    displayedCaption("sixteen dyes");
                     var table=tutorialTable();var state=ponder.getActiveScene().getWorld().getBlockState(MODEL_MARKER);
                     record("marker Ponder dye changes the physical model",state.is(Hololith.MARKER.get())&&state.getValue(ReferenceMarkerBlock.COLOR)==DyeColor.ORANGE);
-                    record("marker Ponder dye changes the terrain pin",table!=null&&table.markers().size()==1&&table.markers().getFirst().color()==DyeColor.ORANGE.getTextureDiffuseColor());
+                    record("marker Ponder dye changes the terrain pin",table!=null&&table.markers().size()==1&&table.markers().getFirst().color()==(DyeColor.ORANGE.getTextureDiffuseColor()&0xffffff));
                     if(table!=null&&!table.markers().isEmpty())tutorialMarker=table.markers().getFirst().id();
                     screenshot("hololith-ponder-markers.png");ponder.seekToTime(560);next();
                 }
@@ -146,7 +164,7 @@ final class QolChecks {
                 case 11->{
                     if(!waited(35))return false;
                     var table=tutorialTable();
-                    record("Ponder rewind replays the linked colored pin",table!=null&&table.markers().size()==1&&table.markers().getFirst().color()==DyeColor.ORANGE.getTextureDiffuseColor()&&table.markers().getFirst().id().equals(tutorialMarker));
+                    record("Ponder rewind replays the linked colored pin",table!=null&&table.markers().size()==1&&table.markers().getFirst().color()==(DyeColor.ORANGE.getTextureDiffuseColor()&0xffffff)&&table.markers().getFirst().id().equals(tutorialMarker));
                     record("replayed Ponder model rebuilds a terrain GPU mesh",table!=null&&mesh(table)!=null);
                     screenshot("hololith-ponder-replay.png");close();
                 }

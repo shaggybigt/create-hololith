@@ -36,7 +36,7 @@ for dx in range(-1,2):
 put(8,1,7,'create:andesite_casing')
 put(8,2,7,'hololith:local_sensor',nbt={'id':'hololith:survey_sensor'})
 put(8,2,3,'hololith:remote_beacon',nbt={'id':'hololith:survey_sensor'})
-put(2,2,2,'hololith:reference_marker',{'color':'cyan'},{'id':'hololith:reference_marker'})
+put(1,2,4,'hololith:reference_marker',{'color':'cyan'},{'id':'hololith:reference_marker'})
 palette,indices,entries=[],{},[]
 for pos,(state,nbt) in sorted(blocks.items()):
     key=json.dumps(state,sort_keys=True)
@@ -71,7 +71,8 @@ for name in ('table','sources','markers'):
     section=java.split('public static void '+name+'(',1)[1].split('\n    public static void ',1)[0].split('\n    private static void ',1)[0]
     scene,title=re.search(r'scene\.title\("([^"]+)",\s*"([^"]+)"\)',section).groups()
     lang['hololith.ponder.'+scene+'.header']=title
-    for index,caption in enumerate(re.findall(r'say\(scene,.*?,\s*"([^"]+)",\s*\d+\);',section)):
+    # Ponder's TextWindowElement numbers displayed captions starting at one.
+    for index,caption in enumerate(re.findall(r'say\(scene,.*?,\s*"([^"]+)",\s*\d+\);',section), start=1):
         lang[f'hololith.ponder.{scene}.text_{index}']=caption
 lang_path.write_text(json.dumps(lang,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 print(f'Generated {len(entries)} blocks, {len(palette)} states, {sum(k.startswith("hololith.ponder.") for k in lang)} Ponder strings.')

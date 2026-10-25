@@ -26,7 +26,10 @@ public final class HololithRenderer implements BlockEntityRenderer<HololithTable
     public HololithRenderer(BlockEntityRendererProvider.Context context){}
     @Override public void render(HololithTableEntity table,float partial,PoseStack pose,MultiBufferSource buffers,int light,int overlay){
         if(isShadowPass())return;
-        Matrix4f local=pose.last().pose();if(local.m30()*local.m30()+local.m31()*local.m31()+local.m32()*local.m32()>96*96)return;
+        // Ponder uses GUI-space transforms, not camera-relative world coordinates.
+        Matrix4f local=pose.last().pose();
+        if(!(table.getLevel() instanceof net.createmod.ponder.api.level.PonderLevel)
+                &&local.m30()*local.m30()+local.m31()*local.m31()+local.m32()*local.m32()>96*96)return;
         SurveySnapshot snapshot=table.snapshot();Entry entry=CACHE.computeIfAbsent(table,ignored->new Entry());entry.lastUsed=ticks;
         if(sameArea(entry.snapshot,snapshot)&&entry.snapshot.revision==snapshot.revision)entry.snapshot=snapshot;
         if(entry.snapshot!=snapshot&&!sameArea(entry.snapshot,snapshot))entry.close();

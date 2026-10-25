@@ -1,7 +1,7 @@
 # Reference investigation
 
 Investigated 2026-10-24. These map mods informed the design; they are not runtime
-dependencies, and their source code and artwork are not included in 0.2.1 or 0.3.0.
+dependencies, and their source code and artwork are not included in the current addon.
 
 | Project | Findings | Decision |
 |---|---|---|
@@ -46,3 +46,16 @@ reference-marker models are original. APIs were checked against Minecraft
 
 Primary API documentation: [NeoForge networking](https://docs.neoforged.net/docs/1.21.1/networking/),
 [Sable Companion](https://github.com/ryanhcode/sable-companion).
+
+## Tutorials and demonstration
+
+The three Ponder timelines, their text and the small survey workshop are original
+Hololith content. `scripts/Generate-Ponder.py` creates the workshop NBT from an
+explicit block layout; no upstream Ponder scene source or schematic is copied.
+The tutorials use the Ponder API bundled with the installed Create distribution.
+
+The showcase landscape, camera path and captions are original. Its video contains
+actual Minecraft framebuffer captures from the disposable development world, with
+trimming, captions and fades applied afterward. It has no music or generated
+gameplay footage. FFmpeg is an external editing tool and is not bundled in the
+mod or source repository. See [the showcase guide](showcase.md).

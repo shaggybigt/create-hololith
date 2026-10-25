@@ -209,4 +209,3 @@ The bridge uses Create's shared actor APIs for controlled contraptions, gantries
 cart contraptions and train carriages. See [contraption compatibility](contraptions.md)
 and [validation](validation.md) for the types actually exercised in game and
 known limits. Mods that replace Create's contraption engine need separate testing.
-

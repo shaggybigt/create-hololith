@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 
 /** Original tutorial scenes; instructions only animate their own model. */
 public final class HololithScenes {
-    static final BlockPos TABLE=new BlockPos(3,1,7), SENSOR=new BlockPos(8,2,7), BEACON=new BlockPos(8,2,3), MARKER=new BlockPos(2,2,2);
+    static final BlockPos TABLE=new BlockPos(3,1,7), SENSOR=new BlockPos(8,2,7), BEACON=new BlockPos(8,2,3), MARKER=new BlockPos(1,2,4);
     private HololithScenes(){}
     public static void table(SceneBuilder scene,SceneBuildingUtil util){
         scene.title("surveying_table","A landscape on your workbench");begin(scene,util);
@@ -46,8 +46,8 @@ public final class HololithScenes {
         scene.overlay().showControls(top(BEACON),Pointing.DOWN,50).rightClick().withItem(Hololith.CARD.toStack());scene.idle(20);
         scene.overlay().showControls(top(TABLE),Pointing.DOWN,50).rightClick().withItem(Hololith.CARD.toStack());scene.overlay().showLine(PonderPalette.GREEN,top(BEACON),top(TABLE),100);
         say(scene,BEACON,"A Remote Survey Beacon links the same way. Leave one at a base to revisit that area's survey from another table.",105);
-        scene.overlay().showControls(new Vec3(5.5,1.2,4.5),Pointing.DOWN,55).rightClick().whileSneaking().withItem(Hololith.CARD.toStack());
-        say(scene,new BlockPos(5,1,4),"Sneak-use a card on ordinary terrain to record coordinates, then apply it to the table. Exact coordinates can also be set in the controls.",115);
+        scene.overlay().showControls(new Vec3(4.5,2.1,4.5),Pointing.DOWN,55).rightClick().whileSneaking().withItem(Hololith.CARD.toStack());
+        say(scene,new BlockPos(4,1,4),"Sneak-use a card on ordinary terrain to record coordinates, then apply it to the table. Exact coordinates can also be set in the controls.",115);
         scene.world().hideSection(util.select().position(BEACON),Direction.UP);
         say(scene,TABLE,"Surveys use loaded terrain and refresh gradually. A saved projection stays visible when its source goes offline; distant chunks are never force-loaded.",120);
         scene.markAsFinished();

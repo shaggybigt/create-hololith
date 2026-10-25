@@ -327,7 +327,7 @@ public final class HololithProbe {
                 }
                 case 38->{if(ticks-phaseTick<60)return;check("destroyed reference disappears from projection",clientTable().markers().size()==3);server(this::restoreReference);next();}
                 case 39->{if(ticks-phaseTick<60)return;check("reference NBT restores its link and color",clientTable().markers().size()==4);phase=50;phaseTick=ticks;}
-                case 40->{if(ticks-phaseTick<100)return;check("persisted terrain synced after reconnect",clientTable()!=null&&clientTable().snapshot()!=null);screenshot("hololith-restart.png");finish();}
+                case 40->{if(ticks-phaseTick<100)return;check("persisted terrain synced after reconnect",clientTable()!=null&&clientTable().snapshot()!=null);screenshot("hololith-restart.png");qolChecks=new QolChecks(table,this::check);phase=56;phaseTick=ticks;}
                 case 50->{server(p->p.serverLevel().removeBlockEntity(ReferenceChecks.buried(cx,cz).getFirst()));next();}
                 case 51->{if(ticks-phaseTick<40)return;check("unavailable reference has no ghost marker",clientTable().markers().size()==3);server(this::restoreReference);next();}
                 case 52->{

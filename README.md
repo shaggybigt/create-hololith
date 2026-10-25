@@ -15,6 +15,8 @@ remain available. No new public release is created by the build workflow.
 [Interior lighting](images/interior.png) · [Aboard a Sable ship](images/ship.png) ·
 [Create bearing](images/contraption-bearing.png) · [Moving minecart](images/contraption-cart.png)
 
+[Demonstration world and recording guide](docs/showcase.md)
+
 ## What it does
 
 - Projects textured terrain with genuine elevation, water surfaces, roofs and

@@ -34,8 +34,13 @@ public final class SurveyManager {
     }
     public int pendingJobs(){return pending.size();}
     public boolean isPending(SurveyKey key){return pending.containsKey(key);}
-    /** A persisted snapshot's loaded count is historical until a scan completes this session. */
-    public boolean hasChecked(SurveyKey key){return checked.containsKey(key);}
+    /** Loaded-column counts prove liveness only while the last completed scan remains recent. */
+    public boolean hasChecked(SurveyKey key){return recentlyChecked(checked.get(key),server.getTickCount(),HololithConfig.REFRESH_TICKS.get());}
+    static boolean recentlyChecked(Integer completedTick,int currentTick,int refreshTicks){
+        if(completedTick==null)return false;
+        long age=(long)currentTick-completedTick;
+        return age>=0&&age<=(long)refreshTicks+40;
+    }
     public void tick(){
         long deadline=System.nanoTime()+2_000_000L;int left=HololithConfig.COLUMNS_PER_TICK.get();
         while(left>0&&!queue.isEmpty()&&System.nanoTime()<deadline){
