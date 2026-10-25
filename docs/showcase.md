@@ -1,9 +1,14 @@
-# Development showcase
+# Gameplay demo
 
-The local deliverable is a **74-second, 1600×900, 30 fps MP4** showing actual
-Minecraft gameplay. It demonstrates the terrain projection, instrument controls,
-sensor linking, colored reference markers, brightness and a moving Create cart.
-It is a development preview, not a new mod release or promotional upload.
+The finished **74-second gameplay demo** shows Hololith's development preview in
+Minecraft: real terrain projection, instrument controls, sensor linking, colored
+reference markers, brightness and a moving Create cart. Silent, with captions.
+
+https://github.com/user-attachments/assets/e1c6da64-d39b-4ab0-bdd2-d94af8680734
+
+The embedded copy is 720p for convenient playback; the original capture is
+1600×900 at 30 fps. The developer notes below explain how the footage was captured
+and edited, and how to reproduce the demonstration world.
 
 The capture comes directly from Minecraft's rendered framebuffer in an original
 creative demonstration world. A scripted player camera and normal item-use
@@ -75,7 +80,7 @@ for common players. It then decodes the entire result and requires **2,220 frame
 `edit.json` records SHA-256 hashes, the caption timeline and validation result.
 These checks establish file integrity and duration, not gameplay correctness.
 
-## Demonstration and recording plan
+## Video timeline
 
 Times below refer to the finished 74-second video; add six seconds for raw capture
 times. The short unlabeled gaps leave room to see the projection between actions.

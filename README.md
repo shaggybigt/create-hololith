@@ -8,7 +8,18 @@ remote beacon, and mark reference points with sixteen dye colors.
 
 This tested development preview contains the complete buildable source. The
 existing [0.3.0 release and downloads](https://github.com/shaggybigt/create-hololith/releases/tag/v0.3.0)
-remain available. No new public release is created by the build workflow.
+remain available.
+
+## Gameplay demo
+
+74 seconds of actual Minecraft gameplay: terrain surveying, sensor linking,
+colored reference markers, brightness controls and a moving Create cart.
+Silent, with captions.
+
+https://github.com/user-attachments/assets/e1c6da64-d39b-4ab0-bdd2-d94af8680734
+
+<details>
+<summary>Screenshots</summary>
 
 ![A Hololith table projecting real terrain and colored reference markers](images/daylight.png)
 
@@ -18,7 +29,7 @@ remain available. No new public release is created by the build workflow.
 [Instrument panel](images/control-panel.png) · [Marker Ponder tutorial](images/ponder-markers.png) ·
 [Survey-source tutorial](images/ponder-sources.png)
 
-[Demonstration world and recording guide](docs/showcase.md)
+</details>
 
 ## What it does
 
