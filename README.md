@@ -6,10 +6,12 @@ remote beacon, and mark reference points with sixteen dye colors.
 
 **Minecraft Java 1.21.1 · NeoForge 21.1.259 · Create 6.0.10 · Java 21**
 
-The current source version is **0.4.0-dev.2**, combining the Ponder tutorials,
-instrument controls and status improvements with smoother moving surveys and
-reference markers. This development preview contains the complete buildable source. The
-existing [0.3.0 release and downloads](https://github.com/shaggybigt/create-hololith/releases/tag/v0.3.0)
+**[Download the newest version — 0.4.0-dev.2](https://github.com/shaggybigt/create-hololith/releases/tag/v0.4.0-dev.2)**
+
+This testing preview combines the Ponder tutorials, instrument controls and
+status improvements with smoother moving surveys and reference markers.
+The complete buildable source is here in the repository. Previous
+[release downloads](https://github.com/shaggybigt/create-hololith/releases)
 remain available.
 
 ## Gameplay demo
@@ -63,8 +65,8 @@ interiors and caves are not reconstructed, and unknown terrain stays blank.
 
 1. Use **Java 21**, **Minecraft 1.21.1**, **NeoForge 21.1.259** and the official
    **Create 6.0.10** NeoForge JAR with its bundled dependencies.
-2. Download the player JAR from an [existing release](https://github.com/shaggybigt/create-hololith/releases),
-   or build the development preview from source below.
+2. Download **[create-hololith-0.4.0-dev.2.jar](https://github.com/shaggybigt/create-hololith/releases/download/v0.4.0-dev.2/create-hololith-0.4.0-dev.2.jar)**,
+   or build the same version from source below.
 3. Close the game and server. Put one `create-hololith-<version>.jar` in **both client
    and server** `mods` directories, replacing the older Hololith JAR. Single-player
    needs it in the client's `mods` directory. All players and the server need the
