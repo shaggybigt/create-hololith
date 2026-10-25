@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.4.0-dev.2 — movement testing preview
+
+- Resolve linked markers from the exact tracked Create contraption or Sable ship
+  render pose each frame, with identity/link validation and authoritative fallback
+  when the source is unavailable. Pins leaving known terrain are hidden.
+- Check sensor positions and survey progress every five ticks. A completed scan
+  hands off to the newest region in the same poll, preserving bounded scan work
+  and the last useful projection during motion.
+- Refresh marker membership after adopting a new survey, preventing pins from
+  disappearing when the survey region changes rapidly. Keep the previous terrain
+  mesh visible until its replacement is ready, mapping pins onto the displayed
+  terrain's own origin and surface heights.
+- Add public-schematic provenance and a disposable powered-flight acceptance
+  harness for Patrik's airship v10, with baseline and instrumented trials.
+- Keep dependencies and saved terrain formats unchanged. Clients and servers
+  must both use this preview because marker packets now include source identity.
+
 ## 0.4.0-dev.1 — development preview
 
 - Added three original Create Ponder tutorials covering tables, survey cards,

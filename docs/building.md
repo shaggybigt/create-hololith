@@ -100,6 +100,10 @@ gameplay launch uses the mods staged by the validation helper instead of adding 
 second Create JAR to its runtime classpath. Existing full/minimal/contraption
 helpers need their normal prepared disposable worlds and pack files.
 
+The optional `Start-Airship.ps1` helper adds a fresh full-pack world for the
+[public schematic acceptance test](public-schematics.md). Its downloaded input
+is local-only and is not required for the ordinary build or CI.
+
 The PowerShell gameplay and packaging helpers in `scripts/` target Windows and
 the prepared modpack layout, including its Java 21 runtime and dedicated-server
 installation. They are optional; the ordinary Gradle build is portable across

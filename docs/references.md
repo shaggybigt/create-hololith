@@ -59,3 +59,13 @@ actual Minecraft framebuffer captures from the disposable development world, wit
 trimming, captions and fades applied afterward. It has no music or generated
 gameplay footage. FFmpeg is an external editing tool and is not bundled in the
 mod or source repository. See [the showcase guide](showcase.md).
+
+## Public craft used for acceptance work
+
+Patrik's [airship v10](https://createmod.com/schematics/airship-v10), supplied by
+the user, and Tommobean's
+[Basic Aeronautics Airship](https://createmod.com/schematics/basic-aeronautics-airship)
+were inspected as independent test inputs. Their downloads are not bundled or
+relicensed under Hololith's MIT license. See [public schematic provenance and
+reproduction](public-schematics.md) for hashes, controls, local preparation and
+the distinction between inspected candidates and completed flight acceptance.

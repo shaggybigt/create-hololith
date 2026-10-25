@@ -6,6 +6,7 @@ import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import dev.hololith.*;
 import dev.hololith.survey.SurveyStore;
+import dev.hololith.survey.SurveyFollower;
 import java.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -86,6 +87,7 @@ public final class ContraptionSurveys implements MovementBehaviour {
                 (key,points)->ContraptionPackets.markers(context.contraption.entity,context.localPos,table.tableId(),key,points));
         }else if(blockEntity instanceof ReferenceMarkerEntity marker){
             marker.setMountedCallbacks(()->worldPosition(context.contraption.entity,context.localPos),()->changed(context));
+            marker.setMountedAnchor(context.contraption.entity,context.localPos);
         }
         // Normalize legacy/missing tags once, before Create builds a save or spawn packet.
         persist(context,runtime);
@@ -99,9 +101,9 @@ public final class ContraptionSurveys implements MovementBehaviour {
         if(!runtime.initialSync){runtime.initialSync=true;ContraptionPackets.sync(entity,context.localPos,stateTag(context));}
         long clock=level.getGameTime()+context.localPos.asLong();
         if(runtime.blockEntity instanceof SurveySensorEntity sensor){
-            if(clock%20==0)worldPosition(entity,context.localPos).ifPresent(position->SurveyStore.get(level.getServer()).heartbeat(sensor.sensorId(),level.dimension().location().toString(),(int)Math.floor(position.x),(int)Math.floor(position.z)));
+            if(clock%SurveyFollower.POLL_TICKS==0)worldPosition(entity,context.localPos).ifPresent(position->SurveyStore.get(level.getServer()).heartbeat(sensor.sensorId(),level.dimension().location().toString(),(int)Math.floor(position.x),(int)Math.floor(position.z)));
         }else if(runtime.blockEntity instanceof HololithTableEntity table){
-            Optional<Vec3> position=table.mode()==0&&clock%20==0?worldPosition(entity,context.localPos):Optional.empty();
+            Optional<Vec3> position=table.mode()==0&&clock%SurveyFollower.POLL_TICKS==0?worldPosition(entity,context.localPos):Optional.empty();
             HololithTableEntity.tickAt(level,context.localPos,context.state,table,position);
         }else if(runtime.blockEntity instanceof ReferenceMarkerEntity marker){
             ReferenceMarkerEntity.tick(level,context.localPos,context.state,marker);

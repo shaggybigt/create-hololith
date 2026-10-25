@@ -15,7 +15,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 /** Server-thread-only round robin queue. Never requests/generates a chunk. */
-public final class SurveyManager {
+public final class SurveyManager implements SurveyFollower.Source {
     private static final Map<MinecraftServer,SurveyManager> INSTANCES=new WeakHashMap<>();
     public static SurveyManager get(MinecraftServer server){return INSTANCES.computeIfAbsent(server,SurveyManager::new);}
     public static void clear(MinecraftServer server){INSTANCES.remove(server);}
@@ -24,6 +24,7 @@ public final class SurveyManager {
     private final Map<SurveyKey,Job> pending=new HashMap<>();
     private final LinkedHashMap<SurveyKey,Integer> checked=new LinkedHashMap<>(16,.75f,true);
     private SurveyManager(MinecraftServer server){this.server=server;}
+    @Override public SurveySnapshot cached(SurveyKey key){return SurveyStore.get(server).find(key);}
     public SurveySnapshot request(SurveyKey key){
         SurveyStore store=SurveyStore.get(server);SurveySnapshot previous=store.find(key);Job job=pending.get(key);
         if(job!=null){job.lastRequested=server.getTickCount();return previous;}

@@ -6,7 +6,7 @@ remote beacon, and mark reference points with sixteen dye colors.
 
 **Minecraft Java 1.21.1 · NeoForge 21.1.259 · Create 6.0.10 · Java 21**
 
-This tested development preview contains the complete buildable source. The
+This development preview contains the complete buildable source. The
 existing [0.3.0 release and downloads](https://github.com/shaggybigt/create-hololith/releases/tag/v0.3.0)
 remain available.
 
@@ -42,6 +42,8 @@ https://github.com/user-attachments/assets/e1c6da64-d39b-4ab0-bdd2-d94af8680734
   enclosed or buried markers. Pins sit over the surveyed surface regardless of the
   reference blocks' elevation.
 - Works on ordinary Create contraptions and optionally Aeronautics/Sable ships.
+- Smoothly follows tracked reference blocks between server updates and retains
+  the last completed terrain display while the next region is being prepared.
 - Keeps previously surveyed terrain available without force-loading distant chunks.
 - Offers an in-game brightness slider and contextual instrument/card tooltips in
   this development build.
@@ -51,7 +53,8 @@ https://github.com/user-attachments/assets/e1c6da64-d39b-4ab0-bdd2-d94af8680734
   confirmations and status that becomes live only after a recent completed scan.
 
 Read the [player guide](docs/usage.md), [contraption guide](docs/contraptions.md)
-and [tested behavior and limits](docs/development-validation.md). This is a surface survey:
+and [current movement tests and limits](docs/motion-validation.md). The previous
+[0.4.0-dev.1 validation](docs/development-validation.md) remains available. This is a surface survey:
 interiors and caves are not reconstructed, and unknown terrain stays blank.
 
 ## Install
@@ -73,15 +76,16 @@ recipes and a **Create: Hololith** creative tab.
 
 ## Build from source
 
-Install a **64-bit JDK 21**, clone `main`, then run its Gradle wrapper:
+Install a **64-bit JDK 21**, open the source checkout or extracted project archive
+for the revision you want to build, then run its Gradle wrapper:
 
 ```sh
-git clone --branch main https://github.com/shaggybigt/create-hololith.git
-cd create-hololith
 ./gradlew build
 ```
 
-The `main` branch contains the complete source for the development preview.
+The public `main` branch contains complete source. The current motion improvements
+are being validated on `development/motion-following`; a local preview archive can
+contain changes that have not been uploaded or released.
 
 On Windows use `gradlew.bat build`. If the Unix wrapper is not executable, use
 `bash ./gradlew build`. The wrapper downloads the pinned dependencies, including
@@ -109,6 +113,8 @@ optional local modpack integration and the isolated gameplay probe.
 Generated builds, worlds, raw recordings, logs and machine-specific paths belong
 outside Git. CI compiles and runs automated checks; it cannot establish visual
 quality, multiplayer behavior or every contraption controller's gameplay behavior.
+Moving-craft acceptance follows the [public schematic procedure](docs/public-schematics.md):
+verify a credited creator build first, then repeat with Hololith instruments.
 
 ## License and credits
 

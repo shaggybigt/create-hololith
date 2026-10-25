@@ -40,7 +40,7 @@ try {
     foreach($folder in @('src','scripts','docs','gradle','images','.github')) {
         $files+=Get-ChildItem -LiteralPath (Join-Path $project $folder) -File -Recurse
     }
-    foreach($name in @('README.md','CHANGELOG.md','LICENSE','.gitignore','.gitattributes','build.gradle','settings.gradle','gradle.properties','gradlew','gradlew.bat')) {
+    foreach($name in @('README.md','CHANGELOG.md','LICENSE','AGENTS.md','.gitignore','.gitattributes','build.gradle','settings.gradle','gradle.properties','gradlew','gradlew.bat')) {
         $files+=Get-Item -LiteralPath (Join-Path $project $name)
     }
     foreach($file in $files) {

@@ -1,6 +1,8 @@
 package dev.hololith;
 import dev.hololith.compat.ShipCoordinates;
 import dev.hololith.survey.ReferenceRegistry;
+import dev.hololith.survey.MarkerAnchor;
+import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import java.util.UUID;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
@@ -14,11 +16,22 @@ public final class ReferenceMarkerEntity extends BlockEntity {
     private int targetKind;
     private java.util.function.Supplier<java.util.Optional<net.minecraft.world.phys.Vec3>> mountedPosition;
     private Runnable mountedChanged;
+    private AbstractContraptionEntity mountedEntity;
+    private BlockPos mountedLocalPos;
     public ReferenceMarkerEntity(BlockPos pos,BlockState state){super(Hololith.MARKER_ENTITY.get(),pos,state);}
     public UUID markerId(){return markerId;}
     public UUID targetId(){return targetId;}
     public int targetKind(){return targetKind;}
     public void setMountedCallbacks(java.util.function.Supplier<java.util.Optional<net.minecraft.world.phys.Vec3>> position,Runnable changed){mountedPosition=position;mountedChanged=changed;}
+    public void setMountedAnchor(AbstractContraptionEntity entity,BlockPos localPos){mountedEntity=entity;mountedLocalPos=localPos.immutable();}
+    public MarkerAnchor anchor(){
+        if(level==null)return null;
+        if(mountedEntity!=null){
+            if(mountedEntity.isRemoved()||mountedEntity.level()!=level)return null;
+            return new MarkerAnchor(mountedLocalPos,mountedEntity.getId(),mountedEntity.getUUID(),ShipCoordinates.shipIdentity(level,mountedEntity.position()));
+        }
+        return MarkerAnchor.world(worldPosition,ShipCoordinates.shipIdentity(level,net.minecraft.world.phys.Vec3.atCenterOf(worldPosition)));
+    }
     public boolean bind(CompoundTag card){
         UUID target=card.hasUUID("TableId")?card.getUUID("TableId"):card.hasUUID("SensorId")?card.getUUID("SensorId"):null;
         if(target==null)return false;

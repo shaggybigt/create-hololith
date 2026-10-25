@@ -12,12 +12,12 @@ public final class ReferenceRegistry {
     public static ReferenceRegistry get(MinecraftServer server){return SERVERS.computeIfAbsent(server,s->new ReferenceRegistry());}
     public static void clear(MinecraftServer server){SERVERS.remove(server);}
     public void update(MinecraftServer server,ReferenceMarkerEntity marker,String dimension,double x,double z){
-        if(marker.targetId()==null)return;
+        if(marker.targetId()==null||!Double.isFinite(x)||!Double.isFinite(z))return;
         var link=new Link(marker.targetKind(),marker.targetId());var old=membership.put(marker.markerId(),link);
         if(old!=null&&!old.equals(link))removeFrom(old,marker.markerId());
         // Sub-pixel physics noise should not produce new packets for an otherwise resting body.
         x=Math.rint(x*256)/256;z=Math.rint(z*256)/256;
-        var point=new MarkerPoint(marker.markerId(),x,z,marker.getBlockState().getValue(ReferenceMarkerBlock.COLOR).getTextureDiffuseColor());
+        var point=new MarkerPoint(marker.markerId(),x,z,marker.getBlockState().getValue(ReferenceMarkerBlock.COLOR).getTextureDiffuseColor(),marker.anchor());
         groups.computeIfAbsent(link,k->new HashMap<>()).put(marker.markerId(),new Entry(marker,dimension,point,server.getTickCount()));
     }
     private void removeFrom(Link link,UUID id){var group=groups.get(link);if(group!=null){group.remove(id);if(group.isEmpty())groups.remove(link);}}

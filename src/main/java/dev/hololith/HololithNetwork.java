@@ -29,7 +29,7 @@ public final class HololithNetwork {
         @Override public Type<? extends CustomPacketPayload> type(){return TYPE;}
     }
     public static void register(RegisterPayloadHandlersEvent event){
-        var r=event.registrar("3");
+        var r=event.registrar("4");
         dev.hololith.compat.ContraptionPackets.register(event);
         r.playToClient(Markers.TYPE,Markers.CODEC,(p,c)->c.enqueueWork(()->{if(c.player().level().getBlockEntity(p.pos) instanceof HololithTableEntity table)table.acceptMarkers(p.tableId,p.key,p.points);}));
         r.playToClient(Open.TYPE,Open.CODEC,(p,c)->c.enqueueWork(()->dev.hololith.client.HololithControls.open(p.pos())));
@@ -43,12 +43,12 @@ public final class HololithNetwork {
         public static final StreamCodec<RegistryFriendlyByteBuf,Markers> CODEC=StreamCodec.of((b,p)->{
             b.writeBlockPos(p.pos);b.writeUUID(p.tableId);b.writeBoolean(p.key!=null);
             if(p.key!=null){b.writeUtf(p.key.dimension(),128);b.writeInt(p.key.x());b.writeInt(p.key.z());b.writeVarInt(p.key.span());}
-            b.writeVarInt(p.points.size());for(var point:p.points){b.writeUUID(point.id());b.writeDouble(point.x());b.writeDouble(point.z());b.writeInt(point.color());}
+            b.writeVarInt(p.points.size());for(var point:p.points){b.writeUUID(point.id());b.writeDouble(point.x());b.writeDouble(point.z());b.writeInt(point.color());MarkerAnchor.write(b,point.anchor());}
         },b->{
             var pos=b.readBlockPos();var id=b.readUUID();SurveyKey key=null;
             if(b.readBoolean()){String dim=b.readUtf(128);int x=b.readInt(),z=b.readInt(),span=b.readVarInt();if(span!=32&&span!=64&&span!=128)throw new io.netty.handler.codec.DecoderException("Invalid marker survey span");key=new SurveyKey(dim,x,z,span);}
             int count=b.readVarInt();if(count<0||count>MarkerPoint.LIMIT)throw new io.netty.handler.codec.DecoderException("Too many reference markers");
-            var points=new ArrayList<MarkerPoint>(count);for(int i=0;i<count;i++){var marker=b.readUUID();double x=b.readDouble(),z=b.readDouble();int color=b.readInt();if(!Double.isFinite(x)||!Double.isFinite(z))throw new io.netty.handler.codec.DecoderException("Invalid reference position");points.add(new MarkerPoint(marker,x,z,color&0xFFFFFF));}
+            var points=new ArrayList<MarkerPoint>(count);for(int i=0;i<count;i++){var marker=b.readUUID();double x=b.readDouble(),z=b.readDouble();int color=b.readInt();if(!Double.isFinite(x)||!Double.isFinite(z))throw new io.netty.handler.codec.DecoderException("Invalid reference position");points.add(new MarkerPoint(marker,x,z,color&0xFFFFFF,MarkerAnchor.read(b)));}
             return new Markers(pos,id,key,List.copyOf(points));
         });
         @Override public Type<? extends CustomPacketPayload> type(){return TYPE;}

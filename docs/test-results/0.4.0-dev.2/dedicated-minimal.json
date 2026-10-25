@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "fullSurveyCompleted": true,
+    "capturedActorCacheCleared": true,
+    "processExitedCleanly": true,
+    "sensorTicked": true,
+    "capturedActorReloadPreservedState": true,
+    "capturedActorSurveyAndIdentities": true,
+    "allDimensionsSaved": true,
+    "allActorContextsTicked": true,
+    "fixtureEntitiesCleaned": true,
+    "fixtureBlocksNotInWorld": true,
+    "releaseJarLoaded": true,
+    "referenceConfigured": true,
+    "sharedSurveyPersisted": true,
+    "capturedActorRetickedAfterReload": true,
+    "tableIdentityPresent": true
+  },
+  "jarSha256": "3B8DFB8C89807FC2A2A470E614690B2EC1452AD0819E8B60358B7D17B0B6F785",
+  "timestamp": "2026-10-25T19:42:27.1691857Z",
+  "scope": "Dedicated startup, stationary surveys, and deserialized minecart actor ticking/save/reload; no physical assembly or rendering assertions",
+  "minimal": true,
+  "mods": [
+    "create-1.21.1-6.0.10.jar",
+    "create-hololith-0.4.0-dev.2.jar"
+  ],
+  "failures": 0
+}
