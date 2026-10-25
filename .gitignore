@@ -1,0 +1,21 @@
+# Anchor generated directories: do not hide src/**/client or checked-in evidence.
+/.gradle/
+/build/
+/dist/
+/reports/
+/.idea/
+/.vscode/
+*.iml
+*.log
+/local/
+/runtime/
+/development/
+/client/
+/server/
+/run/
+/runs/
+/local.properties
+/.env
+/.env.*
+/.DS_Store
+/Thumbs.db

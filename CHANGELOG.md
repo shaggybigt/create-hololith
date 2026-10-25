@@ -23,7 +23,7 @@
   profile to verify that the rest of the development modpack is optional.
 - Added an external-baseline framebuffer comparison and GPU timing probe.
 - Prepared standalone installation instructions, source, screenshots and
-  validation reports for sharing. See [validation](validation.md).
+  validation reports for sharing. See [validation](docs/validation.md).
 
 ## 0.2.0 — earlier local build
 

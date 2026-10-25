@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "color=white": {
+      "model": "hololith:block/reference_marker_white"
+    },
+    "color=orange": {
+      "model": "hololith:block/reference_marker_orange"
+    },
+    "color=magenta": {
+      "model": "hololith:block/reference_marker_magenta"
+    },
+    "color=light_blue": {
+      "model": "hololith:block/reference_marker_light_blue"
+    },
+    "color=yellow": {
+      "model": "hololith:block/reference_marker_yellow"
+    },
+    "color=lime": {
+      "model": "hololith:block/reference_marker_lime"
+    },
+    "color=pink": {
+      "model": "hololith:block/reference_marker_pink"
+    },
+    "color=gray": {
+      "model": "hololith:block/reference_marker_gray"
+    },
+    "color=light_gray": {
+      "model": "hololith:block/reference_marker_light_gray"
+    },
+    "color=cyan": {
+      "model": "hololith:block/reference_marker_cyan"
+    },
+    "color=purple": {
+      "model": "hololith:block/reference_marker_purple"
+    },
+    "color=blue": {
+      "model": "hololith:block/reference_marker_blue"
+    },
+    "color=brown": {
+      "model": "hololith:block/reference_marker_brown"
+    },
+    "color=green": {
+      "model": "hololith:block/reference_marker_green"
+    },
+    "color=red": {
+      "model": "hololith:block/reference_marker_red"
+    },
+    "color=black": {
+      "model": "hololith:block/reference_marker_black"
+    }
+  }
+}

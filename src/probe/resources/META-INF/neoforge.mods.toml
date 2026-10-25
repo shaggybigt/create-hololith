@@ -1,0 +1,12 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="hololith_probe"
+version="${mod_version}"
+displayName="Hololith disposable validation harness"
+[[dependencies.hololith_probe]]
+modId="hololith"
+type="required"
+versionRange="[${mod_version}]"
+side="BOTH"

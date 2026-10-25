@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BGB",
+    "AMA",
+    "CLC"
+  ],
+  "key": {
+    "B": {
+      "item": "create:brass_ingot"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "A": {
+      "item": "create:andesite_casing"
+    },
+    "M": {
+      "item": "create:precision_mechanism"
+    },
+    "C": {
+      "item": "create:copper_sheet"
+    },
+    "L": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "result": {
+    "id": "hololith:surveying_table",
+    "count": 1
+  }
+}

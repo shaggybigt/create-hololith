@@ -1,0 +1,60 @@
+{
+  "variants": {
+    "part=0": {
+      "model": "hololith:block/table_corner",
+      "y": 0,
+      "uvlock": true
+    },
+    "part=1": {
+      "model": "hololith:block/table_edge",
+      "y": 0,
+      "uvlock": true
+    },
+    "part=2": {
+      "model": "hololith:block/table_corner",
+      "y": 90,
+      "uvlock": true
+    },
+    "part=3": {
+      "model": "hololith:block/table_edge",
+      "y": 270,
+      "uvlock": true
+    },
+    "part=5": {
+      "model": "hololith:block/table_edge",
+      "y": 90,
+      "uvlock": true
+    },
+    "part=6": {
+      "model": "hololith:block/table_corner",
+      "y": 270,
+      "uvlock": true
+    },
+    "part=7": {
+      "model": "hololith:block/table_edge",
+      "y": 180,
+      "uvlock": true
+    },
+    "part=8": {
+      "model": "hololith:block/table_corner",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=north,part=4": {
+      "model": "hololith:block/table_center",
+      "y": 0
+    },
+    "facing=east,part=4": {
+      "model": "hololith:block/table_center",
+      "y": 90
+    },
+    "facing=south,part=4": {
+      "model": "hololith:block/table_center",
+      "y": 180
+    },
+    "facing=west,part=4": {
+      "model": "hololith:block/table_center",
+      "y": 270
+    }
+  }
+}

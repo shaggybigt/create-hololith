@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " B ",
+    "GSG",
+    "ARA"
+  ],
+  "key": {
+    "B": {
+      "item": "create:brass_ingot"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "S": {
+      "item": "hololith:local_sensor"
+    },
+    "A": {
+      "item": "create:andesite_alloy"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "hololith:remote_beacon",
+    "count": 1
+  }
+}

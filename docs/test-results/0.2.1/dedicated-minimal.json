@@ -1,0 +1,20 @@
+{
+  "jarSha256": "32B404F26CFD0D55652777C8912B0C91B603B9DD9CCBDCE680704AC1B953F155",
+  "failures": 0,
+  "timestamp": "2026-10-24T21:39:47.5801245Z",
+  "minimal": true,
+  "checks": {
+    "releaseJarLoaded": true,
+    "tableIdentityPresent": true,
+    "fullSurveyCompleted": true,
+    "referenceConfigured": true,
+    "processExitedCleanly": true,
+    "sharedSurveyPersisted": true,
+    "sensorTicked": true,
+    "allDimensionsSaved": true
+  },
+  "mods": [
+    "create-1.21.1-6.0.10.jar",
+    "create-hololith-0.2.1.jar"
+  ]
+}

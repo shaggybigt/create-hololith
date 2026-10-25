@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "hololith:surveying_table",
+    "hololith:local_sensor",
+    "hololith:remote_beacon",
+    "hololith:reference_marker"
+  ]
+}

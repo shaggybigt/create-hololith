@@ -1,0 +1,182 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+group = 'dev.hololith'
+version = providers.gradleProperty('mod_version').get()
+base { archivesName = 'create-hololith' }
+java { toolchain.languageVersion = JavaLanguageVersion.of(21); withSourcesJar() }
+// A clean checkout uses ordinary build/ and runs/ directories. The optional
+// runtime root keeps the existing isolated modpack validation layout working.
+def runtimeRoot = providers.gradleProperty('runtimeRoot')
+def gameRoot = runtimeRoot.isPresent()
+        ? file("${runtimeRoot.get()}/development/hololith") : file('runs')
+if (runtimeRoot.isPresent()) {
+    layout.buildDirectory = file("${runtimeRoot.get()}/development/hololith/build")
+}
+neoForge {
+    version = '21.1.259'
+    runs {
+        client { client(); gameDirectory = new File(gameRoot, 'client') }
+        server { server(); programArgument '--nogui'; gameDirectory = new File(gameRoot, 'server') }
+    }
+    mods { hololith { sourceSet(sourceSets.main) } }
+    unitTest { enable(); testedMod = mods.hololith }
+}
+repositories {
+    mavenCentral()
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'OfficialCreateDistribution'
+                url = 'https://api.modrinth.com/maven'
+            }
+        }
+        filter { includeModule('maven.modrinth', 'create') }
+    }
+}
+configurations {
+    createDistribution {
+        canBeConsumed = false
+        transitive = false
+    }
+}
+def localCreateJar = providers.gradleProperty('createJar')
+if (!localCreateJar.isPresent() && runtimeRoot.isPresent()) {
+    localCreateJar = runtimeRoot.map { "${it}/test-client/mods/create-1.21.1-6.0.10.jar" }
+}
+def createJarFile = localCreateJar.isPresent()
+        ? localCreateJar.map { file(it) }
+        : providers.provider { configurations.createDistribution.singleFile }
+def createLibraries = providers.provider {
+    zipTree(createJarFile.get()).matching { include 'META-INF/jarjar/*.jar' }
+}
+dependencies {
+    // Immutable official release ID: Create 6.0.10 for MC 1.21.1. Its bundled
+    // Registrate, Flywheel and Ponder versions match the existing modpack exactly.
+    createDistribution 'maven.modrinth:create:UjX6dr61'
+    compileOnly files(createJarFile)
+    compileOnly files(createLibraries)
+    // Modpack probes already put Create in their mods directory. A normal fresh
+    // checkout needs it on the runtime classpath for runClient/runServer.
+    if (!runtimeRoot.isPresent()) { runtimeOnly files(createJarFile) }
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // NeoForge's unit runner validates real mod dependencies; this is test-only.
+    testRuntimeOnly files(createJarFile)
+}
+def verifyCreateDependency = tasks.register('verifyCreateDependency') {
+    group = 'verification'
+    description = 'Checks the official Create distribution against the tested SHA-256.'
+    inputs.file(createJarFile)
+    doLast {
+        def digest = java.security.MessageDigest.getInstance('SHA-256')
+        createJarFile.get().withInputStream { input ->
+            byte[] buffer = new byte[65536]
+            int count
+            while ((count = input.read(buffer)) != -1) { digest.update(buffer, 0, count) }
+        }
+        def actual = HexFormat.of().formatHex(digest.digest())
+        def expected = 'ef87fe5709f1ba1f5b8bb20a2925b5afb4669e178fd6d8bf10c167759eefe37a'
+        if (actual != expected) {
+            throw new GradleException("Expected the official Create 6.0.10 distribution (${expected}), got ${actual}. See docs/building.md.")
+        }
+    }
+}
+test { useJUnitPlatform(); workingDir = layout.buildDirectory.get().asFile }
+tasks.withType(JavaCompile).configureEach {
+    dependsOn verifyCreateDependency
+    options.encoding = 'UTF-8'
+}
+tasks.named('test') { dependsOn verifyCreateDependency }
+tasks.named('processResources') {
+    inputs.property('mod_version', project.version)
+    filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.version) }
+}
+tasks.withType(Jar).configureEach {
+    from('LICENSE')
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+def verifyDistribution = tasks.register('verifyDistribution') {
+    group = 'verification'
+    description = 'Checks that the player JAR excludes bundled dependencies and the development probe.'
+    dependsOn tasks.named('jar')
+    inputs.file(tasks.named('jar').flatMap { it.archiveFile })
+    doLast {
+        def archive = new java.util.zip.ZipFile(tasks.named('jar').get().archiveFile.get().asFile)
+        try {
+            def forbidden = archive.entries().findAll {
+                it.name.startsWith('net/minecraft/') || it.name.startsWith('com/simibubi/create/') ||
+                it.name.startsWith('net/createmod/') || it.name.startsWith('dev/engine_room/') ||
+                it.name.startsWith('com/tterrag/') ||
+                it.name.startsWith('dev/hololith/probe/') || it.name.startsWith('META-INF/jarjar/')
+            }
+            if (!forbidden.isEmpty()) { throw new GradleException("Unexpected bundled entries: ${forbidden*.name}") }
+            def metadata = archive.getEntry('META-INF/neoforge.mods.toml')
+            if (metadata == null || !archive.getInputStream(metadata).getText('UTF-8').contains('version="' + project.version + '"')) {
+                throw new GradleException('The player JAR is missing its expected mod version.')
+            }
+        } finally { archive.close() }
+    }
+}
+tasks.named('check') { dependsOn verifyDistribution }
+
+// Separate, disposable-world harness. This JAR must never be installed for normal play.
+sourceSets {
+    probe {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += output + compileClasspath
+    }
+}
+tasks.register('probeJar', Jar) {
+    dependsOn probeClasses
+    archiveBaseName = 'hololith-probe'
+    from sourceSets.probe.output
+}
+tasks.named('processProbeResources') {
+    inputs.property('mod_version', project.version)
+    filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.version) }
+}
+neoForge.runs {
+    clientProbe {
+        client()
+        gameDirectory = new File(gameRoot, 'client-probe')
+        jvmArguments = ['-Xms2G','-Xmx8G']
+        programArguments = ['--width','1600','--height','900','--quickPlaySingleplayer','hololith-validation']
+        systemProperty 'hololith.probe.resume', providers.gradleProperty('probeResume').getOrElse('false')
+        systemProperty 'hololith.baselineJar', providers.gradleProperty('baselineJar').getOrElse('')
+        systemProperty 'hololith.probe.allowedRoot', new File(gameRoot, 'client-probe').canonicalPath
+    }
+    clientMinimalProbe {
+        client()
+        gameDirectory = new File(gameRoot, 'client-minimal')
+        jvmArguments = ['-Xms2G','-Xmx4G']
+        programArguments = ['--width','1600','--height','900']
+        systemProperty 'hololith.probe.minimal', 'true'
+        systemProperty 'hololith.probe.resume', providers.gradleProperty('probeResume').getOrElse('false')
+        systemProperty 'hololith.probe.allowedRoot', new File(gameRoot, 'client-minimal').canonicalPath
+    }
+    clientContraptionProbe {
+        client()
+        gameDirectory = new File(gameRoot, 'client-contraptions')
+        jvmArguments = ['-Xms2G','-Xmx4G']
+        programArguments = ['--width','1600','--height','900']
+        systemProperty 'hololith.probe.minimal', 'true'
+        systemProperty 'hololith.probe.contraptions', 'true'
+        systemProperty 'hololith.probe.resume', providers.gradleProperty('probeResume').getOrElse('false')
+        systemProperty 'hololith.probe.allowedRoot', new File(gameRoot, 'client-contraptions').canonicalPath
+    }
+    clientShowcase {
+        client()
+        gameDirectory = new File(gameRoot, 'client-showcase')
+        jvmArguments = ['-Xms2G', '-Xmx4G']
+        programArguments = ['--width', '1600', '--height', '900']
+        systemProperty 'hololith.probe.minimal', 'true'
+        systemProperty 'hololith.showcase', 'true'
+        systemProperty 'hololith.probe.allowedRoot', new File(gameRoot, 'client-showcase').canonicalPath
+        if (providers.gradleProperty('ffmpegPath').isPresent()) {
+            systemProperty 'hololith.showcase.ffmpeg', providers.gradleProperty('ffmpegPath').get()
+        }
+    }
+}

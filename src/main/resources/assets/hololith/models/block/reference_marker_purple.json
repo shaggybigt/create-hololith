@@ -1,0 +1,6 @@
+{
+  "parent": "hololith:block/reference_marker_base",
+  "textures": {
+    "lens": "minecraft:block/purple_stained_glass"
+  }
+}
