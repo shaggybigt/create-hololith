@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.0
+
+- Added live surveying, transformed sensors and colored reference points on
+  ordinary Create contraptions, with entity-tracking synchronization.
+- Added card linking, dye colors, wrench controls and the instrument panel while
+  assembled. All nine table tiles attach as one table during Create assembly.
+- Preserve instrument identities, settings and cached terrain through captured
+  entity persistence and upright disassembly.
+- Added an isolated Create contraption game fixture and packet contract tests.
+- Requires the same Minecraft, NeoForge and Create versions as 0.2.1. Clients
+  and servers must both update because the network protocol now includes mounted
+  instrument messages. Aeronautics/Sable remains optional.
+
 ## 0.2.1
 
 - Replaced the earlier GPU-buffer helper with an independent implementation

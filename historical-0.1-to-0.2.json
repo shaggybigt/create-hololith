@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-10-24T20:30:58.130042300Z",
+  "mode": "resume",
+  "scope": "Graphical NeoForge development client and integrated server with installed pack, offline dev identity and copied disposable world. No authenticated multiplayer or airborne flight acceptance.",
+  "phase": 40,
+  "worldTicks": 180,
+  "fpsAtFinish": 119,
+  "checks": [
+    {
+      "passed": true,
+      "test": "full pack client and integrated server loaded"
+    },
+    {
+      "passed": true,
+      "test": "table survives real process restart"
+    },
+    {
+      "passed": true,
+      "test": "table cached survey survives real process restart"
+    },
+    {
+      "passed": true,
+      "test": "sensor identity persisted"
+    },
+    {
+      "passed": true,
+      "test": "shared region cache persisted"
+    },
+    {
+      "passed": true,
+      "test": "legacy table obtains persistent table identity"
+    },
+    {
+      "passed": true,
+      "test": "persisted terrain synced after reconnect"
+    }
+  ],
+  "total": 7,
+  "failures": 0
+}

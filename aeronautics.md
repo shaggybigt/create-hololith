@@ -44,10 +44,10 @@ helper also sets `isMoving=true`. Simulated's assembly predicate permits blocks
 with finite hardness outside its `non_movable` tag; Hololith's piston-blocking
 reaction therefore does not inherently prohibit physics assembly.
 
-Ordinary Create bearing, train and piston contraptions are a different system
-and are not supported by this bridge. Glue/assemble all nine table tiles as one
+Ordinary Create bearing, train and piston contraptions use the separate
+[0.3.0 contraption bridge](contraptions.md). Glue/assemble all nine table tiles as one
 ship structure. See `validation.md` for exactly which live integration tests ran.
-The 0.2.1 graphical probe assembled the actual table, underside sensor and four
+The 0.3.0 graphical regression repeated the assembly of the actual table, underside sensor and four
 fully enclosed reference blocks through Sable. It checked all four marker
 coordinates against an independently transformed fixture after assembly,
 translation by (8, 0, -4), and a 90-degree yaw. Actual client marker frames and

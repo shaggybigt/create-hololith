@@ -1,7 +1,7 @@
 # Reference investigation
 
 Investigated 2026-10-24. These map mods informed the design; they are not runtime
-dependencies, and their source code and artwork are not included in 0.2.1.
+dependencies, and their source code and artwork are not included in 0.2.1 or 0.3.0.
 
 | Project | Findings | Decision |
 |---|---|---|

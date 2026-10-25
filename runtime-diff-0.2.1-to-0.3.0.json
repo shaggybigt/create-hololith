@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-10-25T01:37:09.4763076Z",
+  "rendererUnchanged": true,
+  "added": [
+    "dev/hololith/client/ContraptionClient$MarkerUpdate.class",
+    "dev/hololith/client/ContraptionClient$Pending.class",
+    "dev/hololith/client/ContraptionClient$Target.class",
+    "dev/hololith/client/ContraptionClient.class",
+    "dev/hololith/compat/ContraptionInteractions.class",
+    "dev/hololith/compat/ContraptionPackets$Configure.class",
+    "dev/hololith/compat/ContraptionPackets$Markers.class",
+    "dev/hololith/compat/ContraptionPackets$Open.class",
+    "dev/hololith/compat/ContraptionPackets$State.class",
+    "dev/hololith/compat/ContraptionPackets.class",
+    "dev/hololith/compat/ContraptionSurveys$Runtime.class",
+    "dev/hololith/compat/ContraptionSurveys.class"
+  ],
+  "jarSha256": "6DD24BD6F924E7A413B44A6A70A38E08C3ACF2D55C35D29D4B8F7E14664246FF",
+  "previousVersion": "0.2.1",
+  "changed": [
+    "dev/hololith/Hololith.class",
+    "dev/hololith/HololithNetwork$Markers.class",
+    "dev/hololith/HololithNetwork.class",
+    "dev/hololith/HololithTableEntity.class",
+    "dev/hololith/ReferenceMarkerEntity.class",
+    "dev/hololith/client/HololithControls.class",
+    "dev/hololith/compat/ShipCoordinates$Bridge.class",
+    "dev/hololith/compat/ShipCoordinates$LazyBridge.class",
+    "dev/hololith/compat/ShipCoordinates.class",
+    "META-INF/neoforge.mods.toml"
+  ],
+  "version": "0.3.0",
+  "rendererEntries": [
+    "dev/hololith/client/HololithRenderer.class",
+    "dev/hololith/client/SurveyMesh.class",
+    "dev/hololith/client/ProjectionBuffer.class",
+    "dev/hololith/client/HololithRenderTypes.class"
+  ],
+  "removed": [],
+  "previousSha256": "32B404F26CFD0D55652777C8912B0C91B603B9DD9CCBDCE680704AC1B953F155",
+  "unchangedCount": 109,
+  "noHarnessOrBundledLibraries": true
+}

@@ -1,0 +1,96 @@
+{
+  "timestamp": "2026-10-25T01:30:46.747240600Z",
+  "mode": "resume",
+  "version": "0.3.0",
+  "profile": "full-pack",
+  "loadedMods": [
+    "aeronautics",
+    "aeronautics_bundled",
+    "apollib",
+    "architectury",
+    "cccbridge",
+    "ccredstonelinkbridge",
+    "chunky",
+    "cloth_config",
+    "computercraft",
+    "copycats",
+    "create",
+    "create_avionics",
+    "createdeco",
+    "createthrusters",
+    "createthrusters_bundled",
+    "dungeons_arise",
+    "ferritecore",
+    "flywheel",
+    "forgottenknowledge",
+    "fzzy_config",
+    "gadgetsngizmos",
+    "geophilic",
+    "guardvillagers",
+    "hololith",
+    "hololith_probe",
+    "immersive_armors",
+    "interiors",
+    "kotlinforforge",
+    "lithostitched",
+    "minecraft",
+    "modernfix",
+    "mr_epic_structuresvillages",
+    "neoforge",
+    "offroad",
+    "ponder",
+    "sable",
+    "sablecompanion",
+    "simplyswords",
+    "simplytooltips",
+    "simulated",
+    "spark",
+    "tectonic",
+    "veil"
+  ],
+  "scope": "Graphical NeoForge development client and integrated server with installed pack, offline dev identity and copied disposable world. No authenticated multiplayer or airborne flight acceptance.",
+  "skippedChecks": [],
+  "phase": 40,
+  "worldTicks": 180,
+  "fpsAtFinish": 118,
+  "checks": [
+    {
+      "test": "full pack client and integrated server loaded",
+      "passed": true
+    },
+    {
+      "test": "table survives real process restart",
+      "passed": true
+    },
+    {
+      "test": "table cached survey survives real process restart",
+      "passed": true
+    },
+    {
+      "test": "sensor identity persisted",
+      "passed": true
+    },
+    {
+      "test": "shared region cache persisted",
+      "passed": true
+    },
+    {
+      "test": "reference UUID links survive actual restart",
+      "passed": true
+    },
+    {
+      "test": "individual reference colors survive actual restart",
+      "passed": true
+    },
+    {
+      "test": "ephemeral marker registry recovers from loaded blocks",
+      "passed": true
+    },
+    {
+      "test": "persisted terrain synced after reconnect",
+      "passed": true
+    }
+  ],
+  "total": 9,
+  "failures": 0
+}

@@ -1,0 +1,348 @@
+{
+  "timestamp": "2026-10-25T01:29:36.157944Z",
+  "mode": "fresh",
+  "version": "0.3.0",
+  "profile": "full-pack",
+  "loadedMods": [
+    "aeronautics",
+    "aeronautics_bundled",
+    "apollib",
+    "architectury",
+    "cccbridge",
+    "ccredstonelinkbridge",
+    "chunky",
+    "cloth_config",
+    "computercraft",
+    "copycats",
+    "create",
+    "create_avionics",
+    "createdeco",
+    "createthrusters",
+    "createthrusters_bundled",
+    "dungeons_arise",
+    "ferritecore",
+    "flywheel",
+    "forgottenknowledge",
+    "fzzy_config",
+    "gadgetsngizmos",
+    "geophilic",
+    "guardvillagers",
+    "hololith",
+    "hololith_probe",
+    "immersive_armors",
+    "interiors",
+    "kotlinforforge",
+    "lithostitched",
+    "minecraft",
+    "modernfix",
+    "mr_epic_structuresvillages",
+    "neoforge",
+    "offroad",
+    "ponder",
+    "sable",
+    "sablecompanion",
+    "simplyswords",
+    "simplytooltips",
+    "simulated",
+    "spark",
+    "tectonic",
+    "veil"
+  ],
+  "scope": "Graphical NeoForge development client and integrated server with installed pack, offline dev identity and copied disposable world. No authenticated multiplayer or airborne flight acceptance.",
+  "skippedChecks": [],
+  "phase": 55,
+  "worldTicks": 3155,
+  "fpsAtFinish": 118,
+  "checks": [
+    {
+      "test": "full pack client and integrated server loaded",
+      "passed": true
+    },
+    {
+      "test": "stationary Sable transform returns actual position",
+      "passed": true
+    },
+    {
+      "test": "client item placement creates nine table tiles",
+      "passed": true
+    },
+    {
+      "test": "exactly one table block entity",
+      "passed": true
+    },
+    {
+      "test": "card records sensor through client item use",
+      "passed": true
+    },
+    {
+      "test": "card links table by sensor UUID",
+      "passed": true
+    },
+    {
+      "test": "terrain snapshot synchronized to client",
+      "passed": true
+    },
+    {
+      "test": "32 area contains 1024 known columns",
+      "passed": true
+    },
+    {
+      "test": "real height relief",
+      "passed": true
+    },
+    {
+      "test": "water distinguished",
+      "passed": true
+    },
+    {
+      "test": "raised canopies distinguished",
+      "passed": true
+    },
+    {
+      "test": "state palette and snapshot round trip",
+      "passed": true
+    },
+    {
+      "test": "table NBT retains link and survey",
+      "passed": true
+    },
+    {
+      "test": "four reference markers reach actual client",
+      "passed": true
+    },
+    {
+      "test": "four buried references visible through solid terrain",
+      "passed": true
+    },
+    {
+      "test": "each reference keeps its own dye color",
+      "passed": true
+    },
+    {
+      "test": "marker registration does not change terrain revision",
+      "passed": true
+    },
+    {
+      "test": "initial chunk tag includes live reference frame",
+      "passed": true
+    },
+    {
+      "test": "actual instrument panel opens over server packet",
+      "passed": true
+    },
+    {
+      "test": "panel changes authoritative area and rotation",
+      "passed": true
+    },
+    {
+      "test": "64 area full-resolution survey",
+      "passed": true
+    },
+    {
+      "test": "terrain edit refreshes height material and revision",
+      "passed": true
+    },
+    {
+      "test": "remote region starts unloaded",
+      "passed": true
+    },
+    {
+      "test": "128 area caps grid to 64 squared",
+      "passed": true
+    },
+    {
+      "test": "survey does not force-load remote chunks",
+      "passed": true
+    },
+    {
+      "test": "unloaded target has no invented cache",
+      "passed": true
+    },
+    {
+      "test": "moving target adopts completed surveys",
+      "passed": true
+    },
+    {
+      "test": "moving updates retain last projection",
+      "passed": true
+    },
+    {
+      "test": "Sable assembly retains all nine table tiles",
+      "passed": true
+    },
+    {
+      "test": "sensor UUID survives engine assembly",
+      "passed": true
+    },
+    {
+      "test": "assembled sensor maps to world position",
+      "passed": true
+    },
+    {
+      "test": "assembled snapshot reaches client sublevel",
+      "passed": true
+    },
+    {
+      "test": "assembled reference frame reaches ship client",
+      "passed": true
+    },
+    {
+      "test": "assembled table and sensor continue ticking",
+      "passed": true
+    },
+    {
+      "test": "assembled four concealed ship markers synchronized",
+      "passed": true
+    },
+    {
+      "test": "assembled table identity retained",
+      "passed": true
+    },
+    {
+      "test": "assembled markers match independently computed ship coordinates",
+      "passed": true
+    },
+    {
+      "test": "assembled markers sample terrain instead of reference altitude",
+      "passed": true
+    },
+    {
+      "test": "moved table retains synchronized survey",
+      "passed": true
+    },
+    {
+      "test": "moving Sable sensor resolves translated world position",
+      "passed": true
+    },
+    {
+      "test": "moving ship survey follows translated ground",
+      "passed": true
+    },
+    {
+      "test": "translated four concealed ship markers synchronized",
+      "passed": true
+    },
+    {
+      "test": "translated table identity retained",
+      "passed": true
+    },
+    {
+      "test": "translated markers match independently computed ship coordinates",
+      "passed": true
+    },
+    {
+      "test": "translated markers sample terrain instead of reference altitude",
+      "passed": true
+    },
+    {
+      "test": "yawed sensor resolves world position",
+      "passed": true
+    },
+    {
+      "test": "off-axis table tile rotates around ship COM",
+      "passed": true
+    },
+    {
+      "test": "yawed ship retains client projection",
+      "passed": true
+    },
+    {
+      "test": "yawed reference frame reaches ship client",
+      "passed": true
+    },
+    {
+      "test": "yawed four concealed ship markers synchronized",
+      "passed": true
+    },
+    {
+      "test": "yawed table identity retained",
+      "passed": true
+    },
+    {
+      "test": "yawed markers match independently computed ship coordinates",
+      "passed": true
+    },
+    {
+      "test": "yawed markers sample terrain instead of reference altitude",
+      "passed": true
+    },
+    {
+      "test": "engine disassembly restores table and survey",
+      "passed": true
+    },
+    {
+      "test": "card records remote beacon",
+      "passed": true
+    },
+    {
+      "test": "remote beacon link acquires its terrain",
+      "passed": true
+    },
+    {
+      "test": "coordinate mode acquires selected region",
+      "passed": true
+    },
+    {
+      "test": "sensor-card reference appears on client",
+      "passed": true
+    },
+    {
+      "test": "actual card item links reference to sensor",
+      "passed": true
+    },
+    {
+      "test": "dye color reaches client block state",
+      "passed": true
+    },
+    {
+      "test": "actual dye item changes reference color",
+      "passed": true
+    },
+    {
+      "test": "sneak-card records table identity without stale sensor link",
+      "passed": true
+    },
+    {
+      "test": "actual card relinks reference directly to table",
+      "passed": true
+    },
+    {
+      "test": "high reference block does not lift sampled ground",
+      "passed": true
+    },
+    {
+      "test": "unlink sends empty removal to actual client",
+      "passed": true
+    },
+    {
+      "test": "sneak-wrench clears reference target",
+      "passed": true
+    },
+    {
+      "test": "destroyed reference disappears from projection",
+      "passed": true
+    },
+    {
+      "test": "reference NBT restores its link and color",
+      "passed": true
+    },
+    {
+      "test": "unavailable reference has no ghost marker",
+      "passed": true
+    },
+    {
+      "test": "reference returns after block entity reload",
+      "passed": true
+    },
+    {
+      "test": "intensity changes reuse the existing GPU terrain mesh",
+      "passed": true
+    },
+    {
+      "test": "client intensity setting applies at runtime",
+      "passed": true
+    }
+  ],
+  "total": 72,
+  "failures": 0
+}

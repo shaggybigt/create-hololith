@@ -1,12 +1,4 @@
-# Create: Hololith 0.2.1
-
-**[Download Hololith 0.2.1](https://github.com/shaggybigt/create-hololith/releases/tag/v0.2.1)** · **[Installable mod JAR](https://github.com/shaggybigt/create-hololith/releases/download/v0.2.1/create-hololith-0.2.1.jar)** · **[Complete buildable source project](https://github.com/shaggybigt/create-hololith/releases/download/v0.2.1/create-hololith-0.2.1-project.zip)**
-
-This repository hosts the release documentation and screenshots. The complete
-source code, Gradle wrapper, assets, tests and validation evidence are in the
-`create-hololith-0.2.1-project.zip` release asset. Use that archive to develop or
-rebuild the addon; GitHub's automatically generated “Source code” archives
-contain this documentation repository.
+# Create: Hololith 0.3.0
 
 A terrain-surveying addon for Minecraft Java **1.21.1**, NeoForge **21.1.259**,
 Create **6.0.10** and **Java 21**. A mechanical table projects a miniature 3D
@@ -16,6 +8,16 @@ moving-airship integration; stationary surveying does not require them.
 
 Open-source under the [MIT license](LICENSE).
 
+## Download 0.3.0
+
+[Release and installation notes](https://github.com/shaggybigt/create-hololith/releases/tag/v0.3.0) · [Download the mod JAR](https://github.com/shaggybigt/create-hololith/releases/download/v0.3.0/create-hololith-0.3.0.jar) · [Complete buildable source ZIP](https://github.com/shaggybigt/create-hololith/releases/download/v0.3.0/create-hololith-0.3.0-project.zip)
+
+This repository holds the documentation and screenshots. The complete source is
+provided as **create-hololith-0.3.0-project.zip** in the release assets. GitHub's
+automatically generated “Source code” archives contain this documentation
+repository; download the named project ZIP for the buildable addon.
+
+
 Developed primarily with AI coding tools under human direction. See
 [validation and remaining limits](validation.md) for tested versions,
 environments and results.
@@ -24,12 +26,14 @@ environments and results.
 
 [Interior lighting](interior.png) · [Projection aboard a Sable ship](ship.png)
 
+[Create bearing test](contraption-bearing.png) · [Moving minecart test](contraption-cart.png)
+
 ## Install
 
 1. Close Minecraft and the server.
 2. Install Minecraft Java **1.21.1**, NeoForge **21.1.259**, and the official
    Create **6.0.10** NeoForge JAR (with its bundled dependencies), using **Java 21**.
-3. Put `create-hololith-0.2.1.jar` in the **client and server** `mods` folders.
+3. Put `create-hololith-0.3.0.jar` in the **client and server** `mods` folders.
    Remove any previous Hololith JAR so only one version is installed. For
    single-player, install it in the client's `mods` folder.
 4. Aeronautics **1.3.2** and Sable **2.0.6** are optional for ship use. The
@@ -114,12 +118,13 @@ At most **64** in-area markers appear per table, ordered stably by identity.
 They require no additional terrain scans. Changed positions travel separately
 from the terrain snapshot; stationary markers send no recurring position packet.
 
-Reference blocks must be in ticking, loaded chunks or an active Sable sublevel.
+Reference blocks must be in ticking, loaded chunks, an active Create contraption,
+or an active Sable sublevel.
 An unloaded/removed reference disappears promptly (within roughly one second)
 instead of leaving an outdated pin. Its saved link and color return when it loads.
 No marker chunk is force-loaded. A missing table or replaced sensor can be
 resolved by recording the new target and reapplying the card. Links and table
-identities survive save/reload and Sable relocation; old 0.1.0 tables gain an
+identities survive save/reload, Create assembly and Sable relocation; old 0.1.0 tables gain an
 identity automatically when loaded.
 
 ## Hologram lighting
@@ -162,10 +167,34 @@ unstable runtime registry IDs. The world file `data/hololith_surveys.dat` holds
 the bounded shared cache and sensor directory; tables also save their own last
 snapshot in their block entity NBT.
 
+## Ordinary Create contraptions
+
+Version 0.3.0 adds a movement bridge for Create's assembled contraptions. Tables
+continue surveying, sensors report their transformed world position, and colored
+references follow the moving platform. The same terrain scan budgets, caching,
+mesh cache and marker packet limits apply.
+
+- Configure and link instruments before assembly, or use their normal cards,
+  dyes, wrench and instrument panel while assembled.
+- Connect a table tile to your contraption using Create's normal assembly rules.
+  All nine matching table tiles stay attached to each other. Sensors and markers
+  still need their own normal structural/glue connections.
+- A stationary table can follow a moving sensor; a moving table can also display
+  a fixed beacon or coordinate survey. Reference positions always use world X/Z.
+- Park the table **upright before disassembling**. Its placed form is a horizontal
+  3×3 multiblock; sideways or upside-down parked tables are not supported.
+- A contraption that unloads or stops ticking stops live updates. Cached terrain
+  remains available. Hololith does not keep trains, carts or chunks loaded.
+
+The bridge uses Create's shared actor APIs for controlled contraptions, gantries,
+cart contraptions and train carriages. See [contraption compatibility](contraptions.md)
+and [validation](validation.md) for the types actually exercised in game and
+known limits. Mods that replace Create's contraption engine need separate testing.
+
 ## Build from source
 
-Download and extract the complete project ZIP linked above, then open its
-create-hololith directory before running the commands below.
+Download and extract **create-hololith-0.3.0-project.zip** from the release
+assets first, then run the following from its project directory.
 
 Install Java 21, obtain the official Create 6.0.10 JAR, then choose a writable
 development directory and pass both paths to Gradle. For example, on Windows:

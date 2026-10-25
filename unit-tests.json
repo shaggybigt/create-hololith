@@ -1,0 +1,37 @@
+[
+  {
+    "errors": 0,
+    "failures": 0,
+    "tests": 5,
+    "skipped": 0,
+    "suite": "dev.hololith.ContraptionPacketTest"
+  },
+  {
+    "errors": 0,
+    "failures": 0,
+    "tests": 5,
+    "skipped": 0,
+    "suite": "dev.hololith.MarkerPacketTest"
+  },
+  {
+    "errors": 0,
+    "failures": 0,
+    "tests": 5,
+    "skipped": 0,
+    "suite": "dev.hololith.ReferenceGeometryTest"
+  },
+  {
+    "errors": 0,
+    "failures": 0,
+    "tests": 1,
+    "skipped": 0,
+    "suite": "dev.hololith.SnapshotValidationTest"
+  },
+  {
+    "errors": 0,
+    "failures": 0,
+    "tests": 3,
+    "skipped": 0,
+    "suite": "dev.hololith.SurveyContractTest"
+  }
+]
