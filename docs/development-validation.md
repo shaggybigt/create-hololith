@@ -58,11 +58,14 @@ the existing repository. Tracked files were checked for local machine paths,
 credentials, worlds and generated artifacts; recordings, launch logs, encoders,
 runtime JARs and temporary worlds remain excluded.
 
-The GitHub Actions workflow is configured for Java 21 on Linux with pinned actions,
-read-only repository permissions and no release step. **Hosted CI has not run:
-uploading the development branch awaits GitHub authorization.** Main and the
-existing 0.3.0 release remain unchanged. A local build is not presented as a
-successful GitHub Actions run.
+GitHub Actions passed [Build and test](https://github.com/shaggybigt/create-hololith/actions/runs/40161192964)
+for commit `0dc2b270bfc9a863efda8f7a0aad49f09c50b135` on Ubuntu with Java 21,
+compiling the addon/probe and passing all 32 automated tests. The downloaded test
+reports have no failures, errors or skipped cases; [hosted build evidence](test-results/0.4.0-dev.1/hosted-ci.json)
+records the commit, checks and player JAR checksum. The workflow uses pinned
+actions, read-only repository permissions and no release step. Graphical and
+dedicated-server validation above was performed locally. Main and the existing
+0.3.0 release remain unchanged.
 
 ## Demonstration and limits
 

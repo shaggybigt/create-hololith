@@ -6,8 +6,8 @@ remote beacon, and mark reference points with sixteen dye colors.
 
 **Minecraft Java 1.21.1 · NeoForge 21.1.259 · Create 6.0.10 · Java 21**
 
-This development branch contains the complete buildable source. Its changes are
-under validation; the existing [0.3.0 release and downloads](https://github.com/shaggybigt/create-hololith/releases/tag/v0.3.0)
+This tested development preview contains the complete buildable source. The
+existing [0.3.0 release and downloads](https://github.com/shaggybigt/create-hololith/releases/tag/v0.3.0)
 remain available. No new public release is created by the build workflow.
 
 ![A Hololith table projecting real terrain and colored reference markers](images/daylight.png)
@@ -62,11 +62,16 @@ recipes and a **Create: Hololith** creative tab.
 
 ## Build from source
 
-Install a **64-bit JDK 21**, clone this repository, then run its Gradle wrapper:
+Install a **64-bit JDK 21**, clone the development branch, then run its Gradle wrapper:
 
 ```sh
+git clone --branch development/qol-showcase https://github.com/shaggybigt/create-hololith.git
+cd create-hololith
 ./gradlew build
 ```
+
+The complete source is on `development/qol-showcase` while this draft is under
+review; `main` still preserves the previous release repository.
 
 On Windows use `gradlew.bat build`. If the Unix wrapper is not executable, use
 `bash ./gradlew build`. The wrapper downloads the pinned dependencies, including

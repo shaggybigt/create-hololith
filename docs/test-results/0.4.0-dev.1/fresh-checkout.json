@@ -16,5 +16,10 @@
     "assets/hololith/lang/en_us.json",
     "LICENSE"
   ],
-  "hostedLinuxCI": "Workflow configured; GitHub authorization and remote execution pending"
+  "hostedLinuxCI": {
+    "conclusion": "success",
+    "url": "https://github.com/shaggybigt/create-hololith/actions/runs/40161192964",
+    "commit": "0dc2b270bfc9a863efda8f7a0aad49f09c50b135",
+    "evidence": "hosted-ci.json"
+  }
 }

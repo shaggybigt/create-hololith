@@ -1,0 +1,25 @@
+{
+  "runId": 40161192964,
+  "url": "https://github.com/shaggybigt/create-hololith/actions/runs/40161192964",
+  "commit": "0dc2b270bfc9a863efda8f7a0aad49f09c50b135",
+  "event": "push",
+  "conclusion": "success",
+  "completedAt": "2026-10-25T04:17:21Z",
+  "platform": "GitHub-hosted Ubuntu",
+  "java": "Temurin 21",
+  "command": "bash ./gradlew --no-daemon build probeJar",
+  "tests": {
+    "tests": 32,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "playerJarSha256": "8b51b8bed761e73b0ca0ddba832111fab4ac107d0015ba29d98c19ee3b2f78ce",
+  "automatedChecks": [
+    "verifyCreateDependency",
+    "test",
+    "verifyDistribution",
+    "probeJar"
+  ],
+  "scope": "Compilation, automated unit tests and distribution verification; graphical and dedicated-server validation was performed locally."
+}
