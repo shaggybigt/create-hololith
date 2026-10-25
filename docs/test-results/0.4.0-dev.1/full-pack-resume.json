@@ -1,0 +1,240 @@
+{
+  "timestamp": "2026-10-25T03:01:29.052434400Z",
+  "mode": "resume",
+  "version": "0.4.0-dev.1",
+  "profile": "full-pack",
+  "loadedMods": [
+    "aeronautics",
+    "aeronautics_bundled",
+    "apollib",
+    "architectury",
+    "cccbridge",
+    "ccredstonelinkbridge",
+    "chunky",
+    "cloth_config",
+    "computercraft",
+    "copycats",
+    "create",
+    "create_avionics",
+    "createdeco",
+    "createthrusters",
+    "createthrusters_bundled",
+    "dungeons_arise",
+    "ferritecore",
+    "flywheel",
+    "forgottenknowledge",
+    "fzzy_config",
+    "gadgetsngizmos",
+    "geophilic",
+    "guardvillagers",
+    "hololith",
+    "hololith_probe",
+    "immersive_armors",
+    "interiors",
+    "kotlinforforge",
+    "lithostitched",
+    "minecraft",
+    "modernfix",
+    "mr_epic_structuresvillages",
+    "neoforge",
+    "offroad",
+    "ponder",
+    "sable",
+    "sablecompanion",
+    "simplyswords",
+    "simplytooltips",
+    "simulated",
+    "spark",
+    "tectonic",
+    "veil"
+  ],
+  "scope": "Graphical NeoForge development client and integrated server with installed pack, offline dev identity and copied disposable world. No authenticated multiplayer or airborne flight acceptance.",
+  "skippedChecks": [],
+  "phase": 56,
+  "worldTicks": 401,
+  "fpsAtFinish": 116,
+  "checks": [
+    {
+      "passed": true,
+      "test": "full pack client and integrated server loaded"
+    },
+    {
+      "passed": true,
+      "test": "table survives real process restart"
+    },
+    {
+      "passed": true,
+      "test": "table cached survey survives real process restart"
+    },
+    {
+      "passed": true,
+      "test": "sensor identity persisted"
+    },
+    {
+      "passed": true,
+      "test": "shared region cache persisted"
+    },
+    {
+      "passed": true,
+      "test": "reference UUID links survive actual restart"
+    },
+    {
+      "passed": true,
+      "test": "individual reference colors survive actual restart"
+    },
+    {
+      "passed": true,
+      "test": "ephemeral marker registry recovers from loaded blocks"
+    },
+    {
+      "passed": true,
+      "test": "persisted terrain synced after reconnect"
+    },
+    {
+      "passed": true,
+      "test": "QoL panel starts with an existing terrain GPU mesh"
+    },
+    {
+      "passed": true,
+      "test": "actual brightness slider previews a bounded local value"
+    },
+    {
+      "passed": true,
+      "test": "brightness panel adjustment reuses the terrain GPU mesh"
+    },
+    {
+      "passed": true,
+      "test": "local brightness leaves shared survey settings unchanged"
+    },
+    {
+      "passed": true,
+      "test": "closing the brightness panel saves its client config"
+    },
+    {
+      "passed": true,
+      "test": "QoL probe restores default brightness on disk"
+    },
+    {
+      "passed": true,
+      "test": "Ponder association count for reference_marker"
+    },
+    {
+      "passed": true,
+      "test": "Ponder association count for remote_beacon"
+    },
+    {
+      "passed": true,
+      "test": "Ponder association count for local_sensor"
+    },
+    {
+      "passed": true,
+      "test": "Ponder association count for surveying_table"
+    },
+    {
+      "passed": true,
+      "test": "Ponder association count for survey_card"
+    },
+    {
+      "passed": true,
+      "test": "Ponder surveying_table has expected localized title"
+    },
+    {
+      "passed": true,
+      "test": "Ponder surveying_table has localized first displayed caption"
+    },
+    {
+      "passed": true,
+      "test": "Ponder surveying_table localizes every displayed caption through its last"
+    },
+    {
+      "passed": true,
+      "test": "Ponder surveying_table captures its real 121-column tutorial model"
+    },
+    {
+      "passed": true,
+      "test": "Ponder surveying_table actually builds a terrain GPU mesh"
+    },
+    {
+      "passed": true,
+      "test": "Ponder renders the expected caption: tutorial model"
+    },
+    {
+      "passed": true,
+      "test": "table Ponder seek advances the actual scene"
+    },
+    {
+      "passed": true,
+      "test": "Ponder survey_sources has expected localized title"
+    },
+    {
+      "passed": true,
+      "test": "Ponder survey_sources has localized first displayed caption"
+    },
+    {
+      "passed": true,
+      "test": "Ponder survey_sources localizes every displayed caption through its last"
+    },
+    {
+      "passed": true,
+      "test": "Ponder survey_sources captures its real 121-column tutorial model"
+    },
+    {
+      "passed": true,
+      "test": "Ponder survey_sources actually builds a terrain GPU mesh"
+    },
+    {
+      "passed": true,
+      "test": "Ponder renders the expected caption: never force-loaded"
+    },
+    {
+      "passed": true,
+      "test": "source Ponder explains offline cache without forced chunks"
+    },
+    {
+      "passed": true,
+      "test": "Ponder reference_markers has expected localized title"
+    },
+    {
+      "passed": true,
+      "test": "Ponder reference_markers has localized first displayed caption"
+    },
+    {
+      "passed": true,
+      "test": "Ponder reference_markers localizes every displayed caption through its last"
+    },
+    {
+      "passed": true,
+      "test": "Ponder reference_markers captures its real 121-column tutorial model"
+    },
+    {
+      "passed": true,
+      "test": "Ponder reference_markers actually builds a terrain GPU mesh"
+    },
+    {
+      "passed": true,
+      "test": "Ponder renders the expected caption: sixteen dyes"
+    },
+    {
+      "passed": true,
+      "test": "marker Ponder dye changes the physical model"
+    },
+    {
+      "passed": true,
+      "test": "marker Ponder dye changes the terrain pin"
+    },
+    {
+      "passed": true,
+      "test": "marker Ponder unlink removes the projected pin"
+    },
+    {
+      "passed": true,
+      "test": "Ponder rewind replays the linked colored pin"
+    },
+    {
+      "passed": true,
+      "test": "replayed Ponder model rebuilds a terrain GPU mesh"
+    }
+  ],
+  "total": 45,
+  "failures": 0
+}

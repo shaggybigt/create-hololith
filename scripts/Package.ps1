@@ -53,7 +53,7 @@ Copy-Item -LiteralPath (Join-Path $project 'docs') -Destination $dist -Recurse -
 Copy-Item -LiteralPath (Join-Path $project 'images') -Destination $dist -Recurse -Force
 Copy-Item -LiteralPath (Join-Path $project 'LICENSE') -Destination $dist
 Copy-Item -LiteralPath (Join-Path $project 'CHANGELOG.md') -Destination $dist
-$hashes=foreach($file in Get-ChildItem -LiteralPath $dist -File | Where-Object {$_.Extension -in @('.jar','.zip')}) {
+$hashes=foreach($file in Get-ChildItem -LiteralPath $dist -File | Where-Object {$_.Extension -in @('.jar','.zip','.mp4')}) {
     $hash=Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256
     "$($hash.Hash.ToLowerInvariant())  $($file.Name)"
 }

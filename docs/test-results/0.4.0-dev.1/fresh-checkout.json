@@ -1,0 +1,20 @@
+{
+  "commit": "408ed3e9fdf0200794c8c285ec2dfa8979322944",
+  "command": "gradlew.bat --no-daemon build probeJar",
+  "result": "BUILD SUCCESSFUL",
+  "java": "21.0.12.1+1",
+  "platform": "Windows 11",
+  "unitTests": 32,
+  "runtimeRootOverride": false,
+  "createJarOverride": false,
+  "dependencies": "Pinned public Maven dependencies; local Gradle dependency cache reused",
+  "playerJarSha256": "778d314351590ad50488bb572f5eaad737a4d17171c6e32bd42e585613c21894",
+  "testedRuntimeJarSha256": "a79145efb7d0d0da33666ebd1b8b4e05a7e6a53879b8f71e026b27617249bf19",
+  "compiledClassesMatchTestedRuntime": true,
+  "lineEndingOnlyDifferences": [
+    "pack.mcmeta",
+    "assets/hololith/lang/en_us.json",
+    "LICENSE"
+  ],
+  "hostedLinuxCI": "Workflow configured; GitHub authorization and remote execution pending"
+}

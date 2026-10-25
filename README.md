@@ -15,6 +15,9 @@ remain available. No new public release is created by the build workflow.
 [Interior lighting](images/interior.png) · [Aboard a Sable ship](images/ship.png) ·
 [Create bearing](images/contraption-bearing.png) · [Moving minecart](images/contraption-cart.png)
 
+[Instrument panel](images/control-panel.png) · [Marker Ponder tutorial](images/ponder-markers.png) ·
+[Survey-source tutorial](images/ponder-sources.png)
+
 [Demonstration world and recording guide](docs/showcase.md)
 
 ## What it does
@@ -33,9 +36,11 @@ remain available. No new public release is created by the build workflow.
   this development build.
 - Includes three Create-style Ponder tutorials for the table, survey sources and
   colored reference markers; hover an item and hold the configured Ponder key.
+- Reports live, cached, incomplete and unavailable terrain, with clear card/link
+  confirmations and status that becomes live only after a recent completed scan.
 
 Read the [player guide](docs/usage.md), [contraption guide](docs/contraptions.md)
-and [tested behavior and limits](docs/validation.md). This is a surface survey:
+and [tested behavior and limits](docs/development-validation.md). This is a surface survey:
 interiors and caves are not reconstructed, and unknown terrain stays blank.
 
 ## Install
@@ -97,4 +102,5 @@ primarily with AI coding tools under human direction. See
 [reference investigation and provenance](docs/references.md) for the independent
 implementations and third-party APIs/assets, and [dependency details](docs/building.md#dependencies)
 for the external libraries used during development. Minecraft and Create textures
-are referenced from the installed resource atlas; their image bytes are not bundled.
+are referenced from the installed resource atlas; raw texture assets are not bundled
+in the addon. Screenshots show their actual in-game rendering.

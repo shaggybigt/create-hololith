@@ -118,5 +118,6 @@ no release, package, community posting or deployment step.
 
 Automated compilation and unit tests are distinct from gameplay validation. The
 recorded graphical and dedicated-server checks and their remaining limits are in
+[development validation](development-validation.md), with earlier records in
 [validation.md](validation.md). Updating those records requires fresh evidence;
 a green CI run does not imply that the graphical probes or ship tests were run.

@@ -48,6 +48,12 @@ client to explore it without the recording probe. Remove the probe JAR from the
 copy's `mods` directory. The world, recordings and encoder stay outside Git; they
 can be supplied as separate local deliverables without changing release downloads.
 
+For the supplied world ZIP, extract its `Create-Hololith-Showcase` folder directly
+into your client's `saves` folder, then open it with Create and the matching
+Hololith development JAR installed. If a new player identity starts away from the
+observatory, use `/tp @s 24 104 8` in this creative demonstration world. The
+recording probe is not needed to explore the saved scene.
+
 ## Reproduce the edit
 
 Use Python 3.10 or newer; no third-party Python package is needed:
@@ -125,6 +131,6 @@ Create/minecart controls; the scripted drive is no longer present.
 This footage demonstrates a Create minecart contraption, not powered Aeronautics
 flight. It does not show Ponder playback, survival crafting, authenticated remote
 multiplayer or every contraption controller. The raw run recorded 2,400 frames
-over 80 seconds, with five repeated capture frames; repetition fills occasional
-capture timing gaps and is not generated motion. See [validation](validation.md)
+over 80 seconds, with six repeated capture frames; repetition fills occasional
+capture timing gaps and is not generated motion. See [development validation](development-validation.md)
 for the separate test evidence and remaining compatibility limits.

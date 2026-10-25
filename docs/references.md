@@ -39,7 +39,7 @@ the hologram its appearance using Minecraft shaders. Iris shadow passes are
 skipped through its optional public API; no shader pack is required.
 
 Create and Minecraft textures are referenced through the existing resource
-atlas; no texture bytes are redistributed. The table, sensor, beacon, card and
+atlas; no raw Minecraft/Create texture assets are bundled in the addon. The table, sensor, beacon, card and
 reference-marker models are original. APIs were checked against Minecraft
 1.21.1 and NeoForge 21.1.259. The addon source is available under its own
 [MIT license](../LICENSE).

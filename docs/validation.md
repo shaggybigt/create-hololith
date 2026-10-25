@@ -1,5 +1,8 @@
 # Validation — 0.3.0
 
+This is the preserved release record. See [development validation](development-validation.md)
+for the 0.4.0 development branch.
+
 Tested on 2026-10-24 (America/Chicago; report timestamps are UTC) with
 Minecraft 1.21.1, NeoForge 21.1.259, Create 6.0.10 and Java 21.0.12.1+1.
 Graphical runs used Windows 11, an RTX 4090, driver 617.42 and 1600×900.
