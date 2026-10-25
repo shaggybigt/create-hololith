@@ -45,6 +45,7 @@ older marker records without render-source metadata use the fallback position.
 | Full-pack fresh world / new JVM reload | 110 / 45 checks passed | [Fresh](test-results/0.4.0-dev.2/full-pack-fresh.json), [reload](test-results/0.4.0-dev.2/full-pack-resume.json) |
 | Player JAR on Create-only / full-pack dedicated servers | 15 / 15 checks passed | [Minimal server](test-results/0.4.0-dev.2/dedicated-minimal.json), [full server](test-results/0.4.0-dev.2/dedicated.json) |
 | Public airship baseline and Hololith-equipped flight | 58 checks passed | [Airship report](test-results/0.4.0-dev.2/public-airship.json) |
+| Fresh source checkout, documented dependencies | Build/probe succeeded; 47 tests passed | [Source build](test-results/0.4.0-dev.2/fresh-checkout.json) |
 
 Counts are assertions across repeatable profiles, not counts of unique user
 scenarios. The game checks exercise real rendering, packets, linking, controls,
@@ -56,6 +57,14 @@ The moving-cart check samples partial-frame positions between server ticks.
 Both dedicated records identify the same tested player JAR SHA-256:
 `3b8dfb8c89807fc2a2a470e614690b2ec1452ad0819e8b60358b7d17b0b6f785`.
 The probe and optional ship classes are not bundled in that player JAR.
+
+The fresh checkout used the pinned public dependencies without `runtimeRoot` or
+`createJar` overrides. Existing Gradle dependency/task caches were reused; the
+test task executed all 47 tests. Its compiled classes and binary resources match
+the gameplay-tested build. Archive hashes differ only because of text line
+endings and two empty texture directories that Git does not track. The supplied
+player JAR is the exact runtime-tested artifact identified above. No new hosted
+GitHub Actions run is claimed for this local branch.
 
 New unit checks cover moving-scan fairness, cached-region priority, stale-cache
 rollback, source identity/link rejection, malformed and legacy marker records,

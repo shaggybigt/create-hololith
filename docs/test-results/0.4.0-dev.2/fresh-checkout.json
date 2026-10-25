@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-10-25T19:58:17.056493+00:00",
+  "sourceCommit": "958504bdba5e258b7cedc241f1b9508b6b30cf74",
+  "command": "gradlew.bat --no-daemon build probeJar",
+  "runtimeRootOverride": false,
+  "createJarOverride": false,
+  "reusedGradleCaches": true,
+  "compileTasksFromCache": true,
+  "testsExecuted": true,
+  "tests": 47,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "runtimeJarSha256": "3b8dfb8c89807fc2a2a470e614690b2ec1452ad0819e8b60358b7d17b0b6f785",
+  "sourceBuildJarSha256": "5f9b19087c0a0d6c42bc414f363f449af52673b12a5f87bd6b5d86409a7048e3",
+  "compiledClassesIdentical": true,
+  "textLineEndingOnlyDifferences": [
+    "LICENSE",
+    "assets/hololith/lang/en_us.json",
+    "pack.mcmeta"
+  ],
+  "scope": "Fresh local Git checkout; pinned public dependencies with existing Gradle dependency/task caches. No installed modpack path overrides, no graphical acceptance repeated in this checkout.",
+  "emptyDirectoryEntryDifferences": [
+    "assets/hololith/textures/",
+    "assets/hololith/textures/item/"
+  ]
+}
