@@ -36,6 +36,8 @@ public final class HololithProbe {
     private final boolean resume=Boolean.getBoolean("hololith.probe.resume");
     private final boolean minimal=Boolean.getBoolean("hololith.probe.minimal");
     private final boolean contraptions=Boolean.getBoolean("hololith.probe.contraptions");
+    private final boolean airship=Boolean.getBoolean("hololith.probe.airship");
+    private PublicAirshipFixture airshipFixture;
     private ContraptionFixture contraptionFixture;
     private final boolean showcase=Boolean.getBoolean("hololith.showcase");
     private ShowcaseFixture showcaseFixture;
@@ -47,9 +49,11 @@ public final class HololithProbe {
     private long revision;
     private boolean finished;
     private UUID movingId;
-    private int movingTick=-1;
+    private volatile int movingTick=-1;
+    private int movingMeshFrames;
+    private boolean movingMeshSeen,movingMeshLost;
     private final Set<Integer> movingCenters=new HashSet<>();
-    private boolean movingAcquired,movingLost;
+    private boolean movingAcquired,movingLost,movingMarkersLost;
     private ShipFixture shipFixture;
     private BlockPos originalTable,shipSensor;
     private UUID shipSensorId;
@@ -66,7 +70,9 @@ public final class HololithProbe {
             String allowed=System.getProperty("hololith.probe.allowedRoot", "");
             if(allowed.isBlank()||!game.equals(Path.of(allowed).toRealPath())||!Files.exists(game.resolve(".hololith-disposable")))throw new IllegalStateException("Probe requires an explicitly allowed disposable directory and .hololith-disposable marker");
             Path file=game.resolve("saves/hololith-validation/level.dat");
-            if(minimal&&!resume){
+            if(airship){
+                if(Files.exists(game.resolve("saves/hololith-airship")))throw new IllegalStateException("Fresh airship probe refuses an existing world; archive it first");
+            }else if(minimal&&!resume){
                 if(Files.exists(file))throw new IllegalStateException("Fresh minimal probe refuses an existing world; archive it first");
             }else{
                 var nbt=NbtIo.readCompressed(file,NbtAccounter.unlimitedHeap());
@@ -75,14 +81,21 @@ public final class HololithProbe {
             }
         }catch(Exception e){throw new RuntimeException(e);}
         NeoForge.EVENT_BUS.addListener(this::tick);
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.client.event.RenderFrameEvent.Post event)->{
+            if(movingTick<10||table==null||Minecraft.getInstance().level==null)return;
+            try{Object mesh=clientMesh();if(mesh!=null){movingMeshSeen=true;movingMeshFrames++;}else if(movingMeshSeen)movingMeshLost=true;}
+            catch(Exception error){movingMeshLost=true;}
+        });
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.tick.ServerTickEvent.Pre e)->{
             if(movingTick<0)return;
             var level=e.getServer().overworld();var t=(HololithTableEntity)level.getBlockEntity(table);
-            SurveyStore.get(e.getServer()).heartbeat(movingId,level.dimension().location().toString(),cx+4*(movingTick/20),cz);
+            SurveyStore.get(e.getServer()).heartbeat(movingId,level.dimension().location().toString(),cx+4*((movingTick/5)%3),cz);
             if(t.snapshot()!=null){movingAcquired=true;movingCenters.add(t.snapshot().centerX);}else if(movingAcquired)movingLost=true;
+            if(movingTick>=20&&t.snapshot()!=null&&t.markers().size()!=2)movingMarkersLost=true;
             if(++movingTick==160){
                 check("moving target adopts completed surveys",movingCenters.size()>=3&&movingCenters.stream().mapToInt(Integer::intValue).max().orElse(cx)>=cx+8);
                 check("moving updates retain last projection",movingAcquired&&!movingLost);movingTick=-1;
+                check("rapid survey updates keep table-linked marker frame current",!movingMarkersLost);
             }
         });
     }
@@ -127,8 +140,9 @@ public final class HololithProbe {
     }
     private void tick(ClientTickEvent.Post event){
         if(finished)return;var mc=Minecraft.getInstance();
-        if(!contraptions&&!showcase&&System.nanoTime()-started>360_000_000_000L){check("probe completed before timeout",false);finish();return;}
+        if(!contraptions&&!showcase&&!airship&&System.nanoTime()-started>360_000_000_000L){check("probe completed before timeout",false);finish();return;}
         try {
+            if(airship){if(airshipFixture==null)airshipFixture=new PublicAirshipFixture();airshipFixture.tick();return;}
             if(minimal)openMinimalWorld(mc);
             if(showcase){if(showcaseFixture==null)showcaseFixture=new ShowcaseFixture();showcaseFixture.tick();return;}
             if(contraptions){if(contraptionFixture==null)contraptionFixture=new ContraptionFixture(resume);contraptionFixture.tick();return;}
@@ -223,6 +237,7 @@ public final class HololithProbe {
                 }
                 case 14->{
                     if(ticks-phaseTick<190)return;
+                    check("rapid survey changes retain a rendered GPU mesh",movingMeshSeen&&movingMeshFrames>20&&!movingMeshLost);
                     server(p->{CompoundTag card=new CompoundTag();card.putString("Dimension",p.serverLevel().dimension().location().toString());card.putInt("X",cx);card.putInt("Z",cz);card.putUUID("SensorId",sensorId);((HololithTableEntity)p.serverLevel().getBlockEntity(table)).bind(card);});next();
                 }
                 case 15->{

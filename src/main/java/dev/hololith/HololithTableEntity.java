@@ -20,7 +20,7 @@ public final class HololithTableEntity extends BlockEntity {
     private SurveyKey markerKey;
     private String targetDimension="minecraft:overworld",status="Waiting for survey";
     private int targetX,targetZ;
-    private SurveyKey pendingKey;
+    private final SurveyFollower follower=new SurveyFollower();
     private long lastControlAt=-100;
     private Runnable mountedStateChanged;
     private java.util.function.BiConsumer<SurveyKey,List<MarkerPoint>> mountedMarkersChanged;
@@ -57,29 +57,29 @@ public final class HololithTableEntity extends BlockEntity {
     public boolean allowControl(){if(level==null||level.getGameTime()-lastControlAt<5)return false;lastControlAt=level.getGameTime();return true;}
     public void bind(CompoundTag card){
         if(card.hasUUID("SensorId")){sensorId=card.getUUID("SensorId");mode=1;}else{sensorId=null;mode=2;}
-        targetDimension=card.getString("Dimension");targetX=card.getInt("X");targetZ=card.getInt("Z");snapshot=null;pendingKey=null;status="Acquiring survey";changed();
+        targetDimension=card.getString("Dimension");targetX=card.getInt("X");targetZ=card.getInt("Z");snapshot=null;follower.reset();status="Acquiring survey";changed();
     }
-    public void adjustDial(boolean scale){if(scale)span=span==32?64:span==64?128:32;else rotation=(rotation+1)%4;if(scale){snapshot=null;pendingKey=null;}changed();}
+    public void adjustDial(boolean scale){if(scale)span=span==32?64:span==64?128:32;else rotation=(rotation+1)%4;if(scale){snapshot=null;follower.reset();}changed();}
     public void configure(int span,int rotation,int zoom,int relief,int mode,String dimension,int x,int z){
         if(this.span==span&&this.rotation==rotation&&this.zoom==zoom&&this.relief==relief&&this.mode==mode&&(mode!=2||(targetDimension.equals(dimension)&&targetX==x&&targetZ==z)))return;
         boolean retarget=this.span!=span||this.mode!=mode||(mode==2&&(!this.targetDimension.equals(dimension)||targetX!=x||targetZ!=z));
         this.span=SurveyKey.validSpan(span);this.rotation=Math.floorMod(rotation,4);this.zoom=Math.clamp(zoom,0,2);this.relief=Math.clamp(relief,1,2);this.mode=Math.clamp(mode,0,2);
         if(mode==2){targetDimension=dimension;targetX=x;targetZ=z;}
-        if(retarget){snapshot=null;pendingKey=null;status="Acquiring survey";}changed();
+        if(retarget){snapshot=null;follower.reset();status="Acquiring survey";}changed();
     }
     public static void tick(Level level,BlockPos pos,BlockState state,HololithTableEntity table){
-        Optional<net.minecraft.world.phys.Vec3> location=table.mode==0&&(level.getGameTime()+pos.asLong())%20==0?ShipCoordinates.toWorld(level,pos):Optional.empty();
+        Optional<net.minecraft.world.phys.Vec3> location=table.mode==0&&(level.getGameTime()+pos.asLong())%SurveyFollower.POLL_TICKS==0?ShipCoordinates.toWorld(level,pos):Optional.empty();
         tickAt(level,pos,state,table,location);
     }
     /** Uses an authoritative transformed position supplied by a moving platform. */
     public static void tickAt(Level level,BlockPos pos,BlockState state,HololithTableEntity table,Optional<net.minecraft.world.phys.Vec3> location){
         if(!(level instanceof ServerLevel))return;
-        if((level.getGameTime()+pos.asLong())%5==0)table.refreshMarkers();
-        if((level.getGameTime()+pos.asLong())%20!=0)return;
+        boolean markerDue=(level.getGameTime()+pos.asLong())%5==0;
+        if((level.getGameTime()+pos.asLong())%SurveyFollower.POLL_TICKS!=0){if(markerDue)table.refreshMarkers();return;}
         var server=((ServerLevel)level).getServer();SurveyStore store=SurveyStore.get(server);
         String dimension=table.targetDimension;int x=table.targetX,z=table.targetZ;boolean online=true;
         if(table.mode==0){
-            if(location.isEmpty()){table.updateStatus(SurveyStatus.retained("Position unavailable",table.snapshot));return;}
+            if(location.isEmpty()){if(markerDue)table.refreshMarkers();table.updateStatus(SurveyStatus.retained("Position unavailable",table.snapshot));return;}
             dimension=level.dimension().location().toString();x=(int)Math.floor(location.get().x);z=(int)Math.floor(location.get().z);
         }else if(table.mode==1){
             var sensor=table.sensorId==null?null:store.sensor(table.sensorId);online=sensor!=null&&sensor.online();
@@ -89,9 +89,8 @@ public final class HololithTableEntity extends BlockEntity {
         // Re-seed the shared cache after eviction/restart from this table's own persistent survey.
         if(table.snapshot!=null&&table.snapshot.key().equals(key)&&store.find(key)==null)store.put(table.snapshot);
         SurveyManager manager=SurveyManager.get(server);
-        SurveyKey requested=table.pendingKey==null?key:table.pendingKey;
-        SurveySnapshot next=manager.request(requested);
-        table.pendingKey=manager.isPending(requested)?requested:null;
+        SurveyFollower.Update update=table.follower.poll(key,manager);
+        SurveySnapshot next=update.snapshot();
         boolean changed=false;
         if(next!=null){
             changed=table.snapshot==null||!table.snapshot.key().equals(next.key())||table.snapshot.revision!=next.revision;
@@ -100,8 +99,10 @@ public final class HololithTableEntity extends BlockEntity {
         SurveySnapshot displayed=table.snapshot;
         var dimensionId=net.minecraft.resources.ResourceLocation.tryParse(key.dimension());
         boolean dimensionAvailable=dimensionId!=null&&server.getLevel(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,dimensionId))!=null;
-        String text=SurveyStatus.describe(displayed,key,online,manager.hasChecked(key),manager.isPending(requested),dimensionAvailable);
+        String text=SurveyStatus.describe(displayed,key,online,manager.hasChecked(key),update.pending(),dimensionAvailable);
         if(!text.equals(table.status)){table.status=text;changed=true;}
+        // Publish positions for the newly adopted region, including in its full update tag.
+        if(markerDue)table.refreshMarkers();
         if(changed)table.changed();
     }
     private void updateStatus(String text){if(!status.equals(text)){status=text;changed();}}

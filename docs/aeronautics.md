@@ -28,6 +28,21 @@ then applies the same table rotation, magnification and relief to the pins.
 This keeps markers registered to terrain while a newer survey is pending.
 Enclosure and line of sight never enter the marker lookup.
 
+Version 0.4.0-dev.2 additionally resolves already-tracked reference sources
+against Sable Companion's `ClientSubLevelAccess.renderPose(float)` each rendered
+frame, after checking the containing ship UUID. Logical/server coordinates
+remain authoritative for link membership and remote fallbacks. These render
+positions do not rescan terrain or rebuild its GPU buffers. A table may still
+display an older completed survey while its moving target is being scanned.
+
+The [public schematic workflow](public-schematics.md) adds normal assembly and
+powered-flight acceptance using downloaded craft, with separate baseline and
+Hololith trials. Its results must be read separately from the historical
+paused-physics tests described below.
+The [0.4.0-dev.2 flight report](motion-validation.md) records a completed powered
+baseline and instrumented trial with Patrik's airship v10, including turning,
+deceleration and measured render-pose alignment.
+
 Table, sensor and reference identities are saved UUIDs. A runtime registry of
 loaded references indexes those links without searching chunks. Removal checks
 the owning block entity so an old pre-assembly instance cannot unregister its
@@ -58,8 +73,9 @@ surveyed ground rather than the reference blocks' altitude.
 This was a controlled paused-physics fixture using the installed engine. Its
 components are joined by a physical frame: Sable's disconnected-body splitting
 runs even with physics paused, so disconnected enclosures are not one airship.
-Powered flight, passengers, docking, shader packs and authenticated multiplayer
-require their own acceptance tests.
+Powered flight received the separate bounded public-airship acceptance described
+above. Passengers, docking, shader packs, authenticated multiplayer and long-range
+flight still require their own acceptance tests.
 
 Sources: [Companion API](https://github.com/ryanhcode/sable-companion),
 [Sable documentation](https://github.com/ryanhcode/sable/wiki),

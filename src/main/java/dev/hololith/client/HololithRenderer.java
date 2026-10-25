@@ -32,11 +32,17 @@ public final class HololithRenderer implements BlockEntityRenderer<HololithTable
                 &&local.m30()*local.m30()+local.m31()*local.m31()+local.m32()*local.m32()>96*96)return;
         SurveySnapshot snapshot=table.snapshot();Entry entry=CACHE.computeIfAbsent(table,ignored->new Entry());entry.lastUsed=ticks;
         if(sameArea(entry.snapshot,snapshot)&&entry.snapshot.revision==snapshot.revision)entry.snapshot=snapshot;
-        if(entry.snapshot!=snapshot&&!sameArea(entry.snapshot,snapshot))entry.close();
+        // An explicit relink/scale change clears the survey. Do not present an unrelated
+        // old region under an unavailable target's status while waiting indefinitely.
+        if(snapshot==null)entry.close();
+        // A moving survey can arrive faster than the GPU build budget. Keep displaying
+        // the last complete mesh until its replacement has actually built successfully.
         if(snapshot!=null&&entry.snapshot!=snapshot&&lastBuildTick!=ticks&&ticks-entry.lastAttempt>=10){
             lastBuildTick=ticks;entry.lastAttempt=ticks;
             try{SurveyMesh next=SurveyMesh.build(snapshot);entry.close();entry.mesh=next;entry.snapshot=snapshot;}
-            catch(RuntimeException failure){entry.snapshot=snapshot;LogUtils.getLogger().warn("Could not build Hololith survey projection",failure);}
+            catch(RuntimeException failure){
+                if(ticks-entry.lastWarning>=200){entry.lastWarning=ticks;LogUtils.getLogger().warn("Could not build Hololith survey projection; retaining the previous mesh",failure);}
+            }
         }
         while(CACHE.size()>8){var first=CACHE.entrySet().iterator();var old=first.next();old.getValue().close();first.remove();}
         pose.pushPose();
@@ -45,8 +51,10 @@ public final class HololithRenderer implements BlockEntityRenderer<HololithTable
             float intensity=HololithClientConfig.intensity();
             if(entry.mesh!=null){Matrix4f transform=new Matrix4f(RenderSystem.getModelViewMatrix()).mul(pose.last().pose());entry.mesh.draw(transform,intensity);}
             decorations(pose.last(),buffers.getBuffer(HololithRenderTypes.LIGHT),ticks+partial);
-            if(entry.mesh!=null&&entry.mesh.geometry()!=null&&entry.snapshot!=null&&snapshot!=null&&entry.snapshot.key().equals(snapshot.key()))
-                markers(table,entry.mesh.geometry(),pose.last(),buffers,intensity);
+            // Points are world coordinates: map them through the mesh actually being drawn,
+            // even while its newer same-dimension replacement waits for the build budget.
+            if(entry.mesh!=null&&entry.mesh.geometry()!=null&&entry.snapshot!=null&&snapshot!=null&&entry.snapshot.dimension.equals(snapshot.dimension))
+                markers(table,entry.mesh.geometry(),pose.last(),buffers,intensity,partial);
         }finally{pose.popPose();}
     }
     private static boolean sameArea(SurveySnapshot a,SurveySnapshot b){return a!=null&&b!=null&&a.span==b.span&&a.centerX==b.centerX&&a.centerZ==b.centerZ&&a.dimension.equals(b.dimension);}
@@ -62,12 +70,14 @@ public final class HololithRenderer implements BlockEntityRenderer<HololithTable
         flat(pose,out,-r,-r,r,r,.02f+(time%160)/160f*.72f,0x103AE4FF);
         for(int sx:new int[]{-1,1})for(int sz:new int[]{-1,1}){float x=sx*r,z=sz*r;quad(pose,out,0xA063DCEB,x-w,-.32f,z,x+w,-.32f,z,x+w,.18f,z,x-w,.18f,z);quad(pose,out,0xA063DCEB,x,-.32f,z-w,x,-.32f,z+w,x,.18f,z+w,x,.18f,z-w);}
     }
-    private static void markers(HololithTableEntity table,SurveyGeometry geometry,PoseStack.Pose pose,MultiBufferSource buffers,float intensity){
+    private static void markers(HololithTableEntity table,SurveyGeometry geometry,PoseStack.Pose pose,MultiBufferSource buffers,float intensity,float partial){
         List<Pin> pins=new ArrayList<>(Math.min(64,table.markers().size()));
+        MarkerPositionResolver resolver=new MarkerPositionResolver(table,partial);
         int visited=0;
         for(var marker:table.markers()){
             if(visited++>=64)break;
-            var position=geometry.position(marker.x(),marker.z());if(position.isEmpty())continue;
+            Vec3 resolved=resolver.position(marker);
+            var position=geometry.position(resolved.x,resolved.z);if(position.isEmpty())continue;
             var point=position.get();pins.add(new Pin((float)point.x(),(float)point.y()+.006f,(float)point.z(),marker.color()&0xFFFFFF));
         }
         if(pins.isEmpty())return;
@@ -104,5 +114,5 @@ public final class HololithRenderer implements BlockEntityRenderer<HololithTable
         if(!shaderChecked){shaderChecked=true;try{Class<?> api=Class.forName("net.irisshaders.iris.api.v0.IrisApi");iris=api.getMethod("getInstance").invoke(null);shadowPass=api.getMethod("isRenderingShadowPass");}catch(ReflectiveOperationException|LinkageError unavailable){iris=null;shadowPass=null;}}
         if(iris==null||shadowPass==null)return false;try{return (Boolean)shadowPass.invoke(iris);}catch(ReflectiveOperationException ignored){return false;}
     }
-    private static final class Entry {SurveySnapshot snapshot;SurveyMesh mesh;long lastUsed,lastAttempt=-100;void close(){if(mesh!=null)mesh.close();mesh=null;snapshot=null;}}
+    private static final class Entry {SurveySnapshot snapshot;SurveyMesh mesh;long lastUsed,lastAttempt=-100,lastWarning=-200;void close(){if(mesh!=null)mesh.close();mesh=null;snapshot=null;}}
 }

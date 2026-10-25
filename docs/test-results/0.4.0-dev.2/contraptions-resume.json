@@ -1,0 +1,81 @@
+{
+  "mode": "resume",
+  "phase": 4,
+  "checks": [
+    {
+      "passed": true,
+      "test": "fresh JVM mounted reload retains table and sensor identities"
+    },
+    {
+      "passed": true,
+      "test": "fresh JVM mounted reload sensor follows engine world position"
+    },
+    {
+      "passed": true,
+      "test": "fresh JVM mounted reload moving table has a live survey"
+    },
+    {
+      "passed": true,
+      "test": "fresh JVM mounted reload stationary table follows moving sensor"
+    },
+    {
+      "passed": true,
+      "test": "fresh JVM mounted reload four marker positions match engine transforms"
+    },
+    {
+      "passed": true,
+      "test": "fresh JVM mounted reload current survey persisted in captured block data"
+    },
+    {
+      "passed": true,
+      "test": "saved mounted control settings survive JVM restart"
+    },
+    {
+      "passed": true,
+      "test": "mounted dye and link survive JVM restart"
+    },
+    {
+      "passed": true,
+      "test": "fresh JVM mounted reload virtual client table receives snapshot and four markers"
+    },
+    {
+      "passed": true,
+      "test": "fresh JVM mounted reload marker sources identify this tracked contraption"
+    },
+    {
+      "passed": true,
+      "test": "fresh JVM mounted reload stale contraption identity uses authoritative marker fallback"
+    },
+    {
+      "passed": true,
+      "test": "fresh JVM mounted reload virtual table actually builds renderer GPU mesh"
+    },
+    {
+      "passed": true,
+      "test": "bearing disassembly restores identity and cached terrain"
+    },
+    {
+      "passed": true,
+      "test": "bearing disassembly restores intact nine-tile footprint"
+    },
+    {
+      "passed": true,
+      "test": "restored world table receives terrain and markers"
+    }
+  ],
+  "total": 15,
+  "failures": 0,
+  "timestamp": "2026-10-25T19:35:37.012090900Z",
+  "version": "0.4.0-dev.2",
+  "profile": "contraptions",
+  "loadedMods": [
+    "create",
+    "flywheel",
+    "hololith",
+    "hololith_probe",
+    "minecraft",
+    "neoforge",
+    "ponder"
+  ],
+  "scope": "Real Create bearing/cart assembly, controlled quarter-turns, test-driven minecart motion, client interaction packets, virtual BER and separate JVM persistence. No train, natural chunk-unload or player glue acceptance."
+}

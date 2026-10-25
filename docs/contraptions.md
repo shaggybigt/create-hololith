@@ -22,6 +22,27 @@ ordinary chunk packets cannot address a captured block. Full state is sent when
 it changes or a player starts tracking, with marker movement sent separately.
 The existing 64-marker bound, quantization and throttling remain in place.
 
+In the 0.4.0-dev.2 development branch, marker packets also identify the exact
+source block and captured entity UUID. For an already-tracked source the client
+validates its marker and link identities, then samples Create's actual render
+transform every frame. This includes interpolated rotation and minecart offsets;
+an enclosing Sable render pose is composed afterward. Remote or unavailable
+sources use the authoritative packet position. No extra movement packets or
+chunk searches are needed. A pin outside the displayed known terrain is hidden.
+
+Sensor heartbeats and table polling now run every five ticks (0.25 seconds at
+20 TPS). Completed work hands off to the newest region immediately in that poll.
+The shared scanner still limits all tables to the configured column budget and
+two-millisecond work window per tick; stationary refresh cadence is unchanged.
+Actual terrain freshness also depends on queue load, loaded chunks and server
+tick rate. Smooth marker movement is not a guarantee of instantaneous terrain.
+
+The renderer retains its previous completed mesh while the next region waits
+for the existing ten-tick mesh-build throttle. Same-dimension pins use world
+coordinates and the retained mesh's actual origin, bounds and height mapping.
+Explicit relinks or scale changes still clear
+unrelated terrain until the new target is available.
+
 The shared actor APIs serve mechanical bearings, pistons, pulleys, elevators,
 gantries, minecart contraptions and train carriages. This is architectural
 coverage, not a claim that every controller, track layout or third-party addon

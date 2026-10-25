@@ -48,6 +48,7 @@ final class ContraptionFixture {
     private Rig bearing,active,cartRig;
     private AbstractMinecart cart;
     private Vec3 cartStart;
+    private int interpolatedMarkerFrames;
     private UUID expectedTable,expectedSensor;
     private List<UUID> expectedMarkers=List.of();
     ContraptionFixture(boolean resume){
@@ -70,6 +71,7 @@ final class ContraptionFixture {
         try{
             if(System.nanoTime()-started>360_000_000_000L)throw new IllegalStateException("Contraption fixture exceeded six minutes");
             if(mc.level==null||mc.player==null)return;ticks++;
+            if(phase==10)sampleMovingMarkers();
             if(work.isCompletedExceptionally())work.join();if(!work.isDone()||ticks<80||!waited(25))return;
             if(resume){resumeTick();return;}
             switch(phase){
@@ -150,6 +152,7 @@ final class ContraptionFixture {
                 }
                 case 10->{
                     if(!waited(160))return;
+                    check("moving cart marker positions interpolate between server ticks",interpolatedMarkerFrames>=3);
                     server(p->{check("minecart physically translates on rail",cart.position().distanceTo(cartStart)>4);verifyServer(p,active,"cart translated");camera(p);});next();
                 }
                 case 11->{
@@ -229,8 +232,26 @@ final class ContraptionFixture {
     }
     private AbstractContraptionEntity clientEntity(){return Minecraft.getInstance().level.getEntity(active.entityId) instanceof AbstractContraptionEntity entity?entity:null;}
     private HololithTableEntity clientTable(){var entity=clientEntity();if(entity==null)return null;var be=entity.getContraption().getOrCreateClientContraptionLazy().getBlockEntity(active.table);return be instanceof HololithTableEntity table?table:null;}
+    private void sampleMovingMarkers(){
+        var table=clientTable();if(table==null||table.snapshot()==null)return;
+        for(var marker:table.markers()){
+            if(marker.anchor()==null||!marker.anchor().mounted())continue;
+            Vec3 before=MarkerPositionResolver.position(table,marker,0),after=MarkerPositionResolver.position(table,marker,1);
+            Vec3 middle=MarkerPositionResolver.position(table,marker,.5f);
+            if(before.distanceTo(after)>.001&&middle.distanceTo(before.add(after).scale(.5))<.02){interpolatedMarkerFrames++;break;}
+        }
+    }
     private void verifyClient(String label)throws Exception{
         var table=clientTable();check(label+" virtual client table receives snapshot and four markers",table!=null&&table.snapshot()!=null&&table.markers().size()==4);
+        if(table!=null&&!table.markers().isEmpty()){
+            check(label+" marker sources identify this tracked contraption",table.markers().stream().allMatch(point->point.anchor()!=null&&point.anchor().mounted()&&point.anchor().entityUuid().equals(clientEntity().getUUID())));
+            var point=table.markers().getFirst();var anchor=point.anchor();
+            if(anchor!=null&&anchor.mounted()){
+                var invalid=new MarkerPoint(point.id(),point.x(),point.z(),point.color(),new MarkerAnchor(anchor.pos(),anchor.entityId(),UUID.randomUUID(),anchor.shipUuid()));
+                Vec3 fallback=MarkerPositionResolver.position(table,invalid,.5f);
+                check(label+" stale contraption identity uses authoritative marker fallback",fallback.x==point.x()&&fallback.z==point.z());
+            }
+        }
         var field=HololithRenderer.class.getDeclaredField("CACHE");field.setAccessible(true);var entry=((Map<?,?>)field.get(null)).get(table);Object mesh=null;if(entry!=null){var value=entry.getClass().getDeclaredField("mesh");value.setAccessible(true);mesh=value.get(entry);}
         check(label+" virtual table actually builds renderer GPU mesh",mesh!=null);
     }

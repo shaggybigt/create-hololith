@@ -1,0 +1,317 @@
+{
+  "mode": "fresh",
+  "phase": 13,
+  "checks": [
+    {
+      "test": "stationary fixture acquires real terrain",
+      "passed": true
+    },
+    {
+      "test": "bearing captures all nine table tiles with only center explicitly glued",
+      "passed": true
+    },
+    {
+      "test": "assembly removes original table blocks",
+      "passed": true
+    },
+    {
+      "test": "bearing assembled virtual client table receives snapshot and four markers",
+      "passed": true
+    },
+    {
+      "test": "bearing assembled marker sources identify this tracked contraption",
+      "passed": true
+    },
+    {
+      "test": "bearing assembled stale contraption identity uses authoritative marker fallback",
+      "passed": true
+    },
+    {
+      "test": "bearing assembled virtual table actually builds renderer GPU mesh",
+      "passed": true
+    },
+    {
+      "test": "bearing assembled retains table and sensor identities",
+      "passed": true
+    },
+    {
+      "test": "bearing assembled sensor follows engine world position",
+      "passed": true
+    },
+    {
+      "test": "bearing assembled moving table has a live survey",
+      "passed": true
+    },
+    {
+      "test": "bearing assembled stationary table follows moving sensor",
+      "passed": true
+    },
+    {
+      "test": "bearing assembled four marker positions match engine transforms",
+      "passed": true
+    },
+    {
+      "test": "bearing assembled current survey persisted in captured block data",
+      "passed": true
+    },
+    {
+      "test": "bearing rotated virtual client table receives snapshot and four markers",
+      "passed": true
+    },
+    {
+      "test": "bearing rotated marker sources identify this tracked contraption",
+      "passed": true
+    },
+    {
+      "test": "bearing rotated stale contraption identity uses authoritative marker fallback",
+      "passed": true
+    },
+    {
+      "test": "bearing rotated virtual table actually builds renderer GPU mesh",
+      "passed": true
+    },
+    {
+      "test": "bearing rotated retains table and sensor identities",
+      "passed": true
+    },
+    {
+      "test": "bearing rotated sensor follows engine world position",
+      "passed": true
+    },
+    {
+      "test": "bearing rotated moving table has a live survey",
+      "passed": true
+    },
+    {
+      "test": "bearing rotated stationary table follows moving sensor",
+      "passed": true
+    },
+    {
+      "test": "bearing rotated four marker positions match engine transforms",
+      "passed": true
+    },
+    {
+      "test": "bearing rotated current survey persisted in captured block data",
+      "passed": true
+    },
+    {
+      "test": "bearing applies a quarter turn",
+      "passed": true
+    },
+    {
+      "test": "mounted dye interaction updates client block color",
+      "passed": true
+    },
+    {
+      "test": "mounted dye interaction changes authoritative color",
+      "passed": true
+    },
+    {
+      "test": "mounted sensor card records persistent sensor identity",
+      "passed": true
+    },
+    {
+      "test": "mounted card relink restores fourth client marker",
+      "passed": true
+    },
+    {
+      "test": "mounted card links authoritative reference to sensor",
+      "passed": true
+    },
+    {
+      "test": "Create interaction packet opens mounted instrument panel",
+      "passed": true
+    },
+    {
+      "test": "mounted controls virtual client table receives snapshot and four markers",
+      "passed": true
+    },
+    {
+      "test": "mounted controls marker sources identify this tracked contraption",
+      "passed": true
+    },
+    {
+      "test": "mounted controls stale contraption identity uses authoritative marker fallback",
+      "passed": true
+    },
+    {
+      "test": "mounted controls virtual table actually builds renderer GPU mesh",
+      "passed": true
+    },
+    {
+      "test": "mounted controls change authoritative scale and rotation",
+      "passed": true
+    },
+    {
+      "test": "bearing half turn virtual client table receives snapshot and four markers",
+      "passed": true
+    },
+    {
+      "test": "bearing half turn marker sources identify this tracked contraption",
+      "passed": true
+    },
+    {
+      "test": "bearing half turn stale contraption identity uses authoritative marker fallback",
+      "passed": true
+    },
+    {
+      "test": "bearing half turn virtual table actually builds renderer GPU mesh",
+      "passed": true
+    },
+    {
+      "test": "bearing half turn retains table and sensor identities",
+      "passed": true
+    },
+    {
+      "test": "bearing half turn sensor follows engine world position",
+      "passed": true
+    },
+    {
+      "test": "bearing half turn moving table has a live survey",
+      "passed": true
+    },
+    {
+      "test": "bearing half turn stationary table follows moving sensor",
+      "passed": true
+    },
+    {
+      "test": "bearing half turn four marker positions match engine transforms",
+      "passed": true
+    },
+    {
+      "test": "bearing half turn current survey persisted in captured block data",
+      "passed": true
+    },
+    {
+      "test": "cart captures all nine table tiles",
+      "passed": true
+    },
+    {
+      "test": "cart assembled virtual client table receives snapshot and four markers",
+      "passed": true
+    },
+    {
+      "test": "cart assembled marker sources identify this tracked contraption",
+      "passed": true
+    },
+    {
+      "test": "cart assembled stale contraption identity uses authoritative marker fallback",
+      "passed": true
+    },
+    {
+      "test": "cart assembled virtual table actually builds renderer GPU mesh",
+      "passed": true
+    },
+    {
+      "test": "cart assembled retains table and sensor identities",
+      "passed": true
+    },
+    {
+      "test": "cart assembled sensor follows engine world position",
+      "passed": true
+    },
+    {
+      "test": "cart assembled moving table has a live survey",
+      "passed": true
+    },
+    {
+      "test": "cart assembled stationary table follows moving sensor",
+      "passed": true
+    },
+    {
+      "test": "cart assembled four marker positions match engine transforms",
+      "passed": true
+    },
+    {
+      "test": "cart assembled current survey persisted in captured block data",
+      "passed": true
+    },
+    {
+      "test": "moving cart marker positions interpolate between server ticks",
+      "passed": true
+    },
+    {
+      "test": "minecart physically translates on rail",
+      "passed": true
+    },
+    {
+      "test": "cart translated retains table and sensor identities",
+      "passed": true
+    },
+    {
+      "test": "cart translated sensor follows engine world position",
+      "passed": true
+    },
+    {
+      "test": "cart translated moving table has a live survey",
+      "passed": true
+    },
+    {
+      "test": "cart translated stationary table follows moving sensor",
+      "passed": true
+    },
+    {
+      "test": "cart translated four marker positions match engine transforms",
+      "passed": true
+    },
+    {
+      "test": "cart translated current survey persisted in captured block data",
+      "passed": true
+    },
+    {
+      "test": "cart translated virtual client table receives snapshot and four markers",
+      "passed": true
+    },
+    {
+      "test": "cart translated marker sources identify this tracked contraption",
+      "passed": true
+    },
+    {
+      "test": "cart translated stale contraption identity uses authoritative marker fallback",
+      "passed": true
+    },
+    {
+      "test": "cart translated virtual table actually builds renderer GPU mesh",
+      "passed": true
+    },
+    {
+      "test": "cart disassembly restores identity and cached terrain",
+      "passed": true
+    },
+    {
+      "test": "cart disassembly restores intact nine-tile footprint",
+      "passed": true
+    },
+    {
+      "test": "bearing after cart test virtual client table receives snapshot and four markers",
+      "passed": true
+    },
+    {
+      "test": "bearing after cart test marker sources identify this tracked contraption",
+      "passed": true
+    },
+    {
+      "test": "bearing after cart test stale contraption identity uses authoritative marker fallback",
+      "passed": true
+    },
+    {
+      "test": "bearing after cart test virtual table actually builds renderer GPU mesh",
+      "passed": true
+    }
+  ],
+  "total": 74,
+  "failures": 0,
+  "timestamp": "2026-10-25T19:34:41.348865100Z",
+  "version": "0.4.0-dev.2",
+  "profile": "contraptions",
+  "loadedMods": [
+    "create",
+    "flywheel",
+    "hololith",
+    "hololith_probe",
+    "minecraft",
+    "neoforge",
+    "ponder"
+  ],
+  "scope": "Real Create bearing/cart assembly, controlled quarter-turns, test-driven minecart motion, client interaction packets, virtual BER and separate JVM persistence. No train, natural chunk-unload or player glue acceptance."
+}

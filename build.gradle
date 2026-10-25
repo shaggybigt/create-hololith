@@ -139,6 +139,14 @@ tasks.named('processProbeResources') {
     filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.version) }
 }
 neoForge.runs {
+    clientAirshipProbe {
+        client()
+        gameDirectory = new File(gameRoot, 'client-airship')
+        jvmArguments = ['-Xms2G', '-Xmx8G']
+        programArguments = ['--width', '1600', '--height', '900']
+        systemProperty 'hololith.probe.airship', 'true'
+        systemProperty 'hololith.probe.allowedRoot', new File(gameRoot, 'client-airship').canonicalPath
+    }
     clientProbe {
         client()
         gameDirectory = new File(gameRoot, 'client-probe')

@@ -1,0 +1,1729 @@
+{
+  "timestamp": "2026-10-25T19:54:45.258779100Z",
+  "version": "0.4.0-dev.2",
+  "profile": "public-airship",
+  "source": "https://createmod.com/schematics/airship-v10",
+  "author": "Patrik",
+  "schematic": "air_ship_v10-hololith-test.nbt",
+  "schematicSha256": "f2d16fb6b5343cd872f0d02ec9d247cb11a48d21ea6be950963a627f297beaa2",
+  "baselinePassed": true,
+  "checks": [
+    {
+      "passed": true,
+      "test": "test schematic matches the reviewed sanitized Airship V10 asset"
+    },
+    {
+      "passed": true,
+      "test": "test schematic contains exactly two glue entities and no mobs"
+    },
+    {
+      "passed": true,
+      "test": "test schematic has expected dimensions and no embedded sublevels"
+    },
+    {
+      "passed": true,
+      "test": "full pack includes Aeronautics and Sable"
+    },
+    {
+      "passed": true,
+      "test": "fresh world has no preexisting Sable ships"
+    },
+    {
+      "passed": true,
+      "test": "baseline imported all 2121 blocks through Create"
+    },
+    {
+      "passed": true,
+      "test": "baseline retained original propeller glue"
+    },
+    {
+      "passed": true,
+      "test": "baseline six engines fueled and superheated through normal item interaction"
+    },
+    {
+      "passed": true,
+      "test": "baseline preserves original six typewriter bindings"
+    },
+    {
+      "passed": true,
+      "test": "baseline imported craft has no existing Honey Glue"
+    },
+    {
+      "passed": true,
+      "test": "baseline normal Honey Glue selection attaches the complete craft volume"
+    },
+    {
+      "passed": true,
+      "test": "baseline physics is unpaused before normal assembly"
+    },
+    {
+      "passed": true,
+      "test": "baseline normal Physics Assembler creates one hull"
+    },
+    {
+      "passed": true,
+      "test": "baseline normal assembly retained complete original hull and machinery"
+    },
+    {
+      "passed": true,
+      "test": "baseline original reverse selector remains off"
+    },
+    {
+      "passed": true,
+      "test": "baseline original forward lever engages propulsion"
+    },
+    {
+      "passed": true,
+      "test": "baseline original reverse selector remains off"
+    },
+    {
+      "passed": true,
+      "test": "baseline original forward lever returns drivetrain to neutral"
+    },
+    {
+      "passed": true,
+      "test": "baseline original controls increase lift and propulsion accumulators"
+    },
+    {
+      "passed": true,
+      "test": "baseline two real propellers generate thrust"
+    },
+    {
+      "passed": true,
+      "test": "baseline balloon rises at least two blocks under unpaused physics"
+    },
+    {
+      "passed": true,
+      "test": "baseline powered horizontal flight exceeds eight blocks"
+    },
+    {
+      "passed": true,
+      "test": "baseline completed original steering input changes heading"
+    },
+    {
+      "passed": true,
+      "test": "baseline completed original decrease input reduces throttle"
+    },
+    {
+      "passed": true,
+      "test": "baseline measured horizontal speed decreases after throttle reduction and neutral"
+    },
+    {
+      "passed": true,
+      "test": "baseline respects creator speed limit of eleven"
+    },
+    {
+      "passed": true,
+      "test": "cleanup targets recorded baseline ship UUID"
+    },
+    {
+      "passed": true,
+      "test": "instrumented imported all 2121 blocks through Create"
+    },
+    {
+      "passed": true,
+      "test": "instrumented retained original propeller glue"
+    },
+    {
+      "passed": true,
+      "test": "instrumented six engines fueled and superheated through normal item interaction"
+    },
+    {
+      "passed": true,
+      "test": "instrumented preserves original six typewriter bindings"
+    },
+    {
+      "passed": true,
+      "test": "instrumented imported craft has no existing Honey Glue"
+    },
+    {
+      "passed": true,
+      "test": "instrumented normal Honey Glue selection attaches the complete craft volume"
+    },
+    {
+      "passed": true,
+      "test": "instrumented physics is unpaused before normal assembly"
+    },
+    {
+      "passed": true,
+      "test": "instrumented normal Physics Assembler creates one hull"
+    },
+    {
+      "passed": true,
+      "test": "instrumented normal assembly retained complete original hull and machinery"
+    },
+    {
+      "passed": true,
+      "test": "instrumented assembly preserves table and sensor UUID"
+    },
+    {
+      "passed": true,
+      "test": "instrumented assembly preserves all nine table tiles"
+    },
+    {
+      "passed": true,
+      "test": "instrumented original reverse selector remains off"
+    },
+    {
+      "passed": true,
+      "test": "instrumented original forward lever engages propulsion"
+    },
+    {
+      "passed": true,
+      "test": "instrumented original reverse selector remains off"
+    },
+    {
+      "passed": true,
+      "test": "instrumented original forward lever returns drivetrain to neutral"
+    },
+    {
+      "passed": true,
+      "test": "instrumented original controls increase lift and propulsion accumulators"
+    },
+    {
+      "passed": true,
+      "test": "instrumented two real propellers generate thrust"
+    },
+    {
+      "passed": true,
+      "test": "instrumented balloon rises at least two blocks under unpaused physics"
+    },
+    {
+      "passed": true,
+      "test": "instrumented powered horizontal flight exceeds eight blocks"
+    },
+    {
+      "passed": true,
+      "test": "instrumented completed original steering input changes heading"
+    },
+    {
+      "passed": true,
+      "test": "instrumented completed original decrease input reduces throttle"
+    },
+    {
+      "passed": true,
+      "test": "instrumented measured horizontal speed decreases after throttle reduction and neutral"
+    },
+    {
+      "passed": true,
+      "test": "instrumented respects creator speed limit of eleven"
+    },
+    {
+      "passed": true,
+      "test": "moving ship sensor transform agrees with engine pose"
+    },
+    {
+      "passed": true,
+      "test": "moving ship survey changes center during actual flight"
+    },
+    {
+      "passed": true,
+      "test": "four reference markers remain within measured update latency"
+    },
+    {
+      "passed": true,
+      "test": "client receives moving ship survey and four reference pins"
+    },
+    {
+      "passed": true,
+      "test": "actual ship table renderer builds GPU mesh"
+    },
+    {
+      "passed": true,
+      "test": "live marker resolver matches independently composed Sable render pose"
+    },
+    {
+      "passed": true,
+      "test": "moving rendered pins advance beyond stale authoritative samples"
+    },
+    {
+      "passed": true,
+      "test": "cleanup targets recorded instrumented ship UUID"
+    }
+  ],
+  "total": 58,
+  "failures": 0,
+  "events": [
+    {
+      "run": "baseline",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        8,
+        1,
+        11
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "baseline",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        8,
+        1,
+        13
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "baseline",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        9,
+        1,
+        12
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "baseline",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        16,
+        1,
+        12
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "baseline",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        17,
+        1,
+        11
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "baseline",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        17,
+        1,
+        13
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "baseline",
+      "tick": 0,
+      "event": "required Honey Glue assembly preparation",
+      "localFromInclusive": [
+        0,
+        -1,
+        0
+      ],
+      "localToInclusive": [
+        24,
+        22,
+        25
+      ],
+      "originalRotorSuperGluePreserved": true,
+      "glueUuid": "73af2cc2-03e8-4b23-a8ce-bca09ecb0f58",
+      "baselineScope": "creator layout with required assembly and fuel preparation",
+      "path": "HoneyGlueSpawnPacket.handle with held Honey Glue and ordinary size validation"
+    },
+    {
+      "run": "baseline",
+      "tick": 0,
+      "event": "placed",
+      "origin": [
+        0,
+        -57,
+        0
+      ]
+    },
+    {
+      "run": "baseline",
+      "tick": 60,
+      "event": "normal assembly capture inventory",
+      "sourceBlocksRemaining": 0,
+      "missingFirst48": [],
+      "retained": 2122,
+      "expected": 2122,
+      "plotOffset": [
+        20481026,
+        169,
+        20481023
+      ]
+    },
+    {
+      "run": "baseline",
+      "tick": 60,
+      "event": "assembled normally",
+      "retained": 2122,
+      "ship": "797c0d7a-2e4a-459e-908a-335f99ad314b"
+    },
+    {
+      "run": "baseline",
+      "tick": 140,
+      "event": "flight begins"
+    },
+    {
+      "run": "baseline",
+      "tick": 224,
+      "event": "original forward selector used",
+      "machines": [
+        {
+          "localPosition": [
+            8,
+            1,
+            11
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=south,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783841859215473L,Size:20,Stress:0.0f},ScrollValue:0,Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            8,
+            1,
+            13
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=north,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783841859215473L,Size:20,Stress:0.0f},ScrollValue:0,Source:[I;20481034,113,20481035],Speed:-64.0f,SuperHeated:1b}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            9,
+            1,
+            12
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=west,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783841859215473L,Size:20,Stress:0.0f},ScrollValue:1,Source:[I;20481034,113,20481035],Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            16,
+            1,
+            12
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=east,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629786315760386161L,Size:20,Stress:0.0f},ScrollValue:0,Source:[I;20481043,113,20481035],Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            17,
+            1,
+            11
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=south,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629786315760386161L,Size:20,Stress:0.0f},ScrollValue:1,Source:[I;20481043,113,20481035],Speed:-64.0f,SuperHeated:1b}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            17,
+            1,
+            13
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=north,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629786315760386161L,Size:20,Stress:0.0f},ScrollValue:1,Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            12
+          ],
+          "blockState": "Block{simulated:analog_transmission}[axis=z,powered=false]",
+          "class": "dev.simulated_team.simulated.content.blocks.analog_transmission.AnalogTransmissionBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:1b,ExternallyControlled:0b,ExtraCogwheel:{ConnectedToExtraKinetics:0b,Network:{Capacity:12288.0f,Id:5629783841859215473L,Size:20,Stress:0.0f},Source:[I;20481030,115,20481035],Speed:-64.0f},NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783841859215473L,Size:20,Stress:0.0f},Oversaturated:0b,Signal:0,Source:[I;20481030,114,20481035],Speed:-64.0f}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            14
+          ],
+          "blockState": "Block{simulated:directional_gearshift}[axis_along_first=false,facing=east,left_powered=false,right_powered=false]",
+          "class": "dev.simulated_team.simulated.content.blocks.directional_gearshift.DirectionalGearshiftBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783841859215473L,Size:20,Stress:0.0f},Source:[I;20481030,114,20481036],Speed:-64.0f}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            15
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{NeoForgeData:{},Speed:0.0f}",
+          "rpm": 0.0,
+          "theoreticalRpm": 0.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            16
+          ],
+          "blockState": "Block{aeronautics:propeller_bearing}[facing=south]",
+          "class": "dev.eriksonn.aeronautics.content.blocks.propeller.bearing.propeller_bearing.PropellerBearingBlockEntity",
+          "nbt": "{Angle:0.0f,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:0.0f,NeoForgeData:{},RotationSpeed:0.0f,Running:0b,ScrollValue:1,Speed:0.0f}",
+          "rpm": 0.0,
+          "theoreticalRpm": 0.0,
+          "overstressed": false,
+          "rotationSpeed": 0.0,
+          "running": false,
+          "active": false,
+          "sailPower": 0.0,
+          "thrust": -0.0,
+          "contraptionPresent": false
+        },
+        {
+          "localPosition": [
+            6,
+            2,
+            11
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783841859215473L,Size:20,Stress:0.0f},Source:[I;20481032,114,20481035],Speed:-64.0f}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            19,
+            2,
+            11
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629786315760386161L,Size:20,Stress:0.0f},Source:[I;20481045,114,20481035],Speed:64.0f}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            12
+          ],
+          "blockState": "Block{simulated:analog_transmission}[axis=z,powered=false]",
+          "class": "dev.simulated_team.simulated.content.blocks.analog_transmission.AnalogTransmissionBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:1b,ExternallyControlled:0b,ExtraCogwheel:{ConnectedToExtraKinetics:0b,Network:{Capacity:12288.0f,Id:5629786315760386161L,Size:20,Stress:0.0f},Source:[I;20481047,115,20481035],Speed:64.0f},NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629786315760386161L,Size:20,Stress:0.0f},Oversaturated:0b,Signal:0,Source:[I;20481047,114,20481035],Speed:64.0f}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            14
+          ],
+          "blockState": "Block{simulated:directional_gearshift}[axis_along_first=false,facing=west,left_powered=false,right_powered=false]",
+          "class": "dev.simulated_team.simulated.content.blocks.directional_gearshift.DirectionalGearshiftBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629786315760386161L,Size:20,Stress:0.0f},Source:[I;20481047,114,20481036],Speed:64.0f}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            15
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{NeoForgeData:{},Speed:0.0f}",
+          "rpm": 0.0,
+          "theoreticalRpm": 0.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            16
+          ],
+          "blockState": "Block{aeronautics:propeller_bearing}[facing=south]",
+          "class": "dev.eriksonn.aeronautics.content.blocks.propeller.bearing.propeller_bearing.PropellerBearingBlockEntity",
+          "nbt": "{Angle:0.0f,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:0.0f,NeoForgeData:{},RotationSpeed:0.0f,Running:0b,ScrollValue:0,Speed:0.0f}",
+          "rpm": 0.0,
+          "theoreticalRpm": 0.0,
+          "overstressed": false,
+          "rotationSpeed": 0.0,
+          "running": false,
+          "active": false,
+          "sailPower": 0.0,
+          "thrust": 0.0,
+          "contraptionPresent": false
+        }
+      ],
+      "reverseEnabled": false,
+      "purpose": "engage original direction selector",
+      "result": "CONSUME",
+      "enabled": true,
+      "localPosition": [
+        12,
+        2,
+        23
+      ]
+    },
+    {
+      "run": "baseline",
+      "tick": 226,
+      "event": "propeller running observed",
+      "localPosition": [
+        4,
+        2,
+        16
+      ],
+      "rpm": 64.0,
+      "rotationSpeed": 0.0,
+      "running": true,
+      "active": false,
+      "sailPower": 8.0,
+      "thrust": -0.0,
+      "contraptionPresent": true,
+      "contraptionBlocks": 9,
+      "contraptionAlive": true,
+      "contraptionStalled": false,
+      "nbt": "{Angle:0.0f,ConnectedToExtraKinetics:0b,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:64.0f,NeoForgeData:{},Network:{AddedStress:16.0f,Capacity:12288.0f,Id:5629783841859215473L,Size:22,Stress:1024.0f},RotationSpeed:0.0f,Running:1b,ScrollValue:1,Source:[I;20481030,114,20481038],Speed:64.0f}"
+    },
+    {
+      "run": "baseline",
+      "tick": 226,
+      "event": "propeller running observed",
+      "localPosition": [
+        21,
+        2,
+        16
+      ],
+      "rpm": -64.0,
+      "rotationSpeed": 0.0,
+      "running": true,
+      "active": false,
+      "sailPower": 8.0,
+      "thrust": 0.0,
+      "contraptionPresent": true,
+      "contraptionBlocks": 9,
+      "contraptionAlive": true,
+      "contraptionStalled": false,
+      "nbt": "{Angle:0.0f,ConnectedToExtraKinetics:0b,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:-64.0f,NeoForgeData:{},Network:{AddedStress:16.0f,Capacity:12288.0f,Id:5629786315760386161L,Size:22,Stress:1024.0f},RotationSpeed:0.0f,Running:1b,ScrollValue:0,Source:[I;20481047,114,20481038],Speed:-64.0f}"
+    },
+    {
+      "run": "baseline",
+      "tick": 509,
+      "event": "original forward selector used",
+      "machines": [
+        {
+          "localPosition": [
+            8,
+            1,
+            11
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=south,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783841859215473L,Size:22,Stress:1170.2858f},ScrollValue:0,Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            8,
+            1,
+            13
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=north,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783841859215473L,Size:22,Stress:1170.2858f},ScrollValue:0,Source:[I;20481034,113,20481035],Speed:-64.0f,SuperHeated:1b}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            9,
+            1,
+            12
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=west,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783841859215473L,Size:22,Stress:1170.2858f},ScrollValue:1,Source:[I;20481034,113,20481035],Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            16,
+            1,
+            12
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=east,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629786315760386161L,Size:22,Stress:1170.2858f},ScrollValue:0,Source:[I;20481043,113,20481035],Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            17,
+            1,
+            11
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=south,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629786315760386161L,Size:22,Stress:1170.2858f},ScrollValue:1,Source:[I;20481043,113,20481035],Speed:-64.0f,SuperHeated:1b}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            17,
+            1,
+            13
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=north,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629786315760386161L,Size:22,Stress:1170.2858f},ScrollValue:1,Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            12
+          ],
+          "blockState": "Block{simulated:analog_transmission}[axis=z,powered=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.analog_transmission.AnalogTransmissionBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:1b,ExternallyControlled:0b,ExtraCogwheel:{ConnectedToExtraKinetics:0b,Network:{Capacity:12288.0f,Id:5629783841859215473L,Size:22,Stress:1170.2858f},Source:[I;20481030,115,20481035],Speed:-64.0f},NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783841859215473L,Size:22,Stress:1170.2858f},Oversaturated:0b,Signal:1,Source:[I;20481030,114,20481035],Speed:-73.14286f}",
+          "rpm": -73.14286,
+          "theoreticalRpm": -73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            14
+          ],
+          "blockState": "Block{simulated:directional_gearshift}[axis_along_first=false,facing=east,left_powered=false,right_powered=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.directional_gearshift.DirectionalGearshiftBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783841859215473L,Size:22,Stress:1170.2858f},Source:[I;20481030,114,20481036],Speed:-73.14286f}",
+          "rpm": -73.14286,
+          "theoreticalRpm": -73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            15
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783841859215473L,Size:22,Stress:1170.2858f},Source:[I;20481030,114,20481037],Speed:73.14286f}",
+          "rpm": 73.14286,
+          "theoreticalRpm": 73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            16
+          ],
+          "blockState": "Block{aeronautics:propeller_bearing}[facing=south]",
+          "class": "dev.eriksonn.aeronautics.content.blocks.propeller.bearing.propeller_bearing.PropellerBearingBlockEntity",
+          "nbt": "{Angle:305.73486f,ConnectedToExtraKinetics:0b,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:73.14286f,NeoForgeData:{},Network:{AddedStress:16.0f,Capacity:12288.0f,Id:5629783841859215473L,Size:22,Stress:1170.2858f},RotationSpeed:22.411587f,Running:1b,ScrollValue:1,Source:[I;20481030,114,20481038],Speed:73.14286f}",
+          "rpm": 73.14286,
+          "theoreticalRpm": 73.14286,
+          "overstressed": false,
+          "rotationSpeed": 22.411587,
+          "running": true,
+          "active": true,
+          "sailPower": 8.0,
+          "thrust": -338.07752817865503,
+          "contraptionPresent": true,
+          "contraptionBlocks": 9,
+          "contraptionAlive": true,
+          "contraptionStalled": false
+        },
+        {
+          "localPosition": [
+            6,
+            2,
+            11
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783841859215473L,Size:22,Stress:1170.2858f},Source:[I;20481032,114,20481035],Speed:-64.0f}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            19,
+            2,
+            11
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629786315760386161L,Size:22,Stress:1170.2858f},Source:[I;20481045,114,20481035],Speed:64.0f}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            12
+          ],
+          "blockState": "Block{simulated:analog_transmission}[axis=z,powered=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.analog_transmission.AnalogTransmissionBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:1b,ExternallyControlled:0b,ExtraCogwheel:{ConnectedToExtraKinetics:0b,Network:{Capacity:12288.0f,Id:5629786315760386161L,Size:22,Stress:1170.2858f},Source:[I;20481047,115,20481035],Speed:64.0f},NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629786315760386161L,Size:22,Stress:1170.2858f},Oversaturated:0b,Signal:1,Source:[I;20481047,114,20481035],Speed:73.14286f}",
+          "rpm": 73.14286,
+          "theoreticalRpm": 73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            14
+          ],
+          "blockState": "Block{simulated:directional_gearshift}[axis_along_first=false,facing=west,left_powered=false,right_powered=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.directional_gearshift.DirectionalGearshiftBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629786315760386161L,Size:22,Stress:1170.2858f},Source:[I;20481047,114,20481036],Speed:73.14286f}",
+          "rpm": 73.14286,
+          "theoreticalRpm": 73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            15
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629786315760386161L,Size:22,Stress:1170.2858f},Source:[I;20481047,114,20481037],Speed:-73.14286f}",
+          "rpm": -73.14286,
+          "theoreticalRpm": -73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            16
+          ],
+          "blockState": "Block{aeronautics:propeller_bearing}[facing=south]",
+          "class": "dev.eriksonn.aeronautics.content.blocks.propeller.bearing.propeller_bearing.PropellerBearingBlockEntity",
+          "nbt": "{Angle:-19.651978f,ConnectedToExtraKinetics:0b,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:-73.14286f,NeoForgeData:{},Network:{AddedStress:16.0f,Capacity:12288.0f,Id:5629786315760386161L,Size:22,Stress:1170.2858f},RotationSpeed:-22.412037f,Running:1b,ScrollValue:0,Source:[I;20481047,114,20481038],Speed:-73.14286f}",
+          "rpm": -73.14286,
+          "theoreticalRpm": -73.14286,
+          "overstressed": false,
+          "rotationSpeed": -22.412037,
+          "running": true,
+          "active": true,
+          "sailPower": 8.0,
+          "thrust": -338.08432993832145,
+          "contraptionPresent": true,
+          "contraptionBlocks": 9,
+          "contraptionAlive": true,
+          "contraptionStalled": false
+        }
+      ],
+      "reverseEnabled": false,
+      "purpose": "neutral after original throttle decrease",
+      "result": "CONSUME",
+      "enabled": false,
+      "localPosition": [
+        12,
+        2,
+        23
+      ]
+    },
+    {
+      "run": "baseline",
+      "tick": 634,
+      "event": "flight complete",
+      "rise": 57.90013530901078,
+      "travel": 18.446514615979233,
+      "turnRadians": 0.18597404748485546,
+      "steeringComplete": true,
+      "brakingComplete": true,
+      "renderSamples": 0,
+      "renderErrors": 0,
+      "renderCorrections": 0,
+      "maxRenderError": 0.0,
+      "sensorTransformError": 0.0,
+      "markerFrames": 0,
+      "badMarkerFrames": 0,
+      "maxMarkerWorldError": 0.0,
+      "surveyCenterCount": 0,
+      "beforeReductionHorizontalBlocksPerTick": 0.04295452467297549,
+      "afterReductionHorizontalBlocksPerTick": 0.005199458849301689,
+      "speedMeasurementWindowTicks": 20
+    },
+    {
+      "run": "baseline",
+      "tick": 634,
+      "event": "fixture ship removed",
+      "ship": "797c0d7a-2e4a-459e-908a-335f99ad314b"
+    },
+    {
+      "run": "instrumented",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        8,
+        1,
+        11
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "instrumented",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        8,
+        1,
+        13
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "instrumented",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        9,
+        1,
+        12
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "instrumented",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        16,
+        1,
+        12
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "instrumented",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        17,
+        1,
+        11
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "instrumented",
+      "tick": 0,
+      "event": "portable engine fuel preparation result",
+      "beforeBurnTime": 0,
+      "afterSuperHeated": true,
+      "afterBurnTime": 51840000,
+      "interactionResults": [
+        "CONSUME",
+        "CONSUME"
+      ],
+      "localPosition": [
+        17,
+        1,
+        13
+      ],
+      "beforeSuperHeated": false
+    },
+    {
+      "run": "instrumented",
+      "tick": 0,
+      "event": "required Honey Glue assembly preparation",
+      "localFromInclusive": [
+        0,
+        -1,
+        0
+      ],
+      "localToInclusive": [
+        24,
+        22,
+        25
+      ],
+      "originalRotorSuperGluePreserved": true,
+      "glueUuid": "fc89c0cc-d3ea-4add-b6e7-0d67395d1c72",
+      "baselineScope": "creator layout with required assembly and fuel preparation",
+      "path": "HoneyGlueSpawnPacket.handle with held Honey Glue and ordinary size validation"
+    },
+    {
+      "run": "instrumented",
+      "tick": 0,
+      "event": "placed",
+      "origin": [
+        96,
+        -57,
+        0
+      ]
+    },
+    {
+      "run": "instrumented",
+      "tick": 60,
+      "event": "normal assembly capture inventory",
+      "sourceBlocksRemaining": 0,
+      "missingFirst48": [],
+      "retained": 2122,
+      "expected": 2122,
+      "plotOffset": [
+        20480927,
+        167,
+        20481007
+      ]
+    },
+    {
+      "run": "instrumented",
+      "tick": 60,
+      "event": "assembled normally",
+      "retained": 2122,
+      "ship": "8e4f0f35-9196-4f3d-911a-7fe20ac5fd67"
+    },
+    {
+      "run": "instrumented",
+      "tick": 140,
+      "event": "flight begins"
+    },
+    {
+      "run": "instrumented",
+      "tick": 227,
+      "event": "original forward selector used",
+      "machines": [
+        {
+          "localPosition": [
+            8,
+            1,
+            11
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=south,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783292103340143L,Size:20,Stress:0.0f},ScrollValue:0,Source:[I;20481031,111,20481019],Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            8,
+            1,
+            13
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=north,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783292103340143L,Size:20,Stress:0.0f},ScrollValue:0,Source:[I;20481031,111,20481019],Speed:-64.0f,SuperHeated:1b}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            9,
+            1,
+            12
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=west,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783292103340143L,Size:20,Stress:0.0f},ScrollValue:1,Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            16,
+            1,
+            12
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=east,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629785491126591599L,Size:20,Stress:0.0f},ScrollValue:0,Source:[I;20481040,111,20481019],Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            17,
+            1,
+            11
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=south,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629785491126591599L,Size:20,Stress:0.0f},ScrollValue:1,Speed:-64.0f,SuperHeated:1b}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            17,
+            1,
+            13
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=north,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629785491126591599L,Size:20,Stress:0.0f},ScrollValue:1,Source:[I;20481040,111,20481019],Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            12
+          ],
+          "blockState": "Block{simulated:analog_transmission}[axis=z,powered=false]",
+          "class": "dev.simulated_team.simulated.content.blocks.analog_transmission.AnalogTransmissionBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:1b,ExternallyControlled:0b,ExtraCogwheel:{ConnectedToExtraKinetics:0b,Network:{Capacity:12288.0f,Id:5629783292103340143L,Size:20,Stress:0.0f},Source:[I;20481027,113,20481019],Speed:-64.0f},NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783292103340143L,Size:20,Stress:0.0f},Oversaturated:0b,Signal:0,Source:[I;20481027,112,20481019],Speed:-64.0f}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            14
+          ],
+          "blockState": "Block{simulated:directional_gearshift}[axis_along_first=false,facing=east,left_powered=false,right_powered=false]",
+          "class": "dev.simulated_team.simulated.content.blocks.directional_gearshift.DirectionalGearshiftBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783292103340143L,Size:20,Stress:0.0f},Source:[I;20481027,112,20481020],Speed:-64.0f}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            15
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{NeoForgeData:{},Speed:0.0f}",
+          "rpm": 0.0,
+          "theoreticalRpm": 0.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            16
+          ],
+          "blockState": "Block{aeronautics:propeller_bearing}[facing=south]",
+          "class": "dev.eriksonn.aeronautics.content.blocks.propeller.bearing.propeller_bearing.PropellerBearingBlockEntity",
+          "nbt": "{Angle:0.0f,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:0.0f,NeoForgeData:{},RotationSpeed:0.0f,Running:0b,ScrollValue:1,Speed:0.0f}",
+          "rpm": 0.0,
+          "theoreticalRpm": 0.0,
+          "overstressed": false,
+          "rotationSpeed": 0.0,
+          "running": false,
+          "active": false,
+          "sailPower": 0.0,
+          "thrust": -0.0,
+          "contraptionPresent": false
+        },
+        {
+          "localPosition": [
+            6,
+            2,
+            11
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783292103340143L,Size:20,Stress:0.0f},Source:[I;20481029,112,20481019],Speed:-64.0f}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            19,
+            2,
+            11
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629785491126591599L,Size:20,Stress:0.0f},Source:[I;20481042,112,20481019],Speed:64.0f}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            12
+          ],
+          "blockState": "Block{simulated:analog_transmission}[axis=z,powered=false]",
+          "class": "dev.simulated_team.simulated.content.blocks.analog_transmission.AnalogTransmissionBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:1b,ExternallyControlled:0b,ExtraCogwheel:{ConnectedToExtraKinetics:0b,Network:{Capacity:12288.0f,Id:5629785491126591599L,Size:20,Stress:0.0f},Source:[I;20481044,113,20481019],Speed:64.0f},NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629785491126591599L,Size:20,Stress:0.0f},Oversaturated:0b,Signal:0,Source:[I;20481044,112,20481019],Speed:64.0f}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            14
+          ],
+          "blockState": "Block{simulated:directional_gearshift}[axis_along_first=false,facing=west,left_powered=false,right_powered=false]",
+          "class": "dev.simulated_team.simulated.content.blocks.directional_gearshift.DirectionalGearshiftBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629785491126591599L,Size:20,Stress:0.0f},Source:[I;20481044,112,20481020],Speed:64.0f}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            15
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{NeoForgeData:{},Speed:0.0f}",
+          "rpm": 0.0,
+          "theoreticalRpm": 0.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            16
+          ],
+          "blockState": "Block{aeronautics:propeller_bearing}[facing=south]",
+          "class": "dev.eriksonn.aeronautics.content.blocks.propeller.bearing.propeller_bearing.PropellerBearingBlockEntity",
+          "nbt": "{Angle:0.0f,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:0.0f,NeoForgeData:{},RotationSpeed:0.0f,Running:0b,ScrollValue:0,Speed:0.0f}",
+          "rpm": 0.0,
+          "theoreticalRpm": 0.0,
+          "overstressed": false,
+          "rotationSpeed": 0.0,
+          "running": false,
+          "active": false,
+          "sailPower": 0.0,
+          "thrust": 0.0,
+          "contraptionPresent": false
+        }
+      ],
+      "reverseEnabled": false,
+      "purpose": "engage original direction selector",
+      "result": "CONSUME",
+      "enabled": true,
+      "localPosition": [
+        12,
+        2,
+        23
+      ]
+    },
+    {
+      "run": "instrumented",
+      "tick": 229,
+      "event": "propeller running observed",
+      "localPosition": [
+        4,
+        2,
+        16
+      ],
+      "rpm": 64.0,
+      "rotationSpeed": 0.0,
+      "running": true,
+      "active": false,
+      "sailPower": 8.0,
+      "thrust": -0.0,
+      "contraptionPresent": true,
+      "contraptionBlocks": 9,
+      "contraptionAlive": true,
+      "contraptionStalled": false,
+      "nbt": "{Angle:0.0f,ConnectedToExtraKinetics:0b,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:64.0f,NeoForgeData:{},Network:{AddedStress:16.0f,Capacity:12288.0f,Id:5629783292103340143L,Size:22,Stress:1024.0f},RotationSpeed:0.0f,Running:1b,ScrollValue:1,Source:[I;20481027,112,20481022],Speed:64.0f}"
+    },
+    {
+      "run": "instrumented",
+      "tick": 229,
+      "event": "propeller running observed",
+      "localPosition": [
+        21,
+        2,
+        16
+      ],
+      "rpm": -64.0,
+      "rotationSpeed": 0.0,
+      "running": true,
+      "active": false,
+      "sailPower": 8.0,
+      "thrust": 0.0,
+      "contraptionPresent": true,
+      "contraptionBlocks": 9,
+      "contraptionAlive": true,
+      "contraptionStalled": false,
+      "nbt": "{Angle:0.0f,ConnectedToExtraKinetics:0b,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:-64.0f,NeoForgeData:{},Network:{AddedStress:16.0f,Capacity:12288.0f,Id:5629785491126591599L,Size:22,Stress:1024.0f},RotationSpeed:0.0f,Running:1b,ScrollValue:0,Source:[I;20481044,112,20481022],Speed:-64.0f}"
+    },
+    {
+      "run": "instrumented",
+      "tick": 522,
+      "event": "original forward selector used",
+      "machines": [
+        {
+          "localPosition": [
+            8,
+            1,
+            11
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=south,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783292103340143L,Size:22,Stress:1170.2858f},ScrollValue:0,Source:[I;20481031,111,20481019],Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            8,
+            1,
+            13
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=north,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783292103340143L,Size:22,Stress:1170.2858f},ScrollValue:0,Source:[I;20481031,111,20481019],Speed:-64.0f,SuperHeated:1b}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            9,
+            1,
+            12
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=west,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629783292103340143L,Size:22,Stress:1170.2858f},ScrollValue:1,Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            16,
+            1,
+            12
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=east,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629785491126591599L,Size:22,Stress:1170.2858f},ScrollValue:0,Source:[I;20481040,111,20481019],Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            17,
+            1,
+            11
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=south,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629785491126591599L,Size:22,Stress:1170.2858f},ScrollValue:1,Speed:-64.0f,SuperHeated:1b}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            17,
+            1,
+            13
+          ],
+          "blockState": "Block{simulated:red_portable_engine}[facing=north,lit=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.portable_engine.PortableEngineBlockEntity",
+          "nbt": "{BurnTime:51840000,ConnectedToExtraKinetics:0b,EatingCake:0b,GeneratedSpeed:32.0f,Inventory:{index:0},NeoForgeData:{},Network:{AddedCapacity:64.0f,Capacity:12288.0f,Id:5629785491126591599L,Size:22,Stress:1170.2858f},ScrollValue:1,Source:[I;20481040,111,20481019],Speed:64.0f,SuperHeated:1b}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            12
+          ],
+          "blockState": "Block{simulated:analog_transmission}[axis=z,powered=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.analog_transmission.AnalogTransmissionBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:1b,ExternallyControlled:0b,ExtraCogwheel:{ConnectedToExtraKinetics:0b,Network:{Capacity:12288.0f,Id:5629783292103340143L,Size:22,Stress:1170.2858f},Source:[I;20481027,113,20481019],Speed:-64.0f},NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783292103340143L,Size:22,Stress:1170.2858f},Oversaturated:0b,Signal:1,Source:[I;20481027,112,20481019],Speed:-73.14286f}",
+          "rpm": -73.14286,
+          "theoreticalRpm": -73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            14
+          ],
+          "blockState": "Block{simulated:directional_gearshift}[axis_along_first=false,facing=east,left_powered=false,right_powered=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.directional_gearshift.DirectionalGearshiftBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783292103340143L,Size:22,Stress:1170.2858f},Source:[I;20481027,112,20481020],Speed:-73.14286f}",
+          "rpm": -73.14286,
+          "theoreticalRpm": -73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            15
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783292103340143L,Size:22,Stress:1170.2858f},Source:[I;20481027,112,20481021],Speed:73.14286f}",
+          "rpm": 73.14286,
+          "theoreticalRpm": 73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            4,
+            2,
+            16
+          ],
+          "blockState": "Block{aeronautics:propeller_bearing}[facing=south]",
+          "class": "dev.eriksonn.aeronautics.content.blocks.propeller.bearing.propeller_bearing.PropellerBearingBlockEntity",
+          "nbt": "{Angle:244.56053f,ConnectedToExtraKinetics:0b,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:73.14286f,NeoForgeData:{},Network:{AddedStress:16.0f,Capacity:12288.0f,Id:5629783292103340143L,Size:22,Stress:1170.2858f},RotationSpeed:22.345234f,Running:1b,ScrollValue:1,Source:[I;20481027,112,20481022],Speed:73.14286f}",
+          "rpm": 73.14286,
+          "theoreticalRpm": 73.14286,
+          "overstressed": false,
+          "rotationSpeed": 22.345234,
+          "running": true,
+          "active": true,
+          "sailPower": 8.0,
+          "thrust": -337.0765991800194,
+          "contraptionPresent": true,
+          "contraptionBlocks": 9,
+          "contraptionAlive": true,
+          "contraptionStalled": false
+        },
+        {
+          "localPosition": [
+            6,
+            2,
+            11
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629783292103340143L,Size:22,Stress:1170.2858f},Source:[I;20481029,112,20481019],Speed:-64.0f}",
+          "rpm": -64.0,
+          "theoreticalRpm": -64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            19,
+            2,
+            11
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629785491126591599L,Size:22,Stress:1170.2858f},Source:[I;20481042,112,20481019],Speed:64.0f}",
+          "rpm": 64.0,
+          "theoreticalRpm": 64.0,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            12
+          ],
+          "blockState": "Block{simulated:analog_transmission}[axis=z,powered=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.analog_transmission.AnalogTransmissionBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:1b,ExternallyControlled:0b,ExtraCogwheel:{ConnectedToExtraKinetics:0b,Network:{Capacity:12288.0f,Id:5629785491126591599L,Size:22,Stress:1170.2858f},Source:[I;20481044,113,20481019],Speed:64.0f},NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629785491126591599L,Size:22,Stress:1170.2858f},Oversaturated:0b,Signal:1,Source:[I;20481044,112,20481019],Speed:73.14286f}",
+          "rpm": 73.14286,
+          "theoreticalRpm": 73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            14
+          ],
+          "blockState": "Block{simulated:directional_gearshift}[axis_along_first=false,facing=west,left_powered=false,right_powered=true]",
+          "class": "dev.simulated_team.simulated.content.blocks.directional_gearshift.DirectionalGearshiftBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629785491126591599L,Size:22,Stress:1170.2858f},Source:[I;20481044,112,20481020],Speed:73.14286f}",
+          "rpm": 73.14286,
+          "theoreticalRpm": 73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            15
+          ],
+          "blockState": "Block{create:clutch}[axis=z,powered=false]",
+          "class": "com.simibubi.create.content.kinetics.transmission.ClutchBlockEntity",
+          "nbt": "{ConnectedToExtraKinetics:0b,NeoForgeData:{},Network:{Capacity:12288.0f,Id:5629785491126591599L,Size:22,Stress:1170.2858f},Source:[I;20481044,112,20481021],Speed:-73.14286f}",
+          "rpm": -73.14286,
+          "theoreticalRpm": -73.14286,
+          "overstressed": false
+        },
+        {
+          "localPosition": [
+            21,
+            2,
+            16
+          ],
+          "blockState": "Block{aeronautics:propeller_bearing}[facing=south]",
+          "class": "dev.eriksonn.aeronautics.content.blocks.propeller.bearing.propeller_bearing.PropellerBearingBlockEntity",
+          "nbt": "{Angle:-315.33206f,ConnectedToExtraKinetics:0b,DisassemblySlowdown:0b,HasAttachedComputer:0b,LastGenerated:-73.14286f,NeoForgeData:{},Network:{AddedStress:16.0f,Capacity:12288.0f,Id:5629785491126591599L,Size:22,Stress:1170.2858f},RotationSpeed:-22.412037f,Running:1b,ScrollValue:0,Source:[I;20481044,112,20481022],Speed:-73.14286f}",
+          "rpm": -73.14286,
+          "theoreticalRpm": -73.14286,
+          "overstressed": false,
+          "rotationSpeed": -22.412037,
+          "running": true,
+          "active": true,
+          "sailPower": 8.0,
+          "thrust": -338.08432993832145,
+          "contraptionPresent": true,
+          "contraptionBlocks": 9,
+          "contraptionAlive": true,
+          "contraptionStalled": false
+        }
+      ],
+      "reverseEnabled": false,
+      "purpose": "neutral after original throttle decrease",
+      "result": "CONSUME",
+      "enabled": false,
+      "localPosition": [
+        12,
+        2,
+        23
+      ]
+    },
+    {
+      "run": "instrumented",
+      "tick": 647,
+      "event": "baseline comparison",
+      "baselineTravel": 18.446514615979233,
+      "baselineRise": 57.90013530901078,
+      "maxMarkerWorldError": 0.4722553675393878,
+      "instrumentedRise": 57.643773339566955,
+      "instrumentedTravel": 18.46219137389931
+    },
+    {
+      "run": "instrumented",
+      "tick": 647,
+      "event": "flight complete",
+      "rise": 57.643773339566955,
+      "travel": 18.46219137389931,
+      "turnRadians": 0.18493272804916883,
+      "steeringComplete": true,
+      "brakingComplete": true,
+      "renderSamples": 10844,
+      "renderErrors": 0,
+      "renderCorrections": 8644,
+      "maxRenderError": 0.0,
+      "sensorTransformError": 0.0,
+      "markerFrames": 102,
+      "badMarkerFrames": 0,
+      "maxMarkerWorldError": 0.4722553675393878,
+      "surveyCenterCount": 7,
+      "beforeReductionHorizontalBlocksPerTick": 0.04224145945803285,
+      "afterReductionHorizontalBlocksPerTick": 0.005921137991745027,
+      "speedMeasurementWindowTicks": 20
+    },
+    {
+      "run": "instrumented",
+      "tick": 647,
+      "event": "fixture ship removed",
+      "ship": "8e4f0f35-9196-4f3d-911a-7fe20ac5fd67"
+    }
+  ],
+  "limitation": "",
+  "scope": "Exact reviewed sanitized Airship V10 asset only: creator layout with required assembly and fuel preparation. Fresh disposable flat world, actual Create placement and normal Physics Assembler, unpaused Sable physics and original typewriter controller callbacks. Both trials add the same Honey Glue selection via its normal server handler; original rotor Super Glue is preserved. Creative observer camera follows the craft; no ship pose/velocity/force injection and no passenger or authenticated multiplayer acceptance. Create strips runtime engine fuel; both trials attempt identical Creative Blaze Cake item interactions to reproduce the source build's infinite superheated fuel, with per-click states recorded and verified before assembly. Public build is not distributed with this harness.",
+  "loadedMods": [
+    "aeronautics",
+    "aeronautics_bundled",
+    "apollib",
+    "architectury",
+    "cccbridge",
+    "ccredstonelinkbridge",
+    "chunky",
+    "cloth_config",
+    "computercraft",
+    "copycats",
+    "create",
+    "create_avionics",
+    "createdeco",
+    "createthrusters",
+    "createthrusters_bundled",
+    "dungeons_arise",
+    "ferritecore",
+    "flywheel",
+    "forgottenknowledge",
+    "fzzy_config",
+    "gadgetsngizmos",
+    "geophilic",
+    "guardvillagers",
+    "hololith",
+    "hololith_probe",
+    "immersive_armors",
+    "interiors",
+    "kotlinforforge",
+    "lithostitched",
+    "minecraft",
+    "modernfix",
+    "mr_epic_structuresvillages",
+    "neoforge",
+    "offroad",
+    "ponder",
+    "sable",
+    "sablecompanion",
+    "simplyswords",
+    "simplytooltips",
+    "simulated",
+    "spark",
+    "tectonic",
+    "veil"
+  ],
+  "recordedSampleCount": 201,
+  "evidenceNote": "Compact record; individual fuel clicks, drivetrain NBT dumps and five-tick motion samples remain in the ignored local raw report."
+}

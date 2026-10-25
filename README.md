@@ -6,8 +6,12 @@ remote beacon, and mark reference points with sixteen dye colors.
 
 **Minecraft Java 1.21.1 · NeoForge 21.1.259 · Create 6.0.10 · Java 21**
 
-This tested development preview contains the complete buildable source. The
-existing [0.3.0 release and downloads](https://github.com/shaggybigt/create-hololith/releases/tag/v0.3.0)
+**[Download the newest version — 0.4.0-dev.2](https://github.com/shaggybigt/create-hololith/releases/tag/v0.4.0-dev.2)**
+
+This testing preview combines the Ponder tutorials, instrument controls and
+status improvements with smoother moving surveys and reference markers.
+The complete buildable source is here in the repository. Previous
+[release downloads](https://github.com/shaggybigt/create-hololith/releases)
 remain available.
 
 ## Gameplay demo
@@ -42,6 +46,8 @@ https://github.com/user-attachments/assets/e1c6da64-d39b-4ab0-bdd2-d94af8680734
   enclosed or buried markers. Pins sit over the surveyed surface regardless of the
   reference blocks' elevation.
 - Works on ordinary Create contraptions and optionally Aeronautics/Sable ships.
+- Smoothly follows tracked reference blocks between server updates and retains
+  the last completed terrain display while the next region is being prepared.
 - Keeps previously surveyed terrain available without force-loading distant chunks.
 - Offers an in-game brightness slider and contextual instrument/card tooltips in
   this development build.
@@ -51,15 +57,16 @@ https://github.com/user-attachments/assets/e1c6da64-d39b-4ab0-bdd2-d94af8680734
   confirmations and status that becomes live only after a recent completed scan.
 
 Read the [player guide](docs/usage.md), [contraption guide](docs/contraptions.md)
-and [tested behavior and limits](docs/development-validation.md). This is a surface survey:
+and [current movement tests and limits](docs/motion-validation.md). The previous
+[0.4.0-dev.1 validation](docs/development-validation.md) remains available. This is a surface survey:
 interiors and caves are not reconstructed, and unknown terrain stays blank.
 
 ## Install
 
 1. Use **Java 21**, **Minecraft 1.21.1**, **NeoForge 21.1.259** and the official
    **Create 6.0.10** NeoForge JAR with its bundled dependencies.
-2. Download the player JAR from an [existing release](https://github.com/shaggybigt/create-hololith/releases),
-   or build the development preview from source below.
+2. Download **[create-hololith-0.4.0-dev.2.jar](https://github.com/shaggybigt/create-hololith/releases/download/v0.4.0-dev.2/create-hololith-0.4.0-dev.2.jar)**,
+   or build the same version from source below.
 3. Close the game and server. Put one `create-hololith-<version>.jar` in **both client
    and server** `mods` directories, replacing the older Hololith JAR. Single-player
    needs it in the client's `mods` directory. All players and the server need the
@@ -73,15 +80,17 @@ recipes and a **Create: Hololith** creative tab.
 
 ## Build from source
 
-Install a **64-bit JDK 21**, clone `main`, then run its Gradle wrapper:
+Install a **64-bit JDK 21**, open the source checkout or extracted project archive
+for the revision you want to build, then run its Gradle wrapper:
 
 ```sh
-git clone --branch main https://github.com/shaggybigt/create-hololith.git
-cd create-hololith
 ./gradlew build
 ```
 
-The `main` branch contains the complete source for the development preview.
+The public `main` branch contains the current complete source, including the
+quality-of-life improvements and movement fixes. Development builds are also
+available from successful [Build and test runs](https://github.com/shaggybigt/create-hololith/actions/workflows/build.yml)
+as the `hololith-development-build` artifact (GitHub sign-in required).
 
 On Windows use `gradlew.bat build`. If the Unix wrapper is not executable, use
 `bash ./gradlew build`. The wrapper downloads the pinned dependencies, including
@@ -109,6 +118,8 @@ optional local modpack integration and the isolated gameplay probe.
 Generated builds, worlds, raw recordings, logs and machine-specific paths belong
 outside Git. CI compiles and runs automated checks; it cannot establish visual
 quality, multiplayer behavior or every contraption controller's gameplay behavior.
+Moving-craft acceptance follows the [public schematic procedure](docs/public-schematics.md):
+verify a credited creator build first, then repeat with Hololith instruments.
 
 ## License and credits
 
