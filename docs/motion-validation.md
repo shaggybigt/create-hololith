@@ -5,8 +5,8 @@ and Java 21.0.12.1+1. The full pack includes Aeronautics/Simulated 1.3.2,
 Sable 2.0.6 and Sable Companion 1.6.0. Graphical runs used Windows 11, an RTX
 4090 and a 1600×900 window. No dependency upgrades are part of this preview.
 
-This work is on the local `development/motion-following` branch. It does not
-publish a release or change public `main`. The existing releases and
+These improvements were prepared on `development/motion-following` before
+integration into `main`. The existing releases and
 [previous preview evidence](development-validation.md) remain preserved.
 
 ## What changed
@@ -63,8 +63,10 @@ The fresh checkout used the pinned public dependencies without `runtimeRoot` or
 test task executed all 47 tests. Its compiled classes and binary resources match
 the gameplay-tested build. Archive hashes differ only because of text line
 endings and two empty texture directories that Git does not track. The supplied
-player JAR is the exact runtime-tested artifact identified above. No new hosted
-GitHub Actions run is claimed for this local branch.
+player JAR is the exact runtime-tested artifact identified above. Hosted
+[GitHub Actions results](https://github.com/shaggybigt/create-hololith/actions/workflows/build.yml)
+are recorded separately from these local gameplay checks; CI cannot establish
+in-game rendering or flight behavior.
 
 New unit checks cover moving-scan fairness, cached-region priority, stale-cache
 rollback, source identity/link rejection, malformed and legacy marker records,

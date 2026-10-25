@@ -6,7 +6,9 @@ remote beacon, and mark reference points with sixteen dye colors.
 
 **Minecraft Java 1.21.1 · NeoForge 21.1.259 · Create 6.0.10 · Java 21**
 
-This development preview contains the complete buildable source. The
+The current source version is **0.4.0-dev.2**, combining the Ponder tutorials,
+instrument controls and status improvements with smoother moving surveys and
+reference markers. This development preview contains the complete buildable source. The
 existing [0.3.0 release and downloads](https://github.com/shaggybigt/create-hololith/releases/tag/v0.3.0)
 remain available.
 
@@ -83,9 +85,10 @@ for the revision you want to build, then run its Gradle wrapper:
 ./gradlew build
 ```
 
-The public `main` branch contains complete source. The current motion improvements
-are being validated on `development/motion-following`; a local preview archive can
-contain changes that have not been uploaded or released.
+The public `main` branch contains the current complete source, including the
+quality-of-life improvements and movement fixes. Development builds are also
+available from successful [Build and test runs](https://github.com/shaggybigt/create-hololith/actions/workflows/build.yml)
+as the `hololith-development-build` artifact (GitHub sign-in required).
 
 On Windows use `gradlew.bat build`. If the Unix wrapper is not executable, use
 `bash ./gradlew build`. The wrapper downloads the pinned dependencies, including

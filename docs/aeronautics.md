@@ -28,7 +28,7 @@ then applies the same table rotation, magnification and relief to the pins.
 This keeps markers registered to terrain while a newer survey is pending.
 Enclosure and line of sight never enter the marker lookup.
 
-The 0.4.0-dev.2 branch additionally resolves already-tracked reference sources
+Version 0.4.0-dev.2 additionally resolves already-tracked reference sources
 against Sable Companion's `ClientSubLevelAccess.renderPose(float)` each rendered
 frame, after checking the containing ship UUID. Logical/server coordinates
 remain authoritative for link membership and remote fallbacks. These render
@@ -73,8 +73,9 @@ surveyed ground rather than the reference blocks' altitude.
 This was a controlled paused-physics fixture using the installed engine. Its
 components are joined by a physical frame: Sable's disconnected-body splitting
 runs even with physics paused, so disconnected enclosures are not one airship.
-Powered flight, passengers, docking, shader packs and authenticated multiplayer
-require their own acceptance tests.
+Powered flight received the separate bounded public-airship acceptance described
+above. Passengers, docking, shader packs, authenticated multiplayer and long-range
+flight still require their own acceptance tests.
 
 Sources: [Companion API](https://github.com/ryanhcode/sable-companion),
 [Sable documentation](https://github.com/ryanhcode/sable/wiki),
