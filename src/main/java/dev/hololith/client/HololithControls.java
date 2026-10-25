@@ -59,13 +59,15 @@ public final class HololithControls extends Screen {
             onClose();
         }catch(NumberFormatException e){error="X and Z must be whole numbers.";}
     }
-    @Override public void render(GuiGraphics g,int mouseX,int mouseY,float partialTick){
+    @Override public void renderBackground(GuiGraphics g,int mouseX,int mouseY,float partialTick){
+        // Screen.render draws the background before widgets. Blur the world first,
+        // then draw labels so the status and panel title stay as sharp as buttons.
+        super.renderBackground(g,mouseX,mouseY,partialTick);
         g.fill(left-2,top-2,left+330,top+282,0xffb79958);g.fill(left,top,left+328,top+280,0xff222e32);g.fill(left+8,top+8,left+320,top+32,0xff35464a);
         g.drawCenteredString(font,title,left+164,top+16,0xffe3c78b);
         g.drawString(font,"Coordinate target · dimension",left+14,top+100,0xffaac9c7);g.drawString(font,"X",left+14,top+147,0xffe3c78b);g.drawString(font,"Z",left+172,top+147,0xffe3c78b);
         g.drawWordWrap(font,Component.literal(table.status()),left+14,top+171,300,0xff73e7dc);
         if(!error.isEmpty())g.drawString(font,error,left+14,top+229,0xffff9999);
-        super.render(g,mouseX,mouseY,partialTick);
     }
     @Override public boolean isPauseScreen(){return false;}
     @Override public void removed(){
