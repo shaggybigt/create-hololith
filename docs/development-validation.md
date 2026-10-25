@@ -64,8 +64,8 @@ compiling the addon/probe and passing all 32 automated tests. The downloaded tes
 reports have no failures, errors or skipped cases; [hosted build evidence](test-results/0.4.0-dev.1/hosted-ci.json)
 records the commit, checks and player JAR checksum. The workflow uses pinned
 actions, read-only repository permissions and no release step. Graphical and
-dedicated-server validation above was performed locally. Main and the existing
-0.3.0 release remain unchanged.
+dedicated-server validation above was performed locally. At the time of this
+recorded validation, `main` and the existing 0.3.0 release were unchanged.
 
 ## Demonstration and limits
 

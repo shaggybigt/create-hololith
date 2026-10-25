@@ -2,16 +2,16 @@
 
 ## Fresh checkout
 
-Install a 64-bit JDK 21 and Git, then clone the development branch and build:
+Install a 64-bit JDK 21 and Git, then clone `main` and build:
 
 ```sh
-git clone --branch development/qol-showcase https://github.com/shaggybigt/create-hololith.git
+git clone --branch main https://github.com/shaggybigt/create-hololith.git
 cd create-hololith
 ./gradlew --no-daemon build probeJar
 ```
 
-The source import is under review on this branch; `main` and the existing release
-are preserved until the development changes are accepted.
+The `main` branch contains the complete buildable source for the development
+preview. Existing versioned release downloads remain available separately.
 
 Use `gradlew.bat` on Windows or `bash ./gradlew` if executable permissions were not
 preserved. `build` compiles the player mod, runs JUnit tests, checks the dependency

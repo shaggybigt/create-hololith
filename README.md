@@ -48,7 +48,7 @@ interiors and caves are not reconstructed, and unknown terrain stays blank.
 1. Use **Java 21**, **Minecraft 1.21.1**, **NeoForge 21.1.259** and the official
    **Create 6.0.10** NeoForge JAR with its bundled dependencies.
 2. Download the player JAR from an [existing release](https://github.com/shaggybigt/create-hololith/releases),
-   or build this development branch below.
+   or build the development preview from source below.
 3. Close the game and server. Put one `create-hololith-<version>.jar` in **both client
    and server** `mods` directories, replacing the older Hololith JAR. Single-player
    needs it in the client's `mods` directory. All players and the server need the
@@ -62,16 +62,15 @@ recipes and a **Create: Hololith** creative tab.
 
 ## Build from source
 
-Install a **64-bit JDK 21**, clone the development branch, then run its Gradle wrapper:
+Install a **64-bit JDK 21**, clone `main`, then run its Gradle wrapper:
 
 ```sh
-git clone --branch development/qol-showcase https://github.com/shaggybigt/create-hololith.git
+git clone --branch main https://github.com/shaggybigt/create-hololith.git
 cd create-hololith
 ./gradlew build
 ```
 
-The complete source is on `development/qol-showcase` while this draft is under
-review; `main` still preserves the previous release repository.
+The `main` branch contains the complete source for the development preview.
 
 On Windows use `gradlew.bat build`. If the Unix wrapper is not executable, use
 `bash ./gradlew build`. The wrapper downloads the pinned dependencies, including
