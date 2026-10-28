@@ -32,7 +32,7 @@ public final class SurveyFeedback {
         if(player instanceof ServerPlayer server)server.playNotifySound(SoundEvents.LEVER_CLICK,SoundSource.BLOCKS,.25f,1.2f);
     }
     public static void configured(Player player,HololithTableEntity table,Vec3 world){
-        String source=switch(table.mode()){case 1->"message.hololith.source_sensor";case 2->"message.hololith.source_coordinates";default->"message.hololith.source_table";};
+        String source=table.mode()==1?"message.hololith.source_sensor":"message.hololith.source_table";
         success(player,world,"message.hololith.configured",Component.translatable(source),table.span());
     }
     private static void record(Player player,ItemStack stack,CompoundTag tag){
@@ -44,11 +44,10 @@ public final class SurveyFeedback {
             CompoundTag target=new CompoundTag();target.putUUID("TableId",table.tableId());record(player,stack,target);
             success(player,world,"message.hololith.table_recorded",shortId(table.tableId()));
         }else if(card.hasUUID("TableId"))tell(player,"message.hololith.table_card_hint");
-        else if(!card.contains("Dimension"))tell(player,"message.hololith.card_empty");
+        else if(!SurveyCardItem.isSensorCard(card))tell(player,card.isEmpty()?"message.hololith.card_empty":"message.hololith.sensor_required");
         else if(table.allowControl()){
-            table.bind(card);
-            if(card.hasUUID("SensorId"))success(player,world,"message.hololith.table_linked_sensor",shortId(card.getUUID("SensorId")));
-            else success(player,world,"message.hololith.table_linked_coordinates",card.getInt("X"),card.getInt("Z"));
+            if(table.bind(card))success(player,world,"message.hololith.table_linked_sensor",shortId(card.getUUID("SensorId")));
+            else tell(player,"message.hololith.sensor_required");
         }
     }
     public static void markerCard(Player player,ItemStack stack,ReferenceMarkerEntity marker,Vec3 world){
@@ -57,15 +56,13 @@ public final class SurveyFeedback {
         else tell(player,"message.hololith.reference_card_hint");
     }
     public static void recordLocation(Player player,ItemStack stack,SurveySensorEntity sensor,Vec3 world){
+        if(sensor==null){tell(player,"message.hololith.sensor_required");return;}
         CompoundTag tag=new CompoundTag();tag.putString("Dimension",player.level().dimension().location().toString());
         tag.putInt("X",(int)Math.floor(world.x));tag.putInt("Z",(int)Math.floor(world.z));
-        if(sensor!=null){
-            tag.putUUID("SensorId",sensor.sensorId());
-            if(player instanceof ServerPlayer server)SurveyStore.get(server.serverLevel().getServer()).heartbeat(sensor.sensorId(),tag.getString("Dimension"),tag.getInt("X"),tag.getInt("Z"));
-        }
+        tag.putUUID("SensorId",sensor.sensorId());
+        if(player instanceof ServerPlayer server)SurveyStore.get(server.serverLevel().getServer()).heartbeat(sensor.sensorId(),tag.getString("Dimension"),tag.getInt("X"),tag.getInt("Z"));
         record(player,stack,tag);
-        if(sensor!=null)success(player,world,"message.hololith.sensor_recorded",shortId(sensor.sensorId()));
-        else success(player,world,"message.hololith.coordinates_recorded",tag.getInt("X"),tag.getInt("Z"));
+        success(player,world,"message.hololith.sensor_recorded",shortId(sensor.sensorId()));
     }
     public static void unlinkMarker(Player player,ReferenceMarkerEntity marker,Vec3 world){
         if(marker.targetId()==null){tell(player,"message.hololith.reference_already_unlinked");return;}

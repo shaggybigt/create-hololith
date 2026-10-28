@@ -29,7 +29,7 @@ public final class HololithNetwork {
         @Override public Type<? extends CustomPacketPayload> type(){return TYPE;}
     }
     public static void register(RegisterPayloadHandlersEvent event){
-        var r=event.registrar("4");
+        var r=event.registrar("5");
         dev.hololith.compat.ContraptionPackets.register(event);
         r.playToClient(Markers.TYPE,Markers.CODEC,(p,c)->c.enqueueWork(()->{if(c.player().level().getBlockEntity(p.pos) instanceof HololithTableEntity table)table.acceptMarkers(p.tableId,p.key,p.points);}));
         r.playToClient(Open.TYPE,Open.CODEC,(p,c)->c.enqueueWork(()->dev.hololith.client.HololithControls.open(p.pos())));
@@ -57,7 +57,9 @@ public final class HololithNetwork {
         PacketDistributor.sendToPlayersTrackingChunk(level,new ChunkPos(table.getBlockPos()),new Markers(table.getBlockPos(),table.tableId(),key,points));
     }
     public static boolean valid(Configure p){
-        return (p.span==32||p.span==64||p.span==128)&&p.rotation>=0&&p.rotation<4&&p.zoom>=0&&p.zoom<=2&&p.relief>=1&&p.relief<=2&&p.mode>=0&&p.mode<=2&&Math.abs((long)p.x)<=29_999_872&&Math.abs((long)p.z)<=29_999_872&&ResourceLocation.tryParse(p.dimension)!=null;
+        // Dimension/coordinates remain in the wire format for compatibility, but
+        // only a physical table or linked sensor can authorize a survey target.
+        return (p.span==32||p.span==64||p.span==128)&&p.rotation>=0&&p.rotation<4&&p.zoom>=0&&p.zoom<=2&&p.relief>=1&&p.relief<=2&&(p.mode==0||p.mode==1)&&Math.abs((long)p.x)<=29_999_872&&Math.abs((long)p.z)<=29_999_872&&ResourceLocation.tryParse(p.dimension)!=null;
     }
     private static void apply(ServerPlayer player,Configure p){
         if(!valid(p)||player.isSpectator()||!player.mayBuild())return;

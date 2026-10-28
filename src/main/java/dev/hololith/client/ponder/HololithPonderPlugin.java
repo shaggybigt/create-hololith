@@ -16,6 +16,7 @@ public final class HololithPonderPlugin implements PonderPlugin {
         helper.forComponents(id("surveying_table")).addStoryBoard("survey_workshop",HololithScenes::table);
         helper.forComponents(id("surveying_table"),id("local_sensor"),id("remote_beacon"),id("survey_card")).addStoryBoard("survey_workshop",HololithScenes::sources);
         helper.forComponents(id("reference_marker"),id("survey_card"),id("surveying_table")).addStoryBoard("survey_workshop",HololithScenes::markers);
+        helper.forComponents(id("surveying_table")).addStoryBoard("survey_workshop",HololithScenes::power);
     }
     private static ResourceLocation id(String path){return Hololith.id(path);}
 }

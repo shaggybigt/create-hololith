@@ -12,6 +12,12 @@ type="required"
 versionRange="[21.1.259,21.2)"
 side="BOTH"
 [[dependencies.hololith]]
+modId="jade"
+type="optional"
+versionRange="[15.10.6,16)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.hololith]]
 modId="minecraft"
 type="required"
 versionRange="[1.21.1]"

@@ -1,7 +1,8 @@
 # SchematicPath overrides the location of the reviewed sanitized Airship V10 file only.
 # This bounded fixture uses that craft's controls and does not accept arbitrary schematics.
-param([Parameter(Mandatory)][string]$RuntimeRoot, [string]$SchematicPath, [switch]$Fresh, [switch]$PrepareOnly)
+param([Parameter(Mandatory)][string]$RuntimeRoot, [string]$SchematicPath, [string]$ModpackRoot='', [switch]$Fresh, [switch]$PrepareOnly)
 $ErrorActionPreference='Stop'
+. (Join-Path $PSScriptRoot 'Resolve-Runtime.ps1')
 $runtime=[IO.Path]::GetFullPath($RuntimeRoot)
 $project=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $root=[IO.Path]::GetFullPath((Join-Path $runtime 'development\hololith'))
@@ -9,8 +10,19 @@ $probe=[IO.Path]::GetFullPath((Join-Path $root 'client-airship'))
 $reports=Join-Path $project 'reports\airship-fixture'
 $java=Join-Path $runtime 'runtime\jdk-21.0.12.1+1\bin\java.exe'
 $version=((Get-Content (Join-Path $project 'gradle.properties') | Where-Object {$_ -match '^mod_version='}) -split '=',2)[1]
+# Resolve every external profile input before an existing trial can be archived.
+$source=Resolve-HololithModpackRoot -RuntimeRoot $runtime -ModpackRoot $ModpackRoot -TrialRoot $probe
+$createJar=Resolve-HololithCreateJar -RuntimeRoot $runtime -ModpackRoot $source
+$sourceMods=@(Get-ChildItem -LiteralPath (Join-Path $source 'mods') -Filter '*.jar' -File | Where-Object {
+    $_.Name -notlike 'create-hololith-*' -and $_.Name -notlike 'hololith-probe-*'
+})
+foreach($file in $sourceMods){Assert-HololithUnlinkedPath -Path $file.FullName}
+$sourceConfig=Join-Path $source 'config'
+Assert-HololithUnlinkedPath -Path $probe
 if(-not $SchematicPath){$SchematicPath=Join-Path $reports 'air_ship_v10-hololith-test.nbt'}
 $inputFile=[IO.Path]::GetFullPath($SchematicPath)
+if($inputFile.StartsWith($probe+'\',[StringComparison]::OrdinalIgnoreCase)){throw 'The schematic input must be outside the airship trial that will be archived.'}
+Assert-HololithUnlinkedPath -Path $inputFile
 if(-not(Test-Path -LiteralPath $inputFile -PathType Leaf)){throw 'Sanitized local airship schematic is missing; preserve the two glue entities and omit mobs.'}
 $inputHash=(Get-FileHash -LiteralPath $inputFile -Algorithm SHA256).Hash.ToLowerInvariant()
 if($inputHash -ne 'f2d16fb6b5343cd872f0d02ec9d247cb11a48d21ea6be950963a627f297beaa2'){throw 'This fixture accepts only the exact reviewed sanitized Airship V10 file; SchematicPath changes its location, not its identity.'}
@@ -29,11 +41,14 @@ if(Test-Path -LiteralPath $probe){
     Move-Item -LiteralPath $probe -Destination $archive
 }
 New-Item -ItemType Directory -Force -Path "$probe\mods","$probe\config","$probe\validation","$probe\schematics\uploaded\hololith-airship-probe",$reports | Out-Null
-foreach($file in Get-ChildItem -LiteralPath "$runtime\test-client\mods" -Filter '*.jar'){
-    if($file.Name -like 'create-hololith-*' -or $file.Name -like 'hololith-probe-*'){continue}
+foreach($file in $sourceMods){
     Copy-Item -LiteralPath $file.FullName -Destination "$probe\mods"
 }
-Copy-Item -Path "$runtime\test-client\config\*" -Destination "$probe\config" -Recurse
+if(Test-Path -LiteralPath $sourceConfig -PathType Container){
+    foreach($entry in Get-ChildItem -LiteralPath $sourceConfig -Force){
+        Copy-Item -LiteralPath $entry.FullName -Destination "$probe\config" -Recurse
+    }
+}
 Copy-Item -LiteralPath $inputFile -Destination "$probe\schematics\air_ship_v10-hololith-test.nbt"
 Copy-Item -LiteralPath $inputFile -Destination "$probe\schematics\uploaded\hololith-airship-probe\air_ship_v10-hololith-test.nbt"
 @('renderDistance:8','simulationDistance:6','fullscreen:false','guiScale:2','pauseOnLostFocus:false','onboardAccessibility:false','skipMultiplayerWarning:true','tutorialStep:none','music:0.0','soundCategory_music:0.0') | Set-Content -LiteralPath "$probe\options.txt"
@@ -41,12 +56,12 @@ Set-Content -LiteralPath "$probe\.hololith-disposable" -Value 'Disposable Hololi
 Set-Content -LiteralPath "$probe\.hololith-airship" -Value 'Explicit local public-airship baseline and instrumented acceptance world.'
 [ordered]@{source=$inputFile;sha256=$inputHash;staged=(Get-Date).ToUniversalTime().ToString('o');redistribute=$false} | ConvertTo-Json | Set-Content -LiteralPath "$probe\validation\input.json"
 if($PrepareOnly){Write-Output "Airship trial staged without building or launching: $probe";return}
-& (Join-Path $PSScriptRoot 'Build.ps1') -RuntimeRoot $runtime -Tasks @('build','probeJar')
+& (Join-Path $PSScriptRoot 'Build.ps1') -RuntimeRoot $runtime -ModpackRoot $source -Tasks @('build','probeJar')
 if($LASTEXITCODE -ne 0){throw 'Airship fixture build failed.'}
 Copy-Item -LiteralPath "$runtime\development\hololith\build\libs\hololith-probe-$version.jar" -Destination "$probe\mods"
 $env:JAVA_HOME=Join-Path $runtime 'runtime\jdk-21.0.12.1+1'
 $env:GRADLE_USER_HOME=Join-Path $runtime 'gradle-cache'
-& (Join-Path $project 'gradlew.bat') -p $project "-PruntimeRoot=$runtime" runClientAirshipProbe | Tee-Object -FilePath "$reports\client-airship.log"
+& (Join-Path $project 'gradlew.bat') -p $project "-PruntimeRoot=$runtime" "-PcreateJar=$createJar" runClientAirshipProbe | Tee-Object -FilePath "$reports\client-airship.log"
 if($LASTEXITCODE -ne 0){throw 'Airship client failed; inspect the isolated client-airship log.'}
 $reportPath=Join-Path $probe 'validation\airship.json'
 if(-not(Test-Path -LiteralPath $reportPath)){throw 'Airship fixture did not produce a fresh report.'}

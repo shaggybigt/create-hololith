@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "BGB",
+    "BLB",
     "AMA",
-    "CLC"
+    "CSC"
   ],
   "key": {
     "B": {
-      "item": "create:brass_ingot"
+      "tag": "c:ingots/brass"
     },
-    "G": {
-      "item": "minecraft:glass"
+    "L": {
+      "item": "minecraft:amethyst_shard"
     },
     "A": {
       "item": "create:andesite_casing"
@@ -20,10 +20,10 @@
       "item": "create:precision_mechanism"
     },
     "C": {
-      "item": "create:copper_sheet"
+      "tag": "c:plates/copper"
     },
-    "L": {
-      "item": "minecraft:amethyst_shard"
+    "S": {
+      "item": "create:shaft"
     }
   },
   "result": {

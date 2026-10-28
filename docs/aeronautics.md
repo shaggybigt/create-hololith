@@ -4,6 +4,10 @@ Target: Minecraft 1.21.1, NeoForge 21.1.259, Create 6.0.10, Aeronautics bundled
 1.3.2, Sable 2.0.6. These were checked in the pack lock and installed JARs.
 Sable bundles Sable Companion 1.6.0.
 
+The 0.5.0-dev.1 table requires a real onboard Create shaft network, connected
+under its center at 16 RPM or more. Stopped or overstressed networks turn off
+the entire projection while retaining saved data. See [kinetic power](kinetic-power.md).
+
 Ship blocks live in distant plot chunks, separate from their physical world
 pose. `ShipCoordinates` calls Companion's `projectOutOfSubLevel(Level, Vec3)`;
 reflection is resolved once and cached. The exact signature was verified in
@@ -76,6 +80,10 @@ runs even with physics paused, so disconnected enclosures are not one airship.
 Powered flight received the separate bounded public-airship acceptance described
 above. Passengers, docking, shader packs, authenticated multiplayer and long-range
 flight still require their own acceptance tests.
+
+The [0.5.0-dev.1 acceptance](kinetic-validation.md) repeats public-airship flight
+with a real onboard shaft network, including power loss and restoration while
+assembled. It is the current power-aware compatibility evidence.
 
 Sources: [Companion API](https://github.com/ryanhcode/sable-companion),
 [Sable documentation](https://github.com/ryanhcode/sable/wiki),

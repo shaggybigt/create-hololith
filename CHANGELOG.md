@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.5.0-dev.1 — kinetic integration (development)
+
+- Require a real Create shaft connection beneath the table's center and at least
+  16 RPM. Stopped, slow or overstressed tables hide all projection geometry and
+  pins, pause surveying and retain their cached terrain.
+- Charge 4/8/16 SU per RPM for 32/64/128-block surveys, scaled by the square of
+  projection magnification. Setting changes update the existing stress network.
+- Add a mechanical underside housing, power feedback in goggles and the instrument
+  panel, and a fourth Ponder tutorial showing connection, speed and overload.
+- Add optional Jade context for tables, sensors, beacons and reference markers.
+- Rebalance the five base survival recipes around Create components and add
+  sixteen marker recoloring recipes with matching recipe unlocks.
+- Add gentle brightness flicker, enabled by default, with a saved in-game toggle.
+  It modulates existing rendering without rebuilding terrain or adding scans.
+- Lower the whole projection by reducing its tabletop clearance by one third;
+  terrain relief, map scale and reference-pin alignment stay unchanged.
+- Require a physical survey source: the table's own position or a linked sensor
+  or beacon. Remove coordinate controls/cards and reject coordinate requests on
+  the server. Offline instruments retain cached terrain but cannot start scans.
+  Legacy coordinate targets migrate to the table's local position.
+- Ordinary assembled Create contraptions retain instruments and saved surveys but
+  cannot project without a live kinetic network. Sensors and reference markers
+  still feed powered stationary tables. Aeronautics/Sable tables use real onboard
+  shaft networks. A captured RPM value does not substitute for live power.
+- Preserve world-saved instrument identities and survey data. Create schematic
+  copies start with fresh identities and no copied terrain. Update clients and
+  servers together; this build uses protocol 5.
+
 ## 0.4.0-dev.2 — movement testing preview
 
 - Resolve linked markers from the exact tracked Create contraption or Sable ship

@@ -1,7 +1,17 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ingredient": {
+    "has_brass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/brass"
+          }
+        ]
+      }
+    },
+    "has_precision_mechanism": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -22,7 +32,8 @@
   },
   "requirements": [
     [
-      "has_ingredient",
+      "has_brass",
+      "has_precision_mechanism",
       "has_recipe"
     ]
   ],

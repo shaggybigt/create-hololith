@@ -1,7 +1,19 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ingredient": {
+    "has_alloy": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "create:andesite_alloy"
+            ]
+          }
+        ]
+      }
+    },
+    "has_electron_tube": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -22,7 +34,8 @@
   },
   "requirements": [
     [
-      "has_ingredient",
+      "has_alloy",
+      "has_electron_tube",
       "has_recipe"
     ]
   ],

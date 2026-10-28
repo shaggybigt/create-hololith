@@ -4,9 +4,11 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public final class HololithClientConfig {
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.DoubleValue HOLOGRAM_INTENSITY;
+    public static final ModConfigSpec.BooleanValue HOLOGRAM_FLICKER;
     static {
         var builder=new ModConfigSpec.Builder();
         HOLOGRAM_INTENSITY=builder.comment("Local projection brightness including terrain and exposed-edge glow. No shader pack required.").defineInRange("hologramIntensity",1.0,0.4,1.8);
+        HOLOGRAM_FLICKER=builder.comment("Subtle, smooth light-output variation. Does not rebuild terrain or change power demand.").define("hologramFlicker",true);
         SPEC=builder.build();
     }
     private HololithClientConfig(){}
@@ -15,5 +17,5 @@ public final class HololithClientConfig {
     public static void previewIntensity(double value){
         if(Double.isFinite(value))HOLOGRAM_INTENSITY.set(Math.clamp(Math.round(value*20)/20.0,0.4,1.8));
     }
-    public static void save(){HOLOGRAM_INTENSITY.save();}
+    public static void save(){HOLOGRAM_INTENSITY.save();HOLOGRAM_FLICKER.save();}
 }

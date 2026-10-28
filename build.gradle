@@ -32,7 +32,7 @@ repositories {
                 url = 'https://api.modrinth.com/maven'
             }
         }
-        filter { includeModule('maven.modrinth', 'create') }
+        filter { includeModule('maven.modrinth', 'create'); includeModule('maven.modrinth', 'jade') }
     }
 }
 configurations {
@@ -43,7 +43,10 @@ configurations {
 }
 def localCreateJar = providers.gradleProperty('createJar')
 if (!localCreateJar.isPresent() && runtimeRoot.isPresent()) {
-    localCreateJar = runtimeRoot.map { "${it}/test-client/mods/create-1.21.1-6.0.10.jar" }
+    def candidates = ["${runtimeRoot.get()}/test-client/mods/create-1.21.1-6.0.10.jar",
+                      "${runtimeRoot.get()}/downloads/mods/create-1.21.1-6.0.10.jar"]
+    def available = candidates.find { file(it).isFile() }
+    if (available != null) { localCreateJar = providers.provider { available } }
 }
 def createJarFile = localCreateJar.isPresent()
         ? localCreateJar.map { file(it) }
@@ -57,6 +60,11 @@ dependencies {
     createDistribution 'maven.modrinth:create:UjX6dr61'
     compileOnly files(createJarFile)
     compileOnly files(createLibraries)
+    // Optional HUD integration, pinned to the official MC 1.21.1 NeoForge build.
+    compileOnly 'maven.modrinth:jade:eYz2YBGT'
+    if (providers.gradleProperty('jadeTest').getOrElse('false') == 'true') {
+        runtimeOnly 'maven.modrinth:jade:eYz2YBGT'
+    }
     // Modpack probes already put Create in their mods directory. A normal fresh
     // checkout needs it on the runtime classpath for runClient/runServer.
     if (!runtimeRoot.isPresent()) { runtimeOnly files(createJarFile) }
@@ -139,6 +147,15 @@ tasks.named('processProbeResources') {
     filesMatching('META-INF/neoforge.mods.toml') { expand(mod_version: project.version) }
 }
 neoForge.runs {
+    clientKineticProbe {
+        client()
+        gameDirectory = new File(gameRoot, 'client-kinetic')
+        jvmArguments = ['-Xms2G', '-Xmx4G']
+        programArguments = ['--width', '1600', '--height', '900']
+        systemProperty 'hololith.probe.minimal', 'true'
+        systemProperty 'hololith.probe.kinetic', 'true'
+        systemProperty 'hololith.probe.allowedRoot', new File(gameRoot, 'client-kinetic').canonicalPath
+    }
     clientAirshipProbe {
         client()
         gameDirectory = new File(gameRoot, 'client-airship')

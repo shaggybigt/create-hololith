@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hololith:reference_marker"
+    },
+    {
+      "tag": "c:dyes/pink"
+    }
+  ],
+  "result": {
+    "id": "hololith:reference_marker",
+    "count": 1,
+    "components": {
+      "minecraft:block_state": {
+        "color": "pink"
+      }
+    }
+  },
+  "group": "hololith:reference_marker_dyeing"
+}

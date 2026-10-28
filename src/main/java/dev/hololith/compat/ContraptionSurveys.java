@@ -44,6 +44,7 @@ public final class ContraptionSurveys implements MovementBehaviour {
 
     /** Instruments remain available when Create's generic actor controls are toggled. */
     @Override public ItemStack canBeDisabledVia(MovementContext context){return null;}
+    @Override public void startMoving(MovementContext context){runtime(context);}
 
     public static MovementContext context(AbstractContraptionEntity entity,BlockPos localPos){
         if(entity==null||entity.getContraption()==null)return null;

@@ -1,6 +1,9 @@
 package dev.hololith;
 
 import com.mojang.serialization.MapCodec;
+import com.simibubi.create.content.kinetics.base.KineticBlock;
+import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.api.equipment.goggles.IProxyHoveringInformation;
 import net.minecraft.core.*;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
@@ -17,14 +20,19 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.*;
 
-public final class HololithTableBlock extends BaseEntityBlock {
+public final class HololithTableBlock extends KineticBlock implements IBE<HololithTableEntity>, IProxyHoveringInformation {
     public static final MapCodec<HololithTableBlock> CODEC=simpleCodec(HololithTableBlock::new);
     public static final IntegerProperty PART=IntegerProperty.create("part",0,8);
     public static final DirectionProperty FACING=BlockStateProperties.HORIZONTAL_FACING;
     private static final ThreadLocal<Boolean> REMOVING=ThreadLocal.withInitial(()->false);
     private static final VoxelShape SHAPE=Shapes.or(box(0,12,0,16,16,16),box(2,0,2,14,12,14));
     public HololithTableBlock(Properties properties){super(properties);registerDefaultState(stateDefinition.any().setValue(PART,4).setValue(FACING,Direction.NORTH));}
-    @Override protected MapCodec<? extends BaseEntityBlock> codec(){return CODEC;}
+    @Override protected MapCodec<? extends Block> codec(){return CODEC;}
+    @Override public Direction.Axis getRotationAxis(BlockState state){return Direction.Axis.Y;}
+    @Override public boolean hasShaftTowards(LevelReader level,BlockPos pos,BlockState state,Direction face){return state.getValue(PART)==4&&face==Direction.DOWN;}
+    @Override public BlockPos getInformationSource(Level level,BlockPos pos,BlockState state){return anchor(pos,state);}
+    @Override public Class<HololithTableEntity> getBlockEntityClass(){return HololithTableEntity.class;}
+    @Override public BlockEntityType<? extends HololithTableEntity> getBlockEntityType(){return Hololith.TABLE_ENTITY.get();}
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder){builder.add(PART,FACING);}
     @Override protected RenderShape getRenderShape(BlockState state){return RenderShape.MODEL;}
     @Override protected BlockState rotate(BlockState state,Rotation rotation){
@@ -76,7 +84,7 @@ public final class HololithTableBlock extends BaseEntityBlock {
         removeOtherTiles(state,level,pos,true);super.onBlockExploded(state,level,pos,explosion);
     }
     @Override public BlockEntity newBlockEntity(BlockPos pos,BlockState state){return state.getValue(PART)==4?new HololithTableEntity(pos,state):null;}
-    @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level,BlockState state,BlockEntityType<T> type){return level.isClientSide||state.getValue(PART)!=4?null:createTickerHelper(type,Hololith.TABLE_ENTITY.get(),HololithTableEntity::tick);}
+    @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level,BlockState state,BlockEntityType<T> type){return type!=Hololith.TABLE_ENTITY.get()||state.getValue(PART)!=4?null:(l,p,s,be)->((HololithTableEntity)be).tick();}
     @Override protected InteractionResult useWithoutItem(BlockState state,Level level,BlockPos pos,Player player,BlockHitResult hit){
         if(!level.isClientSide&&player instanceof ServerPlayer sp&&level.getBlockEntity(anchor(pos,state)) instanceof HololithTableEntity table)HololithNetwork.open(sp,table);
         return InteractionResult.sidedSuccess(level.isClientSide);

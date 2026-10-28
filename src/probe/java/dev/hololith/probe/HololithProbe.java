@@ -37,6 +37,10 @@ public final class HololithProbe {
     private final boolean minimal=Boolean.getBoolean("hololith.probe.minimal");
     private final boolean contraptions=Boolean.getBoolean("hololith.probe.contraptions");
     private final boolean airship=Boolean.getBoolean("hololith.probe.airship");
+    private final boolean kinetic=Boolean.getBoolean("hololith.probe.kinetic");
+    private KineticChecks kineticChecks;
+    private IntegrationChecks integrationChecks;
+    private int kineticPhase;
     private PublicAirshipFixture airshipFixture;
     private ContraptionFixture contraptionFixture;
     private final boolean showcase=Boolean.getBoolean("hololith.showcase");
@@ -45,7 +49,12 @@ public final class HololithProbe {
     private List<String> loadedMods=List.of();
     private int ticks,phase,phaseTick,cx,cz;
     private BlockPos table,sensor,edited;
-    private UUID playerId,sensorId;
+    private UUID playerId,sensorId,beaconId;
+    private int nearAttempts,lastNearAttempt,beaconUseAttempts,lastBeaconUse;
+    private SurveyKey offlineSourceKey;
+    private CompoundTag beaconCachedSurvey;
+    private volatile boolean offlineSourceMonitoring,offlineSourceTouched;
+    private boolean offlineSourceCheckStarted;
     private long revision;
     private boolean finished;
     private UUID movingId;
@@ -87,6 +96,10 @@ public final class HololithProbe {
             catch(Exception error){movingMeshLost=true;}
         });
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.tick.ServerTickEvent.Pre e)->{
+            if(offlineSourceMonitoring){
+                var manager=SurveyManager.get(e.getServer());
+                if(manager.isPending(offlineSourceKey)||manager.hasChecked(offlineSourceKey)||SurveyStore.get(e.getServer()).find(offlineSourceKey)!=null)offlineSourceTouched=true;
+            }
             if(movingTick<0)return;
             var level=e.getServer().overworld();var t=(HololithTableEntity)level.getBlockEntity(table);
             SurveyStore.get(e.getServer()).heartbeat(movingId,level.dimension().location().toString(),cx+4*((movingTick/5)%3),cz);
@@ -101,7 +114,7 @@ public final class HololithProbe {
     }
     private void check(String text,boolean passed){checks.add(Map.of("test",text,"passed",passed));System.out.println("HOLOLITH CHECK "+passed+": "+text);}
     private void server(Consumer<ServerPlayer> action){var s=Minecraft.getInstance().getSingleplayerServer();work=CompletableFuture.runAsync(()->action.accept(Objects.requireNonNull(s.getPlayerList().getPlayer(playerId))),s);}
-    private void next(){phase++;phaseTick=ticks;}
+    private void next(){phase++;phaseTick=ticks;nearAttempts=0;lastNearAttempt=ticks;}
     private void use(BlockPos pos){var mc=Minecraft.getInstance();mc.gameMode.useItemOn(mc.player,InteractionHand.MAIN_HAND,new BlockHitResult(Vec3.atCenterOf(pos).add(0,.5,0),Direction.UP,pos,false));}
     private void screenshot(String name){var mc=Minecraft.getInstance();Screenshot.grab(mc.gameDirectory,name,mc.getMainRenderTarget(),c->System.out.println(c.getString()));}
     private HololithTableEntity clientTable(){return (HololithTableEntity)Minecraft.getInstance().level.getBlockEntity(table);}
@@ -109,7 +122,18 @@ public final class HololithProbe {
         var field=dev.hololith.client.HololithRenderer.class.getDeclaredField("CACHE");field.setAccessible(true);var entry=((Map<?,?>)field.get(null)).get(clientTable());
         if(entry==null)return null;var mesh=entry.getClass().getDeclaredField("mesh");mesh.setAccessible(true);return mesh.get(entry);
     }
-    private void near(ServerPlayer p,BlockPos pos){p.connection.teleport(pos.getX()+.5,pos.getY()+1,pos.getZ()+2,180,40);p.getAbilities().flying=true;p.onUpdateAbilities();}
+    private void near(ServerPlayer p,BlockPos pos){p.getAbilities().flying=true;p.onUpdateAbilities();p.setDeltaMovement(Vec3.ZERO);p.fallDistance=0;p.setOnGround(false);p.connection.teleport(pos.getX()+.5,pos.getY()+1,pos.getZ()+2,180,40);}
+    private boolean cardPositionReady(BlockPos pos){
+        var mc=Minecraft.getInstance();
+        return mc.player!=null&&mc.player.getAbilities().flying&&mc.player.getMainHandItem().is(Hololith.CARD.get())
+            &&mc.player.position().distanceToSqr(new Vec3(pos.getX()+.5,pos.getY()+1,pos.getZ()+2))<.09;
+    }
+    private boolean awaitCardPosition(BlockPos pos){
+        if(cardPositionReady(pos))return true;
+        if(ticks-phaseTick>=120){System.out.println("HOLOLITH CARD: interaction-position deadline at "+pos+", player="+Minecraft.getInstance().player.position());return true;}
+        if(nearAttempts<3&&ticks-lastNearAttempt>=25){nearAttempts++;lastNearAttempt=ticks;server(p->near(p,pos));}
+        return false;
+    }
     private void hand(ServerPlayer p,ItemStack stack){p.setItemInHand(InteractionHand.MAIN_HAND,stack);p.inventoryMenu.broadcastChanges();}
     private void restoreReference(ServerPlayer p){
         var at=ReferenceChecks.buried(cx,cz).getFirst();p.serverLevel().setBlockAndUpdate(at,removedReferenceState);
@@ -144,6 +168,31 @@ public final class HololithProbe {
         try {
             if(airship){if(airshipFixture==null)airshipFixture=new PublicAirshipFixture();airshipFixture.tick();return;}
             if(minimal)openMinimalWorld(mc);
+            if(kinetic){
+                if(mc.level==null||mc.player==null)return;
+                ticks++;
+                if(ticks<80)return;
+                if(kineticChecks==null){
+                    loadedMods=net.neoforged.fml.ModList.get().getMods().stream().map(mod->mod.getModId()).sorted().toList();
+                    kineticChecks=new KineticChecks(new BlockPos(16,100,16),this::check);
+                }
+                if(kineticPhase==0){
+                    if(kineticChecks.tick()){kineticPhase=1;integrationChecks=new IntegrationChecks(new BlockPos(32,100,16),this::check);}
+                }else if(kineticPhase==1){
+                    if(integrationChecks.tick()){
+                        kineticPhase=2;phaseTick=ticks;table=new BlockPos(32,100,16);playerId=mc.player.getUUID();
+                        server(p->{
+                            ProbePower.supply(p.serverLevel(),table,32);
+                            p.getAbilities().flying=true;p.onUpdateAbilities();
+                            p.connection.teleport(table.getX()+4.5,table.getY()+3,table.getZ()+5.5,140,25);
+                        });
+                    }
+                }else if(kineticPhase==2){
+                    if(work.isCompletedExceptionally())work.join();
+                    if(work.isDone()&&ticks-phaseTick>80){qolChecks=new QolChecks(table,this::check);kineticPhase=3;}
+                }else if(qolChecks.tick())finish();
+                return;
+            }
             if(showcase){if(showcaseFixture==null)showcaseFixture=new ShowcaseFixture();showcaseFixture.tick();return;}
             if(contraptions){if(contraptionFixture==null)contraptionFixture=new ContraptionFixture(resume);contraptionFixture.tick();return;}
             if(mc.level==null||mc.player==null)return;ticks++;
@@ -180,6 +229,7 @@ public final class HololithProbe {
                 case 2->{
                     server(p->{var level=p.serverLevel();int parts=0,entities=0;for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++){var at=table.offset(x,0,z);if(level.getBlockState(at).is(Hololith.TABLE.get()))parts++;if(level.getBlockEntity(at) instanceof HololithTableEntity)entities++;}
                         check("client item placement creates nine table tiles",parts==9);check("exactly one table block entity",entities==1);
+                        ProbePower.supply(level,table,32);
                         var t=(HololithTableEntity)level.getBlockEntity(table);t.configure(32,0,0,1,0,level.dimension().location().toString(),cx,cz);
                         p.setItemInHand(InteractionHand.MAIN_HAND,Hololith.CARD.toStack());p.inventoryMenu.broadcastChanges();near(p,sensor);
                     });next();
@@ -285,18 +335,63 @@ public final class HololithProbe {
                 }
                 case 19->{
                     if(ticks-phaseTick<140)return;
-                    server(p->{var beacon=sensor.east(8);p.serverLevel().setBlockAndUpdate(beacon,Hololith.BEACON.get().defaultBlockState());p.setItemInHand(InteractionHand.MAIN_HAND,Hololith.CARD.toStack());p.inventoryMenu.broadcastChanges();p.connection.teleport(beacon.getX()+.5,beacon.getY()+1,beacon.getZ()+2,180,40);});next();
+                    server(p->{var beacon=sensor.east(8);p.serverLevel().setBlockAndUpdate(beacon,Hololith.BEACON.get().defaultBlockState());beaconId=((SurveySensorEntity)Objects.requireNonNull(p.serverLevel().getBlockEntity(beacon))).sensorId();hand(p,Hololith.CARD.toStack());near(p,beacon);});next();
                 }
-                case 20->{use(sensor.east(8));next();}
-                case 21->{check("card records remote beacon",mc.player.getMainHandItem().getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag().hasUUID("SensorId"));server(p->p.connection.teleport(table.getX()+.5,table.getY()+1,table.getZ()+3,180,35));next();}
-                case 22->{use(table);next();}
+                case 20->{if(!awaitCardPosition(sensor.east(8)))return;use(sensor.east(8));beaconUseAttempts=1;lastBeaconUse=ticks;next();}
+                case 21->{
+                    var card=mc.player.getMainHandItem().getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag();
+                    boolean recorded=card.hasUUID("SensorId")&&card.getUUID("SensorId").equals(beaconId);
+                    if(!recorded&&ticks-phaseTick<120){
+                        if(cardPositionReady(sensor.east(8))&&beaconUseAttempts<3&&ticks-lastBeaconUse>=40){use(sensor.east(8));beaconUseAttempts++;lastBeaconUse=ticks;}
+                        return;
+                    }
+                    check("card records remote beacon",recorded);server(p->{if(!recorded)System.out.println("HOLOLITH CARD: beacon capture failed, server pos="+p.position()+", card="+p.getMainHandItem().getOrDefault(DataComponents.CUSTOM_DATA,CustomData.EMPTY).copyTag());near(p,table);});next();
+                }
+                case 22->{if(!awaitCardPosition(table))return;use(table);next();}
                 case 23->{
                     if(ticks-phaseTick<140)return;
-                    server(p->{var t=(HololithTableEntity)p.serverLevel().getBlockEntity(table);var beacon=(SurveySensorEntity)p.serverLevel().getBlockEntity(sensor.east(8));check("remote beacon link acquires its terrain",beacon.sensorId().equals(t.sensorId())&&t.snapshot()!=null&&t.snapshot().centerX==cx+8);t.configure(32,0,0,1,2,p.serverLevel().dimension().location().toString(),cx,cz);});next();
+                    server(p->{
+                        var t=(HololithTableEntity)p.serverLevel().getBlockEntity(table);var beacon=(SurveySensorEntity)p.serverLevel().getBlockEntity(sensor.east(8));
+                        check("remote beacon link acquires its terrain",beacon.sensorId().equals(t.sensorId())&&t.snapshot()!=null&&t.snapshot().centerX==cx+8);
+                        beaconCachedSurvey=t.snapshot()==null?null:t.snapshot().save();
+                        p.serverLevel().removeBlock(sensor.east(8),false);
+                        var removed=SurveyStore.get(p.server).sensor(beaconId);
+                        check("normal beacon removal immediately marks its survey source offline",removed!=null&&!removed.online());
+                        var prior=t.snapshot();t.configure(128,2,2,2,2,p.serverLevel().dimension().location().toString(),cx+12,cz+12);
+                        check("direct coordinate mode is rejected without changing the physical link",t.mode()==1&&t.span()==32&&beacon.sensorId().equals(t.sensorId())&&t.snapshot()==prior);
+                        CompoundTag legacy=new CompoundTag();legacy.putString("Dimension",p.serverLevel().dimension().location().toString());legacy.putInt("X",cx+12);legacy.putInt("Z",cz+12);t.bind(legacy);
+                        check("coordinate-only card cannot replace a physical sensor link",t.mode()==1&&beacon.sensorId().equals(t.sensorId())&&t.snapshot()==prior);
+                        CompoundTag legacySave=t.saveWithFullMetadata(p.registryAccess());legacySave.merge(t.getUpdateTag(p.registryAccess()));legacySave.putInt("Mode",2);legacySave.putInt("X",cx+12);legacySave.putInt("Z",cz+12);
+                        var migrated=(HololithTableEntity)BlockEntity.loadStatic(table,t.getBlockState(),legacySave,p.registryAccess());
+                        check("legacy coordinate save migrates to local mode without remote terrain",migrated!=null&&migrated.mode()==0&&migrated.snapshot()==null&&migrated.markers().isEmpty()
+                            &&migrated.getUpdateTag(p.registryAccess()).getList("Markers",Tag.TAG_COMPOUND).isEmpty());
+                        check("legacy source migration preserves table identity and scale",migrated!=null&&migrated.tableId().equals(t.tableId())&&migrated.span()==t.span()&&migrated.zoom()==t.zoom());
+                    });
+                    var forbidden=new HololithNetwork.Configure(table,128,2,2,2,2,"minecraft:overworld",cx+12,cz+12);
+                    check("configure packet validation rejects coordinate mode",!HololithNetwork.valid(forbidden));
+                    net.neoforged.neoforge.network.PacketDistributor.sendToServer(forbidden);next();
                 }
                 case 24->{
                     if(ticks-phaseTick<140)return;
-                    server(p->{var t=(HololithTableEntity)p.serverLevel().getBlockEntity(table);check("coordinate mode acquires selected region",t.mode()==2&&t.snapshot()!=null&&t.snapshot().centerX==cx&&t.snapshot().centerZ==cz);CompoundTag card=new CompoundTag();card.putUUID("SensorId",sensorId);card.putString("Dimension",p.serverLevel().dimension().location().toString());card.putInt("X",cx);card.putInt("Z",cz);t.bind(card);p.setItemInHand(InteractionHand.MAIN_HAND,ItemStack.EMPTY);p.inventoryMenu.broadcastChanges();camera(p);});next();
+                    if(!offlineSourceCheckStarted){
+                        offlineSourceCheckStarted=true;
+                        server(p->{
+                            var t=(HololithTableEntity)p.serverLevel().getBlockEntity(table);
+                            check("server rejects the actual coordinate configure packet",t.mode()==1&&t.span()==32&&t.rotation()==0&&t.zoom()==0&&beaconId.equals(t.sensorId())&&t.snapshot()!=null&&t.snapshot().centerX==cx+8);
+                            check("removed beacon retains its unchanged cached survey while powered",t.isProjecting()&&t.snapshot()!=null&&beaconCachedSurvey!=null&&beaconCachedSurvey.equals(t.snapshot().save())&&t.status().contains("Sensor offline"));
+                            offlineSourceKey=SurveyKey.at(p.serverLevel().dimension().location().toString(),cx+12,cz+12,32);
+                            var manager=SurveyManager.get(p.server);
+                            check("offline-source fixture target starts uncached and unrequested",!manager.isPending(offlineSourceKey)&&!manager.hasChecked(offlineSourceKey)&&SurveyStore.get(p.server).find(offlineSourceKey)==null);
+                            CompoundTag fake=new CompoundTag();fake.putUUID("SensorId",UUID.randomUUID());fake.putString("Dimension",offlineSourceKey.dimension());fake.putInt("X",offlineSourceKey.x());fake.putInt("Z",offlineSourceKey.z());t.bind(fake);
+                            offlineSourceTouched=false;offlineSourceMonitoring=true;
+                        });phaseTick=ticks;return;
+                    }
+                    server(p->{
+                        offlineSourceMonitoring=false;var t=(HololithTableEntity)p.serverLevel().getBlockEntity(table);
+                        check("unknown offline sensor cannot acquire terrain from recorded coordinates",t.mode()==1&&t.snapshot()==null);
+                        check("unknown offline sensor never queues or completes a coordinate scan",!offlineSourceTouched&&!SurveyManager.get(p.server).isPending(offlineSourceKey)&&SurveyStore.get(p.server).find(offlineSourceKey)==null);
+                        CompoundTag card=new CompoundTag();card.putUUID("SensorId",sensorId);card.putString("Dimension",p.serverLevel().dimension().location().toString());card.putInt("X",cx);card.putInt("Z",cz);t.bind(card);hand(p,ItemStack.EMPTY);camera(p);
+                    });next();
                 }
                 case 25->{
                     if(ticks-phaseTick<140)return;
@@ -376,8 +471,8 @@ public final class HololithProbe {
         if(shipFixture!=null){var s=Minecraft.getInstance().getSingleplayerServer();if(s!=null)CompletableFuture.runAsync(()->{try{shipFixture.returnBlocks();shipFixture=null;}catch(Exception e){checks.add(Map.of("test","ship cleanup","passed",false,"error",e.toString()));}},s).join();}
         if(finished)return;finished=true;var mc=Minecraft.getInstance();var report=new LinkedHashMap<String,Object>();report.put("timestamp",Instant.now().toString());report.put("mode",resume?"resume":"fresh");
         report.put("version",net.neoforged.fml.ModList.get().getModContainerById("hololith").orElseThrow().getModInfo().getVersion().toString());
-        report.put("profile",minimal?"minimal":"full-pack");report.put("loadedMods",loadedMods);
-        report.put("scope",minimal?"Graphical NeoForge development client and integrated server with only Create, Hololith and bundled dependencies, offline dev identity and a fresh vanilla flat disposable world. Normal controls, terrain surveys, markers and rendering are exercised; optional Sable ship phases are skipped. No authenticated multiplayer acceptance.":"Graphical NeoForge development client and integrated server with installed pack, offline dev identity and copied disposable world. No authenticated multiplayer or airborne flight acceptance.");
+        report.put("profile",kinetic?(net.neoforged.fml.ModList.get().isLoaded("jade")?"kinetic-jade":"kinetic"):minimal?"minimal":"full-pack");report.put("loadedMods",loadedMods);
+        report.put("scope",kinetic?"Graphical disposable client and integrated server: real Create motors, shafts and finite hand crank; power, stress, crafting, optional Jade and Ponder. Offline development identity; no authenticated multiplayer or flight acceptance.":minimal?"Graphical NeoForge development client and integrated server with only Create, Hololith and bundled dependencies, offline dev identity and a fresh vanilla flat disposable world. Normal controls, terrain surveys, markers and rendering are exercised; optional Sable ship phases are skipped. No authenticated multiplayer acceptance.":"Graphical NeoForge development client and integrated server with installed pack, offline dev identity and copied disposable world. No authenticated multiplayer or airborne flight acceptance.");
         report.put("skippedChecks",minimal?List.of("Sable assembly, translation, yaw and disassembly: optional mod absent"):List.of());
         report.put("phase",phase);report.put("worldTicks",ticks);report.put("fpsAtFinish",mc.getFps());report.put("checks",checks);report.put("total",checks.size());report.put("failures",checks.stream().filter(c->Boolean.FALSE.equals(c.get("passed"))).count());
         try{Files.createDirectories(Path.of("validation"));Files.writeString(Path.of("validation/hololith-"+(resume?"resume":"fresh")+".json"),new GsonBuilder().setPrettyPrinting().create().toJson(report));}catch(Exception e){throw new RuntimeException(e);}

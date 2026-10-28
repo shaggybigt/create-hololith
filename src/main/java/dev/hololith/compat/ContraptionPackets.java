@@ -50,7 +50,7 @@ public final class ContraptionPackets {
     }
 
     public static void register(RegisterPayloadHandlersEvent event){
-        var registrar=event.registrar("4");
+        var registrar=event.registrar("5");
         registrar.playToClient(State.TYPE,State.CODEC,(packet,context)->context.enqueueWork(()->dev.hololith.client.ContraptionClient.accept(packet.entityId,packet.entityUuid,packet.pos,packet.tag)));
         registrar.playToClient(Markers.TYPE,Markers.CODEC,(packet,context)->context.enqueueWork(()->{
             var frame=packet.frame;dev.hololith.client.ContraptionClient.acceptMarkers(packet.entityId,packet.entityUuid,frame.pos(),frame.tableId(),frame.key(),frame.points());
