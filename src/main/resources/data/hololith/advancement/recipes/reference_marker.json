@@ -1,13 +1,27 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ingredient": {
+    "has_amethyst": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "create:electron_tube"
+              "minecraft:amethyst_shard"
+            ]
+          }
+        ]
+      }
+    },
+    "has_instrument": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hololith:surveying_table",
+              "hololith:local_sensor",
+              "hololith:remote_beacon"
             ]
           }
         ]
@@ -22,7 +36,8 @@
   },
   "requirements": [
     [
-      "has_ingredient",
+      "has_amethyst",
+      "has_instrument",
       "has_recipe"
     ]
   ],

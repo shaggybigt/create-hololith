@@ -1,25 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "pattern": [
-    " BP",
-    " RC",
-    "P B"
-  ],
-  "key": {
-    "B": {
-      "item": "create:brass_nugget"
-    },
-    "P": {
+  "ingredients": [
+    {
       "item": "minecraft:paper"
     },
-    "R": {
-      "item": "minecraft:redstone"
+    {
+      "tag": "c:nuggets/brass"
     },
-    "C": {
-      "item": "minecraft:compass"
+    {
+      "tag": "c:dusts/redstone"
     }
-  },
+  ],
   "result": {
     "id": "hololith:survey_card",
     "count": 1

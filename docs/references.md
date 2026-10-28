@@ -49,10 +49,18 @@ Primary API documentation: [NeoForge networking](https://docs.neoforged.net/docs
 
 ## Tutorials and demonstration
 
-The three Ponder timelines, their text and the small survey workshop are original
+The four Ponder timelines, their text and the small survey workshop are original
 Hololith content. `scripts/Generate-Ponder.py` creates the workshop NBT from an
 explicit block layout; no upstream Ponder scene source or schematic is copied.
 The tutorials use the Ponder API bundled with the installed Create distribution.
+
+Kinetic integration uses Create's public kinetic block/entity, network stress,
+goggles and renderer APIs, verified against the exact installed 6.0.10 binary.
+Optional Jade integration uses its `IWailaPlugin`, block-data and tooltip APIs
+from the official 15.10.6 NeoForge distribution. No Create or Jade implementation
+source is copied or bundled. References:
+[Create kinetic entity](https://github.com/Creators-of-Create/Create/blob/mc1.21.1/dev/src/main/java/com/simibubi/create/content/kinetics/base/KineticBlockEntity.java),
+[Jade source and API](https://github.com/Snownee/Jade/tree/1.21-neoforge).
 
 The showcase landscape, camera path and captions are original. Its video contains
 actual Minecraft framebuffer captures from the disposable development world, with

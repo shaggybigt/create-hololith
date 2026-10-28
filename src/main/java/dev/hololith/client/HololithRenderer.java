@@ -18,6 +18,8 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 /** Uses the supplied BER pose, including Sable's ship transform. */
 public final class HololithRenderer implements BlockEntityRenderer<HololithTableEntity> {
+    // Reduce the original 0.35-block tabletop clearance by one third.
+    private static final double PROJECTION_Y=1+.35*2/3;
     private static final LinkedHashMap<HololithTableEntity,Entry> CACHE=new LinkedHashMap<>(16,.75f,true);
     private static long ticks,lastBuildTick=-1;
     private static boolean shaderChecked;
@@ -30,6 +32,10 @@ public final class HololithRenderer implements BlockEntityRenderer<HololithTable
         Matrix4f local=pose.last().pose();
         if(!(table.getLevel() instanceof net.createmod.ponder.api.level.PonderLevel)
                 &&local.m30()*local.m30()+local.m31()*local.m31()+local.m32()*local.m32()>96*96)return;
+        com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer.renderRotatingKineticBlock(table,
+            com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer.shaft(net.minecraft.core.Direction.Axis.Y),
+            pose,buffers.getBuffer(net.minecraft.client.renderer.RenderType.solid()),light);
+        if(!table.isProjecting()||(table.isVirtual()&&!(table.getLevel() instanceof net.createmod.ponder.api.level.PonderLevel)))return;
         SurveySnapshot snapshot=table.snapshot();Entry entry=CACHE.computeIfAbsent(table,ignored->new Entry());entry.lastUsed=ticks;
         if(sameArea(entry.snapshot,snapshot)&&entry.snapshot.revision==snapshot.revision)entry.snapshot=snapshot;
         // An explicit relink/scale change clears the survey. Do not present an unrelated
@@ -47,8 +53,9 @@ public final class HololithRenderer implements BlockEntityRenderer<HololithTable
         while(CACHE.size()>8){var first=CACHE.entrySet().iterator();var old=first.next();old.getValue().close();first.remove();}
         pose.pushPose();
         try{
-            pose.translate(.5,1.35,.5);pose.mulPose(Axis.YP.rotationDegrees(table.rotation()*90f));pose.scale(table.magnification(),table.verticalScale(),table.magnification());
-            float intensity=HololithClientConfig.intensity();
+            pose.translate(.5,PROJECTION_Y,.5);pose.mulPose(Axis.YP.rotationDegrees(table.rotation()*90f));pose.scale(table.magnification(),table.verticalScale(),table.magnification());
+            float intensity=HololithClientConfig.intensity()*(HololithClientConfig.HOLOGRAM_FLICKER.get()
+                ?ProjectionLight.modulation(ticks+partial+(table.getBlockPos().asLong()&255)):1);
             if(entry.mesh!=null){Matrix4f transform=new Matrix4f(RenderSystem.getModelViewMatrix()).mul(pose.last().pose());entry.mesh.draw(transform,intensity);}
             decorations(pose.last(),buffers.getBuffer(HololithRenderTypes.LIGHT),ticks+partial);
             // Points are world coordinates: map them through the mesh actually being drawn,

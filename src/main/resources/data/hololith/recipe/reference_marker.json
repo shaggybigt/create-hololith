@@ -3,21 +3,21 @@
   "category": "misc",
   "pattern": [
     " B ",
-    "AEA",
+    "ARA",
     " C "
   ],
   "key": {
     "B": {
-      "item": "create:brass_ingot"
+      "tag": "c:nuggets/brass"
     },
     "A": {
       "item": "minecraft:amethyst_shard"
     },
-    "E": {
-      "item": "create:electron_tube"
+    "R": {
+      "tag": "c:dusts/redstone"
     },
     "C": {
-      "item": "create:copper_sheet"
+      "tag": "c:plates/copper"
     }
   },
   "result": {

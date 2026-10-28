@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hololith:reference_marker"
+    },
+    {
+      "tag": "c:dyes/light_gray"
+    }
+  ],
+  "result": {
+    "id": "hololith:reference_marker",
+    "count": 1,
+    "components": {
+      "minecraft:block_state": {
+        "color": "light_gray"
+      }
+    }
+  },
+  "group": "hololith:reference_marker_dyeing"
+}

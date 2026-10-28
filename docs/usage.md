@@ -1,10 +1,10 @@
 # Using Create: Hololith
 
 These instructions describe the development branch. Existing release downloads
-retain their original behavior; build this branch to try the new quality-of-life
-controls. Hold **Shift** over an instrument in your inventory for its controls.
+retain their original behavior; build this branch to try the kinetic-powered
+instruments. Hold **Shift** over an instrument in your inventory for its controls.
 Recorded Survey Cards show their target type, short identity and recorded location
-so that cards for a table, sensor and fixed coordinates are easier to distinguish.
+so that cards for tables and sensors are easier to distinguish.
 
 ## Learn with Ponder
 
@@ -14,13 +14,13 @@ attached to that item.
 
 | Item | Available tutorials |
 |---|---|
-| Surveying Table | **A landscape on your workbench**, **Surveying somewhere else**, **Marking places in the landscape** |
+| Surveying Table | **A landscape on your workbench**, **Surveying somewhere else**, **Marking places in the landscape**, **Powering the projection** |
 | Local Survey Sensor or Remote Survey Beacon | **Surveying somewhere else** |
 | Survey Card | **Surveying somewhere else**, **Marking places in the landscape** |
 | Reference Marker | **Marking places in the landscape** |
 
 The table tutorial explains placement, map area, rotation, magnification and
-relief. The source tutorial demonstrates cards, sensors, beacons, coordinates and
+relief. The source tutorial demonstrates cards, sensors, beacons and
 cached terrain. The marker tutorial shows direct table links, sensor groups, dye
 colors and unlinking with a wrench.
 
@@ -31,7 +31,8 @@ instruments or links. Close Ponder to try the same controls on your own table.
 ## Use the instrument
 
 - Place the **Hololith Surveying Table** in a clear, dry 3×3 space. Aim at the
-  intended center tile. It scans its own surroundings by default.
+  intended center tile. Connect a shaft beneath the center and supply at least
+  **16 RPM**. It scans its own surroundings by default once powered.
 - Right-click a table tile with an empty hand to open its instrument panel.
   Choose a **32×32**, **64×64** or **128×128** block area, quarter-turn rotation,
   projection size and normal/double relief. Press **Apply survey settings**.
@@ -45,16 +46,12 @@ instruments or links. Close Ponder to try the same controls on your own table.
 - A **Remote Survey Beacon** uses the same linking method. Place it at a base,
   record it on a card, and link the table elsewhere. These links can cross
   dimensions when the target dimension is present on the server.
-- Sneak-use a card on ordinary terrain to record its coordinates, then apply it
-  to the table. Alternatively choose **Source: coordinates** in the panel and
-  enter the dimension ID, X and Z. Coordinates are world positions, not ship
-  storage positions.
-- Reuse a card on another sensor/terrain to overwrite its target. Reapplying
+- Reuse a card on another sensor or beacon to overwrite its target. Reapplying
   a card changes the table's target. **Source: table** restores local scanning.
 
 Recording and applying cards reports which instrument was recorded or linked and
 what to do next. A sensor card's listed coordinates are its position when recorded;
-the UUID link follows its current position. A coordinate card stays fixed. Short
+the UUID link follows its current position. Cards cannot select arbitrary terrain. Short
 identities distinguish nearby instruments; they are labels, not security credentials.
 
 Leave the table a moment to acquire its first survey. A projection can be partial
@@ -68,9 +65,17 @@ Sensors and beacons report locations; an active linked table performs the scan.
 Capture a region while it is loaded before leaving it. Cached surveys belong to
 a particular center and area setting, and old shared surveys can be evicted.
 Changing targets or area requires loaded terrain unless that survey is cached.
-The cache is shared across the server: coordinate mode can survey any naturally
-loaded region, without per-player exploration or ownership restrictions.
-The instruments require no rotational power, fuel or CC:Tweaked computer.
+Live surveying requires a physical source: the table itself, or a linked sensor
+or beacon that is currently loaded and reporting. An offline link retains saved
+terrain but cannot scan its old coordinates, even if those chunks are loaded by
+another player. Old coordinate-only cards cannot retarget a table; existing
+coordinate-mode tables return to surveying their own surroundings.
+The table requires rotational power; its sensors, beacons, cards and reference
+markers are passive. No CC:Tweaked computer or separate table fuel is required.
+When power stops, all projected light switches off and surveys pause. Saved
+terrain and links remain intact. Larger survey areas and projection sizes
+increase Create stress demand. See [kinetic power and survival recipes](kinetic-power.md)
+for costs, moving-platform limits, Ponder and optional Jade support.
 
 ## Read the survey status
 
@@ -188,24 +193,28 @@ snapshot in their block entity NBT.
 
 ## Ordinary Create contraptions
 
-Version 0.3.0 adds a movement bridge for Create's assembled contraptions. Tables
-continue surveying, sensors report their transformed world position, and colored
-references follow the moving platform. The same terrain scan budgets, caching,
-mesh cache and marker packet limits apply.
+Sensors on Create's assembled contraptions report their transformed world
+positions, and colored references follow the moving platform. A powered table
+elsewhere can follow them with the same bounded scanning and marker updates.
+Captured tables themselves stay off: ordinary Create contraptions do not maintain
+live shaft networks. Their settings and terrain remain saved for disassembly.
 
 - Configure and link instruments before assembly, or use their normal cards,
   dyes, wrench and instrument panel while assembled.
 - Connect a table tile to your contraption using Create's normal assembly rules.
   All nine matching table tiles stay attached to each other. Sensors and markers
   still need their own normal structural/glue connections.
-- A stationary table can follow a moving sensor; a moving table can also display
-  a fixed beacon or coordinate survey. Reference positions always use world X/Z.
+- A powered stationary table can follow a moving sensor. A table aboard an
+  Aeronautics/Sable ship can use a fixed beacon if it has real onboard shaft
+  power. Reference positions always use world X/Z.
 - Park the table **upright before disassembling**. Its placed form is a horizontal
   3×3 multiblock; sideways or upside-down parked tables are not supported.
-- A contraption that unloads or stops ticking stops live updates. Cached terrain
-  remains available. Hololith does not keep trains, carts or chunks loaded.
+- A contraption that unloads or stops ticking stops live updates. The powered
+  observing table retains its cached terrain. Captured tables need upright
+  disassembly and a real power connection before projecting again. Hololith
+  does not keep trains, carts or chunks loaded.
 
 The bridge uses Create's shared actor APIs for controlled contraptions, gantries,
 cart contraptions and train carriages. See [contraption compatibility](contraptions.md)
-and [validation](validation.md) for the types actually exercised in game and
+and [current validation](kinetic-validation.md) for the types actually exercised in game and
 known limits. Mods that replace Create's contraption engine need separate testing.

@@ -13,6 +13,12 @@ public final class SurveySensorEntity extends BlockEntity {
     private UUID sensorId=UUID.randomUUID();
     public SurveySensorEntity(BlockPos pos,BlockState state){super(Hololith.SENSOR_ENTITY.get(),pos,state);}
     public UUID sensorId(){return sensorId;}
+    @Override public void setRemoved(){
+        // Destruction, chunk unload and captured-actor teardown stop authorizing
+        // scans immediately. Assembly/reload restores liveness on the next heartbeat.
+        if(level instanceof ServerLevel server)SurveyStore.get(server.getServer()).offline(sensorId);
+        super.setRemoved();
+    }
     public static void tick(Level level,BlockPos pos,BlockState state,SurveySensorEntity sensor){
         if(!(level instanceof ServerLevel)||(level.getGameTime()+pos.asLong())%SurveyFollower.POLL_TICKS!=0)return;
         ShipCoordinates.toWorld(level,pos).ifPresent(v->SurveyStore.get(((ServerLevel)level).getServer()).heartbeat(sensor.sensorId,level.dimension().location().toString(),(int)Math.floor(v.x),(int)Math.floor(v.z)));

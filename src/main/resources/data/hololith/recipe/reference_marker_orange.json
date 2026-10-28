@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "hololith:reference_marker"
+    },
+    {
+      "tag": "c:dyes/orange"
+    }
+  ],
+  "result": {
+    "id": "hololith:reference_marker",
+    "count": 1,
+    "components": {
+      "minecraft:block_state": {
+        "color": "orange"
+      }
+    }
+  },
+  "group": "hololith:reference_marker_dyeing"
+}

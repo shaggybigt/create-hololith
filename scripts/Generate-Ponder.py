@@ -31,8 +31,17 @@ put(9,6,4,'minecraft:oak_leaves',{'distance':'1','persistent':'true','waterlogge
 for dx in range(-1,2):
     for dz in range(-1,2):
         part=(dz+1)*3+dx+1
-        nbt={'id':'hololith:surveying_table','Span':32,'Relief':1,'Dimension':'minecraft:overworld','Status':'Tutorial model'} if part == 4 else None
-        put(3+dx,1,7+dz,'hololith:surveying_table',{'facing':'north','part':str(part)},nbt)
+        nbt={'id':'hololith:surveying_table','Span':32,'Relief':1,'Dimension':'minecraft:overworld','Status':'Tutorial model','HololithPower':'UNPOWERED','Speed':0.0} if part == 4 else None
+        put(3+dx,3,7+dz,'hololith:surveying_table',{'facing':'north','part':str(part)},nbt)
+# An exposed, mechanically connected demonstration drive under the raised bench.
+# Runtime power is never overridden: only Ponder instructions animate this model.
+for x in (2,4):
+    for z in (6,8):
+        for y in (1,2): put(x,y,z,'create:andesite_casing')
+put(3,0,9,'create:creative_motor',{'facing':'up'},{'id':'create:motor','Speed':0.0})
+put(3,1,9,'create:shaft',{'axis':'y','waterlogged':'false'},{'id':'create:simple_kinetic','Speed':0.0})
+for z in (7,8,9):
+    put(3,2,z,'create:cogwheel',{'axis':'y','waterlogged':'false'},{'id':'create:simple_kinetic','Speed':0.0})
 put(8,1,7,'create:andesite_casing')
 put(8,2,7,'hololith:local_sensor',nbt={'id':'hololith:survey_sensor'})
 put(8,2,3,'hololith:remote_beacon',nbt={'id':'hololith:survey_sensor'})
@@ -49,6 +58,7 @@ def text(s):
 def kind(v):
     if isinstance(v,str): return 8
     if isinstance(v,int): return 3
+    if isinstance(v,float): return 5
     if isinstance(v,list): return 9
     if isinstance(v,dict): return 10
     raise TypeError(type(v))
@@ -56,6 +66,7 @@ def body(v):
     t=kind(v)
     if t==8: return text(v)
     if t==3: return struct.pack('>i',v)
+    if t==5: return struct.pack('>f',v)
     if t==9:
         element=kind(v[0]) if v else 10
         assert all(kind(x)==element for x in v)
@@ -67,12 +78,13 @@ java=(root/'src/main/java/dev/hololith/client/ponder/HololithScenes.java').read_
 lang_path=root/'src/main/resources/assets/hololith/lang/en_us.json'
 lang=json.loads(lang_path.read_text(encoding='utf-8'))
 lang={k:v for k,v in lang.items() if not k.startswith('hololith.ponder.')}
-for name in ('table','sources','markers'):
+for name in ('table','sources','markers','power'):
     section=java.split('public static void '+name+'(',1)[1].split('\n    public static void ',1)[0].split('\n    private static void ',1)[0]
     scene,title=re.search(r'scene\.title\("([^"]+)",\s*"([^"]+)"\)',section).groups()
     lang['hololith.ponder.'+scene+'.header']=title
     # Ponder's TextWindowElement numbers displayed captions starting at one.
     for index,caption in enumerate(re.findall(r'say\(scene,.*?,\s*"([^"]+)",\s*\d+\);',section), start=1):
-        lang[f'hololith.ponder.{scene}.text_{index}']=caption
+        # Minecraft's translatable components parse percent signs even with no arguments.
+        lang[f'hololith.ponder.{scene}.text_{index}']=caption.replace('%', '%%')
 lang_path.write_text(json.dumps(lang,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 print(f'Generated {len(entries)} blocks, {len(palette)} states, {sum(k.startswith("hololith.ponder.") for k in lang)} Ponder strings.')

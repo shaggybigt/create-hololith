@@ -22,6 +22,11 @@ public final class HololithTooltips {
         else return;
         var lines=event.getToolTip();
         if(!kind.equals("card"))lines.add(Component.translatable("tooltip.hololith."+kind).withStyle(ChatFormatting.GRAY));
+        if(kind.equals("marker")){
+            var state=stack.getOrDefault(net.minecraft.core.component.DataComponents.BLOCK_STATE,net.minecraft.world.item.component.BlockItemStateProperties.EMPTY);
+            String color=state.properties().getOrDefault("color","cyan");
+            lines.add(Component.translatable("jade.hololith.color",Component.translatable("color.hololith."+color)).withStyle(ChatFormatting.GRAY));
+        }
         if(Screen.hasShiftDown()){
             for(int i=1;i<=3;i++)lines.add(Component.translatable("tooltip.hololith."+kind+"."+i).withStyle(ChatFormatting.GRAY));
         }else lines.add(Component.translatable("tooltip.hololith.controls").withStyle(ChatFormatting.DARK_GRAY));

@@ -3,6 +3,8 @@ package dev.hololith.probe;
 import com.google.gson.GsonBuilder;
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.AllItems;
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.content.kinetics.motor.CreativeMotorBlockEntity;
 import com.simibubi.create.content.contraptions.glue.SuperGlueEntity;
 import com.simibubi.create.content.schematics.SchematicItem;
 import com.simibubi.create.content.schematics.packet.SchematicPlacePacket;
@@ -45,7 +47,9 @@ import org.joml.Quaterniondc;
 final class PublicAirshipFixture {
     private static final String WORLD="hololith-airship", FILE="air_ship_v10-hololith-test.nbt", OWNER="hololith-airship-probe";
     private static final String SCHEMATIC_SHA256="f2d16fb6b5343cd872f0d02ec9d247cb11a48d21ea6be950963a627f297beaa2";
-    private static final BlockPos CONSOLE=new BlockPos(13,2,23), ASSEMBLER=new BlockPos(12,1,7), TABLE=new BlockPos(12,1,18), SENSOR=new BlockPos(12,-1,18);
+    private static final BlockPos CONSOLE=new BlockPos(13,2,23), ASSEMBLER=new BlockPos(12,1,7), TABLE=new BlockPos(12,3,18), SENSOR=new BlockPos(12,-1,18);
+    private static final BlockPos TABLE_MOTOR=new BlockPos(12,1,18), TABLE_SHAFT=new BlockPos(12,2,18);
+    private static final int TABLE_RPM=32;
     private static final BlockPos FORWARD_LEVER=new BlockPos(12,2,23), REVERSE_LEVER=new BlockPos(11,2,23);
     private static final List<BlockPos> BEARINGS=List.of(new BlockPos(4,2,16),new BlockPos(21,2,16));
     private static final List<BlockPos> MARKERS=List.of(new BlockPos(8,1,4),new BlockPos(17,1,4),new BlockPos(8,1,20),new BlockPos(17,1,20));
@@ -94,10 +98,14 @@ final class PublicAirshipFixture {
             Rig rig=active;
             if(rig!=null&&rig.instrumented&&rig.offset!=null){
                 var be=mc.level.getBlockEntity(rig.plot(TABLE));
-                if(be instanceof HololithTableEntity table&&table.snapshot()!=null){
-                    rig.clientSurvey=true;rig.clientPins|=table.markers().size()==4;
-                    var field=HololithRenderer.class.getDeclaredField("CACHE");field.setAccessible(true);Object entry=((Map<?,?>)field.get(null)).get(table);
-                    if(entry!=null){var mesh=entry.getClass().getDeclaredField("mesh");mesh.setAccessible(true);rig.clientMesh|=mesh.get(entry)!=null;}
+                if(be instanceof HololithTableEntity table){
+                    if(rig.age>=105&&rig.age<120&&!table.isProjecting()&&Math.abs(table.getSpeed())<.01f)rig.clientPowerOff=true;
+                    if(rig.age>=130&&table.isProjecting()&&Math.abs(table.getSpeed())>=table.requiredRpm())rig.clientPowerRestored=true;
+                    if(table.isProjecting()&&table.snapshot()!=null){
+                        rig.clientSurvey=true;rig.clientPins|=table.markers().size()==4;
+                        var field=HololithRenderer.class.getDeclaredField("CACHE");field.setAccessible(true);Object entry=((Map<?,?>)field.get(null)).get(table);
+                        if(entry!=null){var mesh=entry.getClass().getDeclaredField("mesh");mesh.setAccessible(true);rig.clientMesh|=mesh.get(entry)!=null;}
+                    }
                 }
             }
             if(finished)finish();
@@ -225,16 +233,29 @@ final class PublicAirshipFixture {
         out.put("nbt",n.toString());return out;
     }
     private void instrument(ServerLevel level,Rig rig){
-        for(int part=0;part<9;part++){BlockPos pos=rig.origin.offset(TABLE).offset(part%3-1,0,part/3-1);if(!level.getBlockState(pos).isAir())throw new IllegalStateException("Table would replace original machinery");level.setBlockAndUpdate(pos,Hololith.TABLE.get().defaultBlockState().setValue(HololithTableBlock.PART,part));}
+        // Keep the creator's drivetrain untouched. This explicitly recorded test-only
+        // accessory exercises an ordinary motor/shaft network in Sable plot chunks.
+        // Validate every accessory location before placing any part of the instrument.
+        List<BlockPos> additions=new ArrayList<>(List.of(TABLE_MOTOR,TABLE_SHAFT,SENSOR));additions.addAll(MARKERS);
+        for(int part=0;part<9;part++)additions.add(TABLE.offset(part%3-1,0,part/3-1));
+        for(BlockPos local:additions)if(!level.getBlockState(rig.origin.offset(local)).isAir())throw new IllegalStateException("Hololith accessory would replace original machinery at "+local);
+        for(int part=0;part<9;part++){BlockPos pos=rig.origin.offset(TABLE).offset(part%3-1,0,part/3-1);level.setBlockAndUpdate(pos,Hololith.TABLE.get().defaultBlockState().setValue(HololithTableBlock.PART,part));}
+        level.setBlockAndUpdate(rig.origin.offset(TABLE_SHAFT),AllBlocks.SHAFT.getDefaultState().setValue(BlockStateProperties.AXIS,Direction.Axis.Y));
+        level.setBlockAndUpdate(rig.origin.offset(TABLE_MOTOR),AllBlocks.CREATIVE_MOTOR.getDefaultState().setValue(BlockStateProperties.FACING,Direction.UP));
+        ((CreativeMotorBlockEntity)Objects.requireNonNull(level.getBlockEntity(rig.origin.offset(TABLE_MOTOR)))).generatedSpeed.setValue(TABLE_RPM);
         level.setBlockAndUpdate(rig.origin.offset(SENSOR),Hololith.SENSOR.get().defaultBlockState());var sensor=(SurveySensorEntity)level.getBlockEntity(rig.origin.offset(SENSOR));rig.sensorId=sensor.sensorId();
         CompoundTag card=new CompoundTag();card.putUUID("SensorId",rig.sensorId);card.putString("Dimension",level.dimension().location().toString());card.putInt("X",rig.origin.getX()+SENSOR.getX());card.putInt("Z",rig.origin.getZ()+SENSOR.getZ());
-        var table=(HololithTableEntity)level.getBlockEntity(rig.origin.offset(TABLE));rig.tableId=table.tableId();table.configure(128,0,0,1,1,level.dimension().location().toString(),0,0);table.bind(card);
+        var table=(HololithTableEntity)level.getBlockEntity(rig.origin.offset(TABLE));rig.tableId=table.tableId();table.bind(card);table.configure(128,0,0,1,1,level.dimension().location().toString(),0,0);
         for(int i=0;i<MARKERS.size();i++){
             BlockPos pos=rig.origin.offset(MARKERS.get(i));if(!level.getBlockState(pos).isAir())throw new IllegalStateException("Marker would replace original machinery");
             level.setBlockAndUpdate(pos,Hololith.MARKER.get().defaultBlockState().setValue(ReferenceMarkerBlock.COLOR,COLORS[i]));var marker=(ReferenceMarkerEntity)level.getBlockEntity(pos);marker.bind(card);rig.markerIds.add(marker.markerId());
         }
-        level.addFreshEntity(new SuperGlueEntity(level,SuperGlueEntity.span(rig.origin.offset(TABLE).offset(-1,-1,-1),rig.origin.offset(TABLE).offset(1,0,1))));
+        // The enclosure starts on the existing brass deck at y=0 and includes the
+        // motor at y=1, vertical shaft at y=2 and all nine table tiles at y=3.
+        level.addFreshEntity(new SuperGlueEntity(level,SuperGlueEntity.span(rig.origin.offset(TABLE).offset(-1,-3,-1),rig.origin.offset(TABLE).offset(1,0,1))));
         level.addFreshEntity(new SuperGlueEntity(level,SuperGlueEntity.span(rig.origin.offset(SENSOR),rig.origin.offset(SENSOR).above())));
+        for(BlockPos local:additions)rig.payload.put(local,BuiltInRegistries.BLOCK.getKey(level.getBlockState(rig.origin.offset(local)).getBlock()));
+        event(rig,"Hololith kinetic test accessory",Map.of("tableLocal",List.of(12,3,18),"sourceLocal",List.of(12,1,18),"shaftLocal",List.of(12,2,18),"source","create:creative_motor","rpm",TABLE_RPM,"surveySpan",128,"demandSu",512,"originalDrivetrainChanged",false,"scope","Creative test supply for genuine kinetic-network acceptance, not a survival power-generation demonstration"));
     }
     private void serverTick(ServerTickEvent.Post event){
         if(!started||finished||!work.isDone())return;ServerPlayer p=event.getServer().getPlayerList().getPlayer(playerId);if(p==null)return;
@@ -243,11 +264,12 @@ final class PublicAirshipFixture {
             if(rig.age==40)screenshots.add(rig.name()+"-imported");
             if(rig.age==60)assemble(p,rig);
             if(rig.ship==null)return;
+            if(rig.instrumented)powerCycle(p,rig);
             if(rig.age==100){
                 event(rig,"drivetrain before powered startup",Map.of("machines",drivetrain(p.serverLevel(),rig)));
             }
             if(rig.age<140)return;
-            Vec3 console=world(rig,CONSOLE);camera(p,console.add(0,1.3,-1.8),rig.instrumented?world(rig,TABLE).add(0,1.1,0):console.add(0,0,-14));
+            Vec3 console=world(rig,CONSOLE);camera(p,console.add(0,rig.instrumented?3.3:1.3,-1.8),rig.instrumented?world(rig,TABLE).add(0,1.1,0):console.add(0,0,-14));
             Object keyboard=requireBe(p.serverLevel(),rig.plot(CONSOLE));
             if(!(boolean)call(keyboard,"checkUser",new Class<?>[]{UUID.class},playerId)){
                 if(!(boolean)call(keyboard,"checkAndStartUsing",new Class<?>[]{UUID.class},playerId))throw new IllegalStateException("Could not acquire original typewriter controls");
@@ -299,6 +321,51 @@ final class PublicAirshipFixture {
             if(bounded)event(rig,"bounded observation ended",Map.of("rise",rise,"travel",travel));
             if(flight>=960||rig.brakingComplete||bounded){evaluate(p,rig);cleanup(p,rig);if(!rig.instrumented&&baselinePassed)begin(p,true);else finished=true;}
         }catch(Throwable failure){failure.printStackTrace();limitation=failure.toString();Rig rig=active;check((rig==null?"baseline":rig.name())+" completed bounded flight",false);try{if(rig!=null)cleanup(p,rig);}catch(Exception cleanup){cleanup.printStackTrace();}finished=true;}
+    }
+    private CreativeMotorBlockEntity tableMotor(ServerLevel level,Rig rig){
+        if(level.getBlockEntity(rig.plot(TABLE_MOTOR)) instanceof CreativeMotorBlockEntity motor)return motor;
+        throw new IllegalStateException("Assembled Hololith test motor missing");
+    }
+    private static boolean powered(HololithTableEntity table){
+        return table.hasSource()&&table.hasNetwork()&&!table.isOverStressed()&&table.isProjecting()
+            &&Math.abs(Math.abs(table.getSpeed())-TABLE_RPM)<.01f;
+    }
+    private void powerCycle(ServerPlayer player,Rig rig)throws Exception{
+        if(!(player.serverLevel().getBlockEntity(rig.plot(TABLE)) instanceof HololithTableEntity table))throw new IllegalStateException("Assembled table missing during kinetic check");
+        if(rig.age>=80&&rig.age<140){
+            Vec3 target=world(rig,TABLE).add(0,1,0);
+            camera(player,target.add(5,3,6),target);
+        }
+        if(rig.age==90){
+            require("assembled ship table receives real motor and shaft power",powered(table)
+                &&player.serverLevel().getBlockState(rig.plot(TABLE_SHAFT)).is(AllBlocks.SHAFT.get()));
+            require("assembled ship table applies 512 SU to its actual network",Math.abs(table.getOrCreateNetwork().getActualStressOf(table)-512)<.01f);
+            require("assembled powered table retains or acquires actual terrain",table.snapshot()!=null);
+            event(rig,"power before source interruption",Map.of("rpm",table.getSpeed(),"sourcePresent",table.hasSource(),"networkPresent",table.hasNetwork(),"projecting",table.isProjecting(),"stressSu",table.stressUsage()));
+        }
+        if(rig.age==95){
+            // Sample immediately before stopping; settling physics can move the
+            // sensor into a different survey cell between the earlier check and now.
+            rig.beforePowerCycle=table.snapshot().key();rig.beforePowerRevision=table.snapshot().revision;
+            tableMotor(player.serverLevel(),rig).generatedSpeed.setValue(0);
+            event(rig,"normal motor setting stops Hololith supply",Map.of("rpm",0));
+        }
+        if(rig.age==110){
+            require("stopping an assembled ship source blacks out the hologram",!table.isProjecting()&&Math.abs(table.getSpeed())<.01f);
+            require("assembled power loss preserves cached terrain",table.snapshot()!=null&&table.snapshot().key().equals(rig.beforePowerCycle));
+            event(rig,"power interruption observed",Map.of("rpm",table.getSpeed(),"projecting",table.isProjecting(),"cachedRevisionBefore",rig.beforePowerRevision,"cachedRevisionNow",table.snapshot().revision));
+            screenshots.add("instrumented-power-off");
+        }
+        if(rig.age==120){
+            tableMotor(player.serverLevel(),rig).generatedSpeed.setValue(TABLE_RPM);
+            event(rig,"normal motor setting restores Hololith supply",Map.of("rpm",TABLE_RPM));
+        }
+        if(rig.age==135){
+            require("restoring an assembled ship source resumes projection",powered(table));
+            require("ship power cycle preserves table and sensor link identity",rig.tableId.equals(table.tableId())&&rig.sensorId.equals(table.sensorId()));
+            rig.powerCycleCompleted=true;
+            event(rig,"power restored before original flight controls",Map.of("rpm",table.getSpeed(),"projecting",table.isProjecting()));
+        }
     }
     private void selectForward(ServerPlayer p,Rig rig,boolean enabled)throws Exception{
         ServerLevel level=p.serverLevel();BlockPos pos=rig.plot(FORWARD_LEVER),reverse=rig.plot(REVERSE_LEVER);
@@ -366,6 +433,8 @@ final class PublicAirshipFixture {
         if(rig.instrumented){
             var table=(HololithTableEntity)level.getBlockEntity(rig.plot(TABLE));var sensor=(SurveySensorEntity)level.getBlockEntity(rig.plot(SENSOR));
             if(table==null||sensor==null||!rig.tableId.equals(table.tableId())||!rig.sensorId.equals(sensor.sensorId()))throw new IllegalStateException("Instrument identity lost during flight");
+            rig.powerFrames++;if(!powered(table))rig.badPowerFrames++;
+            row.put("tableRpm",table.getSpeed());row.put("tableSourcePresent",table.hasSource());row.put("tableNetworkPresent",table.hasNetwork());row.put("tableProjecting",table.isProjecting());row.put("tableStressSu",table.stressUsage());
             Vec3 sensorWorld=world(rig,SENSOR);var heartbeat=SurveyStore.get(p.server).sensor(rig.sensorId);row.put("sensorWorld",List.of(sensorWorld.x,sensorWorld.z));
             rig.sensorTransformError=Math.max(rig.sensorTransformError,sensorWorld.distanceTo(ShipCoordinates.toWorld(level,rig.plot(SENSOR)).orElseThrow()));
             if(heartbeat!=null){rig.sensorHeard|=heartbeat.online();row.put("sensorReported",List.of(heartbeat.x(),heartbeat.z()));}
@@ -396,6 +465,9 @@ final class PublicAirshipFixture {
         check(rig.name()+" respects creator speed limit of eleven",rig.maxSpeedSignal<=11);
         if(!rig.instrumented){baselinePassed=flight&&steering&&throttleReduction&&decelerated&&rig.maxSpeedSignal<=11;baselineTravel=rig.maxTravel;baselineRise=rig.maxRise;if(!baselinePassed)limitation="Prepared creator-layout baseline did not pass complete flight, steering and deceleration acceptance; instrumented acceptance skipped. No failure attributed to Hololith.";}
         else{
+            check("assembled ship completes real source stop and restart",rig.powerCycleCompleted);
+            check("client observes assembled source blackout and restored projection",rig.clientPowerOff&&rig.clientPowerRestored);
+            check("genuine onboard kinetic power remains live throughout flight",rig.powerFrames>=20&&rig.badPowerFrames==0);
             check("moving ship sensor transform agrees with engine pose",rig.sensorTransformError<.001&&rig.sensorHeard);
             check("moving ship survey changes center during actual flight",rig.surveyCenters.size()>=2);
             check("four reference markers remain within measured update latency",rig.markerFrames>=20&&rig.badMarkerFrames==0);
@@ -408,13 +480,14 @@ final class PublicAirshipFixture {
         Map<String,Object> summary=new LinkedHashMap<>();summary.put("rise",rig.maxRise);summary.put("travel",rig.maxTravel);summary.put("turnRadians",rig.turn);
         summary.put("steeringComplete",rig.steeringComplete);summary.put("brakingComplete",rig.brakingComplete);summary.put("renderSamples",rig.renderSamples);summary.put("renderErrors",rig.renderErrors);summary.put("renderCorrections",rig.renderCorrections);summary.put("maxRenderError",rig.maxRenderError);summary.put("sensorTransformError",rig.sensorTransformError);summary.put("markerFrames",rig.markerFrames);summary.put("badMarkerFrames",rig.badMarkerFrames);summary.put("maxMarkerWorldError",rig.maxMarkerError);summary.put("surveyCenterCount",rig.surveyCenters.size());
         summary.put("beforeReductionHorizontalBlocksPerTick",rig.beforeBrakeSpeed);summary.put("afterReductionHorizontalBlocksPerTick",rig.afterBrakeSpeed);summary.put("speedMeasurementWindowTicks",20);
+        if(rig.instrumented){summary.put("kineticPowerFrames",rig.powerFrames);summary.put("badKineticPowerFrames",rig.badPowerFrames);summary.put("powerCycleCompleted",rig.powerCycleCompleted);summary.put("clientPowerOff",rig.clientPowerOff);summary.put("clientPowerRestored",rig.clientPowerRestored);}
         event(rig,"flight complete",summary);
     }
     private void renderCheck(RenderFrameEvent.Post event){
         Rig rig=active;var mc=Minecraft.getInstance();
         if(finished||rig==null||!rig.instrumented||rig.offset==null||mc.level==null||rig.age<180)return;
         try{
-            if(!(mc.level.getBlockEntity(rig.plot(TABLE)) instanceof HololithTableEntity table)||table.snapshot()==null)return;
+            if(!(mc.level.getBlockEntity(rig.plot(TABLE)) instanceof HololithTableEntity table)||!table.isProjecting()||table.snapshot()==null)return;
             Object container=Class.forName("dev.ryanhcode.sable.api.sublevel.SubLevelContainer").getMethod("getContainer",Level.class).invoke(null,mc.level);
             Object ship=call(container,"getSubLevel",new Class<?>[]{UUID.class},rig.shipId);if(ship==null)return;
             float partial=mc.getTimer().getGameTimeDeltaPartialTick(true);Object pose=call(ship,"renderPose",new Class<?>[]{float.class},partial);
@@ -461,7 +534,7 @@ final class PublicAirshipFixture {
     private void finish(){
         if(reported)return;reported=true;Map<String,Object> report=new LinkedHashMap<>();report.put("timestamp",java.time.Instant.now().toString());report.put("version",net.neoforged.fml.ModList.get().getModContainerById("hololith").orElseThrow().getModInfo().getVersion().toString());
         report.put("profile","public-airship");report.put("source","https://createmod.com/schematics/airship-v10");report.put("author","Patrik");report.put("schematic",FILE);report.put("schematicSha256",schematicHash);report.put("baselinePassed",baselinePassed);report.put("checks",checks);report.put("total",checks.size());report.put("failures",checks.stream().filter(c->Boolean.FALSE.equals(c.get("passed"))).count());report.put("events",events);report.put("samples",samples);report.put("limitation",limitation);
-        report.put("scope","Exact reviewed sanitized Airship V10 asset only: creator layout with required assembly and fuel preparation. Fresh disposable flat world, actual Create placement and normal Physics Assembler, unpaused Sable physics and original typewriter controller callbacks. Both trials add the same Honey Glue selection via its normal server handler; original rotor Super Glue is preserved. Creative observer camera follows the craft; no ship pose/velocity/force injection and no passenger or authenticated multiplayer acceptance. Create strips runtime engine fuel; both trials attempt identical Creative Blaze Cake item interactions to reproduce the source build's infinite superheated fuel, with per-click states recorded and verified before assembly. Public build is not distributed with this harness.");
+        report.put("scope","Exact reviewed sanitized Airship V10 asset only: creator layout with required assembly and fuel preparation. Fresh disposable flat world, actual Create placement and normal Physics Assembler, unpaused Sable physics and original typewriter controller callbacks. Both trials add the same Honey Glue selection via its normal server handler; original rotor Super Glue is preserved. Only the instrumented trial adds an elevated Hololith table and a dedicated real Create Creative Motor at 32 RPM, vertical shaft and glue to the original brass deck, all at verified air positions. This explicitly creative accessory tests the genuine onboard kinetic network, source blackout/restart and power during flight; it does not demonstrate survival generator capacity. The creator drivetrain remains unchanged. Creative observer camera follows the craft; no ship pose/velocity/force injection and no passenger or authenticated multiplayer acceptance. Create strips runtime engine fuel; both trials attempt identical Creative Blaze Cake item interactions to reproduce the source build's infinite superheated fuel, with per-click states recorded and verified before assembly. Public build is not distributed with this harness.");
         report.put("loadedMods",net.neoforged.fml.ModList.get().getMods().stream().map(m->m.getModId()).sorted().toList());
         try{Files.createDirectories(game.resolve("validation"));Files.writeString(game.resolve("validation/airship.json"),new GsonBuilder().setPrettyPrinting().create().toJson(report));}catch(Exception e){e.printStackTrace();}
         Minecraft.getInstance().execute(Minecraft.getInstance()::stop);
@@ -470,7 +543,7 @@ final class PublicAirshipFixture {
         final boolean instrumented;final BlockPos origin;final Map<BlockPos,ResourceLocation> payload=new LinkedHashMap<>();final Set<Integer> pressed=new TreeSet<>();final Set<String> surveyCenters=new HashSet<>();final List<UUID> placedEntities=new ArrayList<>(),markerIds=new ArrayList<>();final Deque<Map<UUID,Vec3>> history=new ArrayDeque<>();
         final Deque<Double> speedWindow=new ArrayDeque<>();
         final Set<BlockPos> requestedStart=new HashSet<>(),observedRunning=new HashSet<>();
-        Object ship;UUID shipId,tableId,sensorId;BlockPos offset;Vec3 start,previous;int age,maxLiftSignal,maxSpeedSignal,currentSpeedSignal,finalSpeedSignal,maxPoweredPropellers,markerFrames,badMarkerFrames,requestedLift,requestedSpeed,proofTick=-1;double maxRise,maxTravel,beforeTurn,turn,sensorTransformError,maxMarkerError,verticalVelocity,beforeBrakeSpeed,afterBrakeSpeed;boolean sensorHeard,steeringComplete,brakingComplete,forwardSelected;volatile boolean clientSurvey,clientPins,clientMesh,renderFailureLogged;volatile int renderSamples,renderErrors,renderCorrections;volatile double maxRenderError;
+        Object ship;UUID shipId,tableId,sensorId;BlockPos offset;Vec3 start,previous;int age,maxLiftSignal,maxSpeedSignal,currentSpeedSignal,finalSpeedSignal,maxPoweredPropellers,markerFrames,badMarkerFrames,requestedLift,requestedSpeed,powerFrames,badPowerFrames,proofTick=-1;double maxRise,maxTravel,beforeTurn,turn,sensorTransformError,maxMarkerError,verticalVelocity,beforeBrakeSpeed,afterBrakeSpeed;boolean sensorHeard,steeringComplete,brakingComplete,forwardSelected,powerCycleCompleted;volatile boolean clientSurvey,clientPins,clientMesh,renderFailureLogged,clientPowerOff,clientPowerRestored;volatile int renderSamples,renderErrors,renderCorrections;volatile double maxRenderError;SurveyKey beforePowerCycle;long beforePowerRevision;
         Rig(boolean instrumented,BlockPos origin){this.instrumented=instrumented;this.origin=origin;}
         String name(){return instrumented?"instrumented":"baseline";}BlockPos plot(BlockPos local){return origin.offset(local).offset(offset);}
     }

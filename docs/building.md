@@ -43,12 +43,13 @@ Gradle installation.
 | Registrate | MC1.21-1.3.0+67 | Extracted from the official Create JAR for compilation |
 | Flywheel | 1.0.6 | Extracted from the official Create JAR for compilation |
 | Ponder | 1.0.82+mc1.21.1 | Extracted from the official Create JAR for compilation |
+| Jade | 15.10.6, official release ID `eYz2YBGT` | Optional API at compile time; opt-in development runtime |
 | JUnit Jupiter | 5.11.4 | Tests only |
 
 Create is resolved through its official
 [Modrinth release](https://modrinth.com/mod/create/version/UjX6dr61), using the Maven
-coordinate `maven.modrinth:create:UjX6dr61`. That repository is restricted to this
-single module; no version ranges or snapshot builds select a different Create
+coordinate `maven.modrinth:create:UjX6dr61`. That repository is restricted to Create
+and Jade; no version ranges or snapshot builds select a different Create
 release. This is dependency retrieval, not a Hololith publishing integration.
 The distribution is the same file used by the existing modpack, verified against:
 
@@ -61,6 +62,11 @@ The three nested libraries are taken from that verified JAR. They are not copied
 into Hololith's player or source JAR. Minecraft, NeoForge, Create, Ponder, Flywheel
 and Registrate retain their respective licenses; Hololith's MIT license applies
 to Hololith's own source and assets. See [provenance](references.md).
+
+The optional Jade API uses `maven.modrinth:jade:eYz2YBGT` (15.10.6 NeoForge).
+Its SHA-256 is `276f1f65a20d04f536989c4f311949d770b52c440c23c2b904a08860f3c93810`.
+It is not bundled. Add `-PjadeTest=true` to a development launch to include it;
+ordinary launches and dedicated servers do not require Jade.
 
 The standard Gradle wrapper scripts and wrapper JAR are Gradle project tooling,
 distributed under [Gradle's Apache-2.0 license](https://github.com/gradle/gradle/blob/v9.2.1/LICENSE).
@@ -95,14 +101,22 @@ validation. Example using a directory you control:
 
 This writes build outputs below `C:/HololithDev/development/hololith/build/`, uses
 game directories alongside that build directory, and reads the official Create
-JAR from `C:/HololithDev/test-client/mods/create-1.21.1-6.0.10.jar`. In this mode the
-gameplay launch uses the mods staged by the validation helper instead of adding a
+JAR from `C:/HololithDev/test-client/mods/create-1.21.1-6.0.10.jar`, falling back to
+the same verified JAR in `downloads/mods/` under that root. The gameplay launch
+uses the mods staged by the validation helper instead of adding a
 second Create JAR to its runtime classpath. Existing full/minimal/contraption
 helpers need their normal prepared disposable worlds and pack files.
 
 The optional `Start-Airship.ps1` helper adds a fresh full-pack world for the
 [public schematic acceptance test](public-schematics.md). Its downloaded input
 is local-only and is not required for the ordinary build or CI.
+
+If the legacy `test-client` directory is absent, pass `-ModpackRoot` to the
+airship launcher with an existing profile containing `mods/`. It validates the
+source before archiving any previous trial. `Start-Kinetic.ps1 -RuntimeRoot ...`
+creates a separate marked world for real motors, shafts, a finite hand crank,
+crafting and Ponder checks. Add `-Jade` for optional HUD acceptance and `-Fresh`
+to archive an existing marked kinetic trial.
 
 The PowerShell gameplay and packaging helpers in `scripts/` target Windows and
 the prepared modpack layout, including its Java 21 runtime and dedicated-server
@@ -130,3 +144,10 @@ recorded graphical and dedicated-server checks and their remaining limits are in
 [development validation](development-validation.md), with earlier records in
 [validation.md](validation.md). Updating those records requires fresh evidence;
 a green CI run does not imply that the graphical probes or ship tests were run.
+
+Graphical probes execute source classes on Gradle's development classpath;
+packaging requires successful reports for the exact version and profile.
+Dedicated checks instead install the packaged player JAR and record its SHA-256.
+Use `scripts/Test-Dedicated.ps1 -RuntimeRoot ...` with optional `-Minimal` and
+`-Jade` switches. The packaging helper requires current successful GUI, public
+airship, dedicated and unit-test evidence before assembling a distribution.

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContraptionPacketTest {
     private RegistryFriendlyByteBuf buffer(){return new RegistryFriendlyByteBuf(Unpooled.buffer(),RegistryAccess.EMPTY);}
     @Test void mountedControlKeepsEntityIdentitySeparateFromLocalBlockPosition(){
-        var settings=new HololithNetwork.Configure(new BlockPos(-12,4,8),128,3,2,2,2,"minecraft:overworld",-120,800);
+        var settings=new HololithNetwork.Configure(new BlockPos(-12,4,8),128,3,2,2,1,"minecraft:overworld",-120,800);
         var original=new ContraptionPackets.Configure(42,new UUID(5,8),settings);
         var b=buffer();try{ContraptionPackets.Configure.CODEC.encode(b,original);var received=ContraptionPackets.Configure.CODEC.decode(b);
             assertEquals(original,received);assertTrue(HololithNetwork.valid(received.settings()));assertEquals(0,b.readableBytes());

@@ -1,5 +1,13 @@
 # Ordinary Create contraptions
 
+**0.5.0-dev.1 power rule:** an ordinary assembled contraption does not maintain
+a live kinetic network, so a captured table cannot project or scan. Its saved
+terrain/settings survive and it can operate after upright disassembly and
+reconnection to power. Moving sensors and markers can still feed a powered table
+elsewhere. Aeronautics/Sable ships use real onboard networks and are different.
+See [kinetic power](kinetic-power.md). The architecture and historical behavior
+below describe the original bridge; active projection now also requires power.
+
 Hololith 0.3.0 targets the installed Create 6.0.10 for Minecraft 1.21.1 NeoForge.
 Its integration uses Create's `MovementBehaviour`, `MovingInteractionBehaviour`
 and `BlockMovementChecks` APIs. No Create implementation or library is bundled

@@ -78,6 +78,14 @@ glue entities. This file is retained unchanged as a local candidate.
 
 ## Reproduction
 
+On 2026-10-28, **0.5.0-dev.1** passed all 68 checks with the prepared baseline and
+instrumented ship. The table is raised to local `(12, 3, 18)` above a vertical
+shaft and a 32 RPM Creative Motor occupying previously empty positions. This
+separate test supply leaves the creator's propulsion system intact; it verifies
+real onboard kinetic-network operation, not a survival generator design. The
+added instrument assembly is glued to the deck. Power loss/recovery and the
+512 SU network load are checked while assembled, followed by powered flight.
+
 On 2026-10-25, the prepared v10 baseline and the same craft fitted with Hololith
 passed all 58 acceptance checks, including powered travel, turning, deceleration
 and marker/render alignment. See [measured results and actual flight images](motion-validation.md).

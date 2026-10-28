@@ -1,132 +1,81 @@
 # Create: Hololith
 
-A mechanical surveying table that projects a real miniature Minecraft landscape.
-Explore hills, forests, rivers and buildings in three dimensions, link a sensor or
-remote beacon, and mark reference points with sixteen dye colors.
+A Create-powered surveying table that projects a miniature, textured Minecraft
+landscape. Explore terrain, follow a survey sensor and mark reference points with
+sixteen dye colors.
 
 **Minecraft Java 1.21.1 · NeoForge 21.1.259 · Create 6.0.10 · Java 21**
 
-**[Download the newest version — 0.4.0-dev.2](https://github.com/shaggybigt/create-hololith/releases/tag/v0.4.0-dev.2)**
+## Download
 
-This testing preview combines the Ponder tutorials, instrument controls and
-status improvements with smoother moving surveys and reference markers.
-The complete buildable source is here in the repository. Previous
-[release downloads](https://github.com/shaggybigt/create-hololith/releases)
-remain available.
+**[Get Create: Hololith 0.5.0-dev.1](https://github.com/shaggybigt/create-hololith/releases/tag/v0.5.0-dev.1)**
 
-## Gameplay demo
+This development preview adds real Create shaft power, revised survival recipes,
+Jade support and gentle hologram flicker. The projection sits closer to the table,
+and every live survey now requires a physical instrument.
 
-74 seconds of actual Minecraft gameplay: terrain surveying, sensor linking,
-colored reference markers, brightness controls and a moving Create cart.
-Silent, with captions.
+## See it in action
 
-https://github.com/user-attachments/assets/e1c6da64-d39b-4ab0-bdd2-d94af8680734
+The new showcase will appear here after its gameplay capture and validation.
 
-<details>
-<summary>Screenshots</summary>
+![Hololith projecting real terrain](images/kinetic-powered.png)
 
-![A Hololith table projecting real terrain and colored reference markers](images/daylight.png)
+[Power tutorial](images/ponder-power.png) · [Projection switched off](images/kinetic-stopped.png)
 
-[Interior lighting](images/interior.png) · [Aboard a Sable ship](images/ship.png) ·
-[Create bearing](images/contraption-bearing.png) · [Moving minecart](images/contraption-cart.png)
+## Features
 
-[Instrument panel](images/control-panel.png) · [Marker Ponder tutorial](images/ponder-markers.png) ·
-[Survey-source tutorial](images/ponder-sources.png)
+- A brass-and-andesite 3×3 table with textured terrain, elevation, water and trees.
+- Surveys of 32×32, 64×64 or 128×128 blocks, adjustable rotation, size and relief.
+- A shaft socket beneath the center. Supply at least **16 RPM**; larger surveys
+  and projections require more Create stress capacity. No power means no hologram.
+- Physical Survey Cards link placed sensors or remote beacons. Tables can also
+  survey their own location. There is no arbitrary coordinate targeting.
+- Sixteen-color reference pins, including buried or enclosed reference blocks.
+  Pins follow world positions and sit above the surveyed surface.
+- Saved surveys remain available when a linked sensor is unloaded. Offline
+  instruments cannot acquire new terrain, and Hololith never force-loads chunks.
+- In-game brightness and subtle flicker controls, four Ponder lessons, Create
+  goggles information and optional Jade tooltips.
+- Aeronautics/Sable support for tables with real onboard shaft power. Ordinary
+  Create contraptions can carry sensors and markers to feed a powered table;
+  their captured tables stay off until disassembled and powered.
 
-</details>
+The map surveys surfaces: roofs and bridges may appear filled underneath; caves
+and building interiors are not reconstructed. Unknown terrain stays blank.
 
-## What it does
+## Install and start
 
-- Projects textured terrain with genuine elevation, water surfaces, roofs and
-  raised tree canopies over a brass-and-andesite 3×3 table.
-- Surveys 32×32, 64×64 or 128×128 blocks, with map rotation, magnification and relief.
-- Follows local sensors, visits remote beacons or selects world coordinates using
-  physical Survey Cards and the table's instrument panel.
-- Shows individually colored reference pins at their world X/Z positions, including
-  enclosed or buried markers. Pins sit over the surveyed surface regardless of the
-  reference blocks' elevation.
-- Works on ordinary Create contraptions and optionally Aeronautics/Sable ships.
-- Smoothly follows tracked reference blocks between server updates and retains
-  the last completed terrain display while the next region is being prepared.
-- Keeps previously surveyed terrain available without force-loading distant chunks.
-- Offers an in-game brightness slider and contextual instrument/card tooltips in
-  this development build.
-- Includes three Create-style Ponder tutorials for the table, survey sources and
-  colored reference markers; hover an item and hold the configured Ponder key.
-- Reports live, cached, incomplete and unavailable terrain, with clear card/link
-  confirmations and status that becomes live only after a recent completed scan.
+1. Install the versions listed above and the official Create NeoForge JAR.
+2. Put **`create-hololith-0.5.0-dev.1.jar`** in the client and server `mods` folders,
+   replacing the previous Hololith JAR. All players need the same version.
+3. Craft a table, place it in a clear 3×3 space, and connect a powered shaft beneath
+   its center. Right-click the table to adjust the survey.
+4. To follow another location, use a Survey Card on a sensor or beacon, then on the
+   table. Hover over an instrument and hold **W** for Ponder instructions.
 
-Read the [player guide](docs/usage.md), [contraption guide](docs/contraptions.md)
-and [current movement tests and limits](docs/motion-validation.md). The previous
-[0.4.0-dev.1 validation](docs/development-validation.md) remains available. This is a surface survey:
-interiors and caves are not reconstructed, and unknown terrain stays blank.
+Optional: **Jade 15.10.6** for extra HUD information; **Create: Aeronautics 1.3.2**
+and **Sable 2.0.6** for ships. CC:Tweaked and the reference map mods are not required.
+Do not install source archives or `hololith-probe` JARs for normal play.
 
-## Install
+Existing tables keep their links and saved data but now require power. Old
+coordinate targets return to local surveying; rerecord coordinate-only cards
+on a sensor or beacon.
 
-1. Use **Java 21**, **Minecraft 1.21.1**, **NeoForge 21.1.259** and the official
-   **Create 6.0.10** NeoForge JAR with its bundled dependencies.
-2. Download **[create-hololith-0.4.0-dev.2.jar](https://github.com/shaggybigt/create-hololith/releases/download/v0.4.0-dev.2/create-hololith-0.4.0-dev.2.jar)**,
-   or build the same version from source below.
-3. Close the game and server. Put one `create-hololith-<version>.jar` in **both client
-   and server** `mods` directories, replacing the older Hololith JAR. Single-player
-   needs it in the client's `mods` directory. All players and the server need the
-   same Hololith version.
-4. For ships, also install **Create: Aeronautics 1.3.2** and **Sable 2.0.6**.
-   These are optional; ordinary Create contraptions need no additional mod.
+## Guides and changes
 
-Do not install a `-sources.jar`, project ZIP or `hololith-probe` JAR for normal play.
-The reference map mods and CC:Tweaked are not required. Instruments have survival
-recipes and a **Create: Hololith** creative tab.
+[Player guide](docs/usage.md) · [Power and recipes](docs/kinetic-power.md) ·
+[Changelog](CHANGELOG.md) · [Testing and limitations](docs/kinetic-validation.md)
 
 ## Build from source
 
-Install a **64-bit JDK 21**, open the source checkout or extracted project archive
-for the revision you want to build, then run its Gradle wrapper:
+With JDK 21 installed, run `./gradlew build` (`gradlew.bat build` on Windows).
+The wrapper retrieves the pinned dependencies and runs automated checks. Player
+and source JARs appear in `build/libs/`. See the [development guide](docs/building.md)
+for gameplay tests and optional modpack integration.
 
-```sh
-./gradlew build
-```
+## License
 
-The public `main` branch contains the current complete source, including the
-quality-of-life improvements and movement fixes. Development builds are also
-available from successful [Build and test runs](https://github.com/shaggybigt/create-hololith/actions/workflows/build.yml)
-as the `hololith-development-build` artifact (GitHub sign-in required).
-
-On Windows use `gradlew.bat build`. If the Unix wrapper is not executable, use
-`bash ./gradlew build`. The wrapper downloads the pinned dependencies, including
-the exact official Create distribution, and verifies its SHA-256. No installed
-Minecraft instance, private file paths or manually downloaded library JARs are
-required. The first build needs internet access and may take several minutes.
-
-Player and source JARs appear in **`build/libs/`**; automated test results appear
-in `build/reports/tests/test/`. `./gradlew runClient` starts a separate development
-client. See [build and validation setup](docs/building.md) for dependency versions,
-optional local modpack integration and the isolated gameplay probe.
-
-## Project layout
-
-| Path | Contents |
-|---|---|
-| `src/main/` | Addon source, translations, models, recipes and Ponder resources |
-| `src/test/` | Automated unit tests |
-| `src/probe/` | Disposable-world gameplay validation and demonstration harness |
-| `docs/` | Player instructions, architecture, provenance and validation evidence |
-| `images/` | Actual Minecraft screenshots |
-| `scripts/` | Optional local validation and packaging helpers |
-| `.github/workflows/` | Compile/test workflow with read-only repository permissions |
-
-Generated builds, worlds, raw recordings, logs and machine-specific paths belong
-outside Git. CI compiles and runs automated checks; it cannot establish visual
-quality, multiplayer behavior or every contraption controller's gameplay behavior.
-Moving-craft acceptance follows the [public schematic procedure](docs/public-schematics.md):
-verify a credited creator build first, then repeat with Hololith instruments.
-
-## License and credits
-
-Hololith is available under the existing [MIT license](LICENSE). It was developed
-primarily with AI coding tools under human direction. See
-[reference investigation and provenance](docs/references.md) for the independent
-implementations and third-party APIs/assets, and [dependency details](docs/building.md#dependencies)
-for the external libraries used during development. Minecraft and Create textures
-are referenced from the installed resource atlas; raw texture assets are not bundled
-in the addon. Screenshots show their actual in-game rendering.
+[MIT](LICENSE). Developed with AI coding tools under human direction.
+[Credits and third-party provenance](docs/references.md). Minecraft and Create
+textures are referenced from the installed game; their texture files are not
+bundled in Hololith.

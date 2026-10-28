@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_marker": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hololith:reference_marker"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hololith:reference_marker_magenta"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_marker",
+      "has_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "hololith:reference_marker_magenta"
+    ]
+  }
+}
