@@ -16,9 +16,14 @@ and every live survey now requires a physical instrument.
 
 ## See it in action
 
-The new showcase will appear here after its gameplay capture and validation.
+**Four-minute gameplay showcase:** terrain, power, settings, linking, colored
+markers and a moving Create sensor cart. Captioned and silent.
 
-![Hololith projecting real terrain](images/kinetic-powered.png)
+https://github.com/user-attachments/assets/e66c8a29-5314-413f-a7f3-e769f553ac69
+
+[Download the full-quality video](https://github.com/shaggybigt/create-hololith/releases/download/v0.5.0-dev.1/create-hololith-showcase.mp4)
+
+![Hololith projecting real terrain at dusk](images/showcase.png)
 
 [Power tutorial](images/ponder-power.png) · [Projection switched off](images/kinetic-stopped.png)
 

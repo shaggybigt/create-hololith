@@ -81,6 +81,10 @@ Powered flight received the separate bounded public-airship acceptance described
 above. Passengers, docking, shader packs, authenticated multiplayer and long-range
 flight still require their own acceptance tests.
 
+The [0.5.0-dev.1 acceptance](kinetic-validation.md) repeats public-airship flight
+with a real onboard shaft network, including power loss and restoration while
+assembled. It is the current power-aware compatibility evidence.
+
 Sources: [Companion API](https://github.com/ryanhcode/sable-companion),
 [Sable documentation](https://github.com/ryanhcode/sable/wiki),
 [Sable plot implementation](https://github.com/ryanhcode/sable/blob/main/common/src/main/java/dev/ryanhcode/sable/sublevel/plot/ServerLevelPlot.java),

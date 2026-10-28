@@ -28,7 +28,8 @@ CAPTIONS = [
     (114, 136, "A remote beacon is another physical source", "Record the placed beacon and return its card to the table to view that location"),
     (136, 160, "Reference markers and sixteen dye colors", "Link a reference to the sensor, then dye it - its pin appears over the surveyed terrain"),
     (160, 182, "Brightness and subtle flicker", "Preview both settings in the real panel; each client saves its own display preferences"),
-    (182, 193, "Create Ponder tutorials", "The in-game tutorial explains the instrument with Create's familiar interactive scenes"),
+    # Let the native Ponder timeline and controls remain unobscured after the introduction.
+    (182, 186, "Create Ponder tutorials", "The in-game tutorial explains the instrument with Create's familiar interactive scenes"),
     (193, 210, "Prepare a moving survey", "Link the powered stationary table to a sensor mounted on a real Create cart"),
     (210, 219, "A cart-mounted sensor and four references", "Powered rails move this assembled demonstration rig after one initial push"),
     (219, 232, "Watch the terrain follow the moving source", "The stationary table keeps its own kinetic drive while the sensor and references travel"),

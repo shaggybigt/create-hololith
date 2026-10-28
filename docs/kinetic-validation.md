@@ -58,6 +58,12 @@ updates and actor save/reload. All three runs used player JAR SHA-256
 The optional Jade run also verifies discovery of Hololith's common plugin and
 clean server operation; the graphical Jade run separately checks its visible HUD.
 
+GitHub Actions also passed a fresh Linux checkout of the development branch with
+Java 21 and the documented pinned dependencies:
+[build and tests](https://github.com/shaggybigt/create-hololith/actions/runs/40664697337).
+The workflow compiles the player mod and separate probe, runs JUnit and checks the
+distribution. It does not launch the graphical gameplay fixtures.
+
 ## Public airship acceptance
 
 The [credited Airship V10 fixture](public-schematics.md) passed **68 checks**,
@@ -90,3 +96,12 @@ schematic or temporary world is redistributed with Hololith.
 
 Raw reports, logs, captures and test worlds remain in ignored local development
 directories. Only reviewed screenshots and this compact evidence belong in Git.
+
+## Recorded showcase
+
+The new [four-minute showcase](showcase.md) records 7,200 actual Minecraft frames
+at 1600×900/30 fps. Its 29 checks pass, covering real power changes, physical card
+links, controls, colored references, Ponder and a sensor cart moving on powered
+rails. Four frames repeat to maintain the capture cadence. The scripted camera
+operates in an authored creative world; this is not a survival playthrough.
+The complete captioned edit decodes successfully with exactly 7,200 frames.

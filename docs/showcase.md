@@ -4,9 +4,19 @@ The new showcase accompanies **0.5.0-dev.1**. Its four-minute walkthrough covers
 terrain, shaft power, survey settings, physical sensor/beacon links, colored
 reference markers, moving sensors, brightness, flicker and Ponder.
 
-Watch the current video from the repository README. The release also includes a
-higher-quality downloadable copy. The previous video has been removed from the
-current guide because it predates the power and physical-source requirements.
+Watch the current video from the repository README or
+[download the full-quality copy](https://github.com/shaggybigt/create-hololith/releases/download/v0.5.0-dev.1/create-hololith-showcase.mp4).
+
+| Time | Feature |
+|---|---|
+| 0:00 | Textured terrain and colored pins |
+| 0:18 | Power loss, minimum speed and restoration |
+| 0:35 | Survey area, rotation and magnification |
+| 1:30 | Physical sensor and beacon links |
+| 2:16 | Reference linking and dye colors |
+| 2:40 | Brightness and subtle flicker |
+| 3:02 | Create Ponder |
+| 3:13 | Linking a cart sensor and following its motion |
 
 ## How it is recorded
 

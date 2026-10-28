@@ -54,7 +54,8 @@ unrelated terrain until the new target is available.
 The shared actor APIs serve mechanical bearings, pistons, pulleys, elevators,
 gantries, minecart contraptions and train carriages. This is architectural
 coverage, not a claim that every controller, track layout or third-party addon
-has passed an acceptance test. See [validation](validation.md) for actual runs.
+has passed an acceptance test. See [current validation](kinetic-validation.md)
+for the power-aware runs and [historical validation](validation.md) for earlier coverage.
 
 ## Use and limits
 

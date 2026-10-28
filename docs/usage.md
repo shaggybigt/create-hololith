@@ -1,8 +1,7 @@
 # Using Create: Hololith
 
-These instructions describe the development branch. Existing release downloads
-retain their original behavior; build this branch to try the kinetic-powered
-instruments. Hold **Shift** over an instrument in your inventory for its controls.
+These instructions describe **0.5.0-dev.1**, the kinetic-powered development
+preview. Hold **Shift** over an instrument in your inventory for its controls.
 Recorded Survey Cards show their target type, short identity and recorded location
 so that cards for tables and sensors are easier to distinguish.
 
